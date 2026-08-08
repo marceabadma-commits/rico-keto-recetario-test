@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RICO & KETO — Guía Completa Interactiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#e821d7;
+  --accent:#f26ee7;
+  --primary-rgb:232,33,215;
+  --bg:#0f0a14;
+  --bg2:#170f1e;
+  --card:#221a2c;
+  --card2:#2a2035;
+  --text:#f5edf7;
+  --text-dim:#c9b8d1;
+  --border:rgba(242,110,231,0.18);
+  --gold:#e6c67a;
+  --shadow: 0 10px 30px rgba(0,0,0,0.45);
+  --radius-card:18px;
+  --radius-btn:50px;
+  --success:#5fd0a0;
+  --warn:#f2a65e;
+}
+[data-theme="light"]{
+  --bg:#fbf3fa;
+  --bg2:#ffffff;
+  --card:#ffffff;
+  --card2:#fdf1fc;
+  --text:#2b1830;
+  --text-dim:#6b5470;
+  --border:rgba(232,33,215,0.15);
+  --shadow: 0 10px 26px rgba(232,33,215,0.12);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color: rgba(0,0,0,0);}
+button,.clickable{-webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; cursor:pointer;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Lora',serif;
+  min-height:100vh;
+  min-height:100dvh;
+  transition:background .3s ease,color .3s ease;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Playfair Display',serif; margin:0 0 8px 0; letter-spacing:.3px;}
+p{line-height:1.6; color:var(--text-dim);}
+a{color:inherit;}
+::selection{background:var(--primary); color:#fff;}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-thumb{background:var(--primary); border-radius:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+/* ===== WELCOME ===== */
+#welcome{
+  position:fixed; inset:0; z-index:999;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(232,33,215,0.25), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(242,110,231,0.2), transparent 50%),
+    var(--bg);
+  text-align:center; padding:30px;
+}
+.welcome-deco{
+  position:absolute; inset:0; pointer-events:none; overflow:hidden;
+}
+.welcome-deco span{
+  position:absolute; font-size:28px; opacity:0; animation: floatUp 6s ease-in infinite;
+}
+@keyframes floatUp{
+  0%{opacity:0; transform:translateY(40px) scale(.8);}
+  15%{opacity:.5;}
+  100%{opacity:0; transform:translateY(-220px) scale(1.1);}
+}
+.welcome-logo{
+  font-family:'Playfair Display',serif; font-weight:800; font-size:clamp(38px,9vw,68px);
+  background:linear-gradient(120deg,var(--gold),var(--primary) 55%,var(--accent));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  letter-spacing:2px; margin-bottom:6px; animation: fadeDown .9s ease both;
+  position:relative; z-index:2;
+}
+@keyframes fadeDown{from{opacity:0; transform:translateY(-18px);} to{opacity:1; transform:translateY(0);}}
+.welcome-sub{
+  color:var(--text-dim); font-size:15px; letter-spacing:3px; text-transform:uppercase;
+  margin-bottom:26px; animation: fadeDown 1.1s ease both; position:relative; z-index:2;
+}
+.welcome-quote{
+  max-width:520px; font-style:italic; font-size:clamp(16px,3vw,19px); color:var(--text);
+  border-left:3px solid var(--primary); padding-left:16px; text-align:left; margin:0 auto 34px;
+  animation: fadeDown 1.3s ease both; position:relative; z-index:2;
+}
+#btnStart{
+  position:relative; z-index:5;
+  background:linear-gradient(120deg,var(--primary),var(--accent));
+  color:#fff; border:none; padding:16px 46px; min-height:52px;
+  border-radius:var(--radius-btn); font-family:'Lora',serif; font-weight:600; font-size:17px;
+  box-shadow:0 8px 24px rgba(232,33,215,0.45); letter-spacing:.5px;
+  opacity:1 !important;
+}
+#btnStart:active{transform:scale(.97);}
+
+/* ===== APP SHELL ===== */
+#app{display:none;}
+.topbar{
+  position:sticky; top:0; z-index:60;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 18px; background:var(--bg2); border-bottom:1px solid var(--border);
+  backdrop-filter:blur(6px);
+}
+.brand{display:flex; align-items:center; gap:10px; font-family:'Playfair Display',serif; font-weight:700; font-size:20px;}
+.brand-badge{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+}
+.topbar-actions{display:flex; align-items:center; gap:10px;}
+.icon-btn{
+  background:var(--card); border:1px solid var(--border); color:var(--text);
+  width:44px;height:44px;border-radius:50%; display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+.layout{display:flex; min-height:calc(100vh - 64px); min-height:calc(100dvh - 64px);}
+.sidebar{
+  width:230px; flex-shrink:0; background:var(--bg2); border-right:1px solid var(--border);
+  padding:18px 12px; position:sticky; top:64px; height:calc(100vh - 64px); height:calc(100dvh - 64px); overflow-y:auto;
+}
+.nav-item{
+  display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:14px;
+  color:var(--text-dim); font-size:15px; margin-bottom:4px; border:none; background:transparent;
+  width:100%; text-align:left; min-height:48px; font-family:'Lora',serif;
+}
+.nav-item.active,.nav-item:hover{background:var(--card2); color:var(--primary); font-weight:600;}
+.nav-sep{font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-dim); opacity:.6; margin:16px 8px 6px;}
+main{flex:1; padding:22px; max-width:1100px; margin:0 auto; width:100%;}
+.section{display:none; animation:fadeIn .4s ease;}
+.section.active{display:block;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+/* bottom nav mobile */
+.bottomnav{display:none;}
+@media (max-width:880px){
+  .sidebar{display:none;}
+  .bottomnav{
+    display:flex; position:fixed; bottom:0; left:0; right:0; z-index:70;
+    background:var(--bg2); border-top:1px solid var(--border);
+    padding:6px 2px calc(6px + env(safe-area-inset-bottom)); justify-content:space-around;
+  }
+  .bottomnav button{
+    background:none;border:none;color:var(--text-dim); font-size:10px; display:flex;flex-direction:column;
+    align-items:center; gap:3px; min-height:48px; min-width:48px; font-family:'Lora',serif; flex:1;
+  }
+  .bottomnav button.active{color:var(--primary); font-weight:700;}
+  .bottomnav .bn-ic{font-size:19px;}
+  main{padding-bottom:90px;}
+}
+
+/* ===== GENERIC UI ===== */
+.card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-card);
+  box-shadow:var(--shadow); padding:18px;
+}
+.btn{
+  background:linear-gradient(120deg,var(--primary),var(--accent)); color:#fff; border:none;
+  padding:13px 28px; border-radius:var(--radius-btn); font-family:'Lora',serif; font-weight:600;
+  font-size:15px; min-height:48px; box-shadow:0 6px 16px rgba(232,33,215,.35);
+}
+.btn.secondary{background:var(--card2); color:var(--primary); border:1px solid var(--primary); box-shadow:none;}
+.btn.small{padding:9px 18px; font-size:13px; min-height:40px;}
+.chip{
+  display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:var(--radius-btn);
+  background:var(--card2); border:1px solid var(--border); color:var(--text-dim); font-size:13.5px;
+  min-height:40px;
+}
+.chip.active{background:var(--primary); color:#fff; border-color:var(--primary);}
+.page-title{font-size:clamp(24px,4vw,32px); margin-bottom:4px;}
+.page-sub{color:var(--text-dim); margin-bottom:22px;}
+.quote-box{
+  border-left:4px solid var(--primary); background:var(--card2); padding:14px 18px; border-radius:0 14px 14px 0;
+  font-style:italic; margin:16px 0; color:var(--text);
+}
+.callout{
+  background:var(--card2); border:1px solid var(--border); border-radius:14px; padding:14px 18px; margin:14px 0;
+}
+.callout.star::before{content:"⭐ "; }
+.callout.warn{border-color:rgba(242,166,94,.4);}
+.callout.warn::before{content:"⚠️ ";}
+textarea,input[type=text],input[type=number],input[type=date],select{
+  width:100%; background:var(--bg2); border:1px solid var(--border); color:var(--text);
+  border-radius:14px; padding:12px 14px; font-family:'Lora',serif; font-size:15px; min-height:48px;
+}
+textarea{min-height:100px; resize:vertical;}
+label{font-size:13px; color:var(--text-dim); display:block; margin:10px 0 4px;}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+@media(max-width:600px){.grid2{grid-template-columns:1fr;}}
+
+/* progress dashboard */
+.progress-row{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px;}
+@media(max-width:880px){.progress-row{grid-template-columns:repeat(2,1fr);}}
+.stat-card{
+  background:var(--card); border:1px solid var(--border); border-radius:16px; padding:16px; text-align:center;
+  min-height:48px;
+}
+.stat-card .num{font-family:'Playfair Display',serif; font-size:26px; color:var(--primary); font-weight:700;}
+.stat-card .lbl{font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;}
+.bar-outer{height:14px; background:var(--card2); border-radius:20px; overflow:hidden; border:1px solid var(--border);}
+.bar-inner{height:100%; background:linear-gradient(90deg,var(--primary),var(--accent)); border-radius:20px; transition:width .5s ease; width:0%;}
+
+/* concept cards / module list */
+.module-list{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+@media(max-width:900px){.module-list{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.module-list{grid-template-columns:1fr;}}
+.module-card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-card); padding:16px;
+  min-height:48px;
+}
+.module-card .m-ic{font-size:26px;}
+.module-card h4{margin:8px 0 4px; font-size:16px;}
+.module-card p{font-size:13px; margin:0;}
+
+/* reading */
+.chapter-body h3{color:var(--primary); margin-top:22px;}
+.chapter-body ul{padding-left:20px; color:var(--text-dim);}
+.chapter-body li{margin-bottom:6px;}
+.chapter-body strong{color:var(--text);}
+
+/* RECIPE GRID */
+.recipe-toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; align-items:center;}
+.recipe-toolbar input{flex:1; min-width:200px;}
+.cat-chips{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+.recipe-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+}
+@media(max-width:1000px){.recipe-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:720px){.recipe-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:460px){.recipe-grid{grid-template-columns:1fr;}}
+.recipe-card{
+  position:relative; background:var(--card); border:1px solid var(--border); border-radius:var(--radius-card);
+  padding:14px 14px 34px 14px; min-height:110px; box-shadow:var(--shadow); transition:transform .2s ease;
+}
+.recipe-card:active{transform:scale(.98);}
+.recipe-card .rc-cat{font-size:11px; color:var(--primary); text-transform:uppercase; letter-spacing:1px; font-weight:600;}
+.recipe-card .rc-title{font-family:'Playfair Display',serif; font-size:15.5px; margin:6px 0 4px; line-height:1.25;}
+.recipe-card .rc-meta{font-size:11.5px; color:var(--text-dim);}
+.recipe-card .rc-heart{
+  position:absolute; bottom:8px; right:10px; background:none; border:none; font-size:22px;
+  color:var(--text-dim); min-height:36px; min-width:36px; line-height:1; padding:0;
+}
+.recipe-card .rc-heart.fav{color:var(--primary);}
+.recipe-detail{
+  grid-column:1/-1; background:var(--card2); border:1px solid var(--primary); border-radius:var(--radius-card);
+  padding:20px; animation:fadeIn .3s ease;
+}
+.recipe-detail h3{color:var(--primary); margin-bottom:2px;}
+.recipe-detail .rd-meta{font-size:13px; color:var(--text-dim); margin-bottom:12px;}
+.recipe-detail .rd-cols{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+@media(max-width:600px){.recipe-detail .rd-cols{grid-template-columns:1fr;}}
+.recipe-detail h5{color:var(--gold); font-size:13px; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;}
+.recipe-detail ul,.recipe-detail ol{padding-left:18px; margin:0;}
+.recipe-detail li{margin-bottom:6px; color:var(--text);}
+
+/* Modal */
+.modal-bg{
+  display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:200; align-items:center;
+  justify-content:center; padding:20px;
+}
+.modal-bg.show{display:flex;}
+.modal{
+  background:var(--card); border-radius:20px; padding:22px; max-width:460px; width:100%;
+  max-height:80vh; max-height:80dvh; overflow-y:auto; border:1px solid var(--border); box-shadow:var(--shadow);
+}
+.modal h3{color:var(--primary);}
+.modal-close{float:right; background:none; border:none; color:var(--text); font-size:20px; min-height:40px; min-width:40px;}
+.fav-item,.ach-item{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--border);}
+.ach-item .a-ic{font-size:22px;}
+.ach-item.locked{opacity:.35;}
+
+/* Reset button */
+.reset-btn{
+  background:var(--card2); border:1px solid var(--warn); color:var(--warn); padding:9px 20px;
+  border-radius:var(--radius-btn); font-size:13px; font-weight:700; letter-spacing:1px; min-height:44px;
+}
+
+/* Herramientas tool cards */
+.tool-tabs{display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:18px;}
+.tool-panel{display:none;}
+.tool-panel.active{display:block;}
+
+/* Ruleta */
+.wheel-wrap{display:flex; flex-direction:column; align-items:center; gap:18px; padding:10px 0;}
+#wheelSvg{width:280px; height:280px; transition:transform 2.6s cubic-bezier(.19,.87,.32,1.02);}
+.wheel-result{font-size:18px; text-align:center; min-height:26px; color:var(--primary); font-weight:700;}
+
+/* Quiz/Test */
+.q-block{margin-bottom:18px;}
+.q-options{display:flex; flex-direction:column; gap:8px; margin-top:8px;}
+.q-opt{
+  background:var(--card2); border:1px solid var(--border); border-radius:14px; padding:12px 16px;
+  min-height:48px; text-align:left; color:var(--text);
+}
+.q-opt.correct{border-color:var(--success); background:rgba(95,208,160,.12);}
+.q-opt.wrong{border-color:#e05f5f; background:rgba(224,95,95,.12);}
+.q-opt.selected{border-color:var(--primary);}
+
+/* Flashcards */
+.flash-wrap{display:flex; flex-direction:column; align-items:center; gap:16px;}
+.flashcard{
+  width:100%; max-width:380px; height:220px; perspective:1000px;
+}
+.flash-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
+.flashcard.flipped .flash-inner{transform:rotateY(180deg);}
+.flash-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:20px; display:flex; align-items:center;
+  justify-content:center; text-align:center; padding:24px; font-family:'Playfair Display',serif; font-size:19px;
+  background:linear-gradient(135deg,var(--card),var(--card2)); border:1px solid var(--border); box-shadow:var(--shadow);
+}
+.flash-face.back{transform:rotateY(180deg); font-family:'Lora',serif; font-size:15px; color:var(--text-dim);}
+
+/* Carousel */
+.carousel{display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 2px 16px;}
+.carousel .cslide{
+  flex:0 0 82%; scroll-snap-align:center; background:var(--card); border:1px solid var(--border);
+  border-radius:18px; padding:20px; font-style:italic; box-shadow:var(--shadow);
+}
+@media(min-width:700px){.carousel .cslide{flex:0 0 40%;}}
+
+/* Timer */
+.timer-display{font-family:'Playfair Display',serif; font-size:64px; text-align:center; color:var(--primary); margin:14px 0;}
+.timer-presets{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:14px;}
+
+/* Checklist */
+.check-item{display:flex; align-items:center; gap:12px; padding:12px 4px; border-bottom:1px solid var(--border);}
+.check-item input{width:22px; height:22px; accent-color:var(--primary); min-height:auto;}
+.check-item.done label{text-decoration:line-through; color:var(--text-dim);}
+
+/* Tracker */
+.track-row{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); font-size:14px;}
+
+footer.appfoot{text-align:center; color:var(--text-dim); font-size:12px; padding:24px 10px 8px;}
+
+/* ===== Recipe mini-cards: show name, time, servings (per reference) ===== */
+.recipe-grid-mini{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+@media(max-width:1000px){.recipe-grid-mini{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:720px){.recipe-grid-mini{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:460px){.recipe-grid-mini{grid-template-columns:1fr 1fr;}}
+.mini-card{
+  position:relative; background:var(--card); border:1px solid var(--border); border-radius:var(--radius-card);
+  padding:16px 16px 34px 16px; min-height:120px; box-shadow:var(--shadow); display:flex; flex-direction:column;
+  align-items:flex-start; justify-content:flex-start; text-align:left; gap:4px;
+}
+.mini-card:active{transform:scale(.97);}
+.mini-card .mc-cat{font-size:10.5px; color:var(--primary); text-transform:uppercase; letter-spacing:1px; font-weight:700; display:flex; align-items:center; gap:5px;}
+.mini-card .mc-title{font-family:'Playfair Display',serif; font-size:15px; line-height:1.28; margin:4px 0 2px; color:var(--text);}
+.mini-card .mc-meta{font-size:11.5px; color:var(--text-dim);}
+.mini-card .mc-heart{
+  position:absolute; bottom:8px; right:10px; background:none; border:none; font-size:20px;
+  color:var(--text-dim); min-height:36px; min-width:36px; line-height:1; padding:0;
+}
+.mini-card .mc-heart.fav{color:var(--primary);}
+
+/* Recipe detail modal */
+.recipe-modal{
+  background:var(--card); border-radius:22px; padding:24px; max-width:560px; width:100%;
+  max-height:85vh; max-height:85dvh; overflow-y:auto; border:1px solid var(--primary); box-shadow:var(--shadow);
+}
+.recipe-modal .rm-eyebrow{font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--primary); font-weight:700;}
+.recipe-modal h2{margin:4px 0 12px; font-size:22px;}
+.rm-chips{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;}
+.rm-chip{background:var(--card2); border:1px solid var(--border); border-radius:50px; padding:6px 14px; font-size:12.5px; color:var(--text-dim);}
+.rm-favbtn{
+  display:inline-flex; align-items:center; gap:8px; background:var(--card2); border:1px solid var(--primary);
+  color:var(--primary); padding:10px 20px; border-radius:50px; font-size:14px; font-weight:600; min-height:44px; margin-bottom:16px;
+}
+.rm-favbtn.fav{background:var(--primary); color:#fff;}
+.rm-cols{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-bottom:16px;}
+@media(max-width:520px){.rm-cols{grid-template-columns:1fr;}}
+.rm-cols h5{color:var(--gold); font-size:12.5px; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;}
+.rm-cols ul{padding-left:18px; margin:0;}
+.rm-cols li{margin-bottom:6px; color:var(--text); font-size:14.5px;}
+.rm-steps{list-style:none; padding:0; margin:0; counter-reset:step;}
+.rm-steps li{
+  display:flex; gap:10px; margin-bottom:12px; font-size:14.5px; color:var(--text);
+}
+.rm-steps li::before{
+  counter-increment:step; content:counter(step); flex-shrink:0; width:24px; height:24px; border-radius:50%;
+  background:var(--primary); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+.rm-timer{
+  background:var(--card2); border:1px solid var(--border); border-radius:16px; padding:14px 18px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:8px;
+}
+.rm-timer .rt-time{font-family:'Playfair Display',serif; font-size:22px; color:var(--primary);}
+.rm-timer button{background:var(--primary); color:#fff; border:none; padding:8px 18px; border-radius:50px; font-size:13px; font-weight:600; min-height:40px;}
+.rm-close{float:right; background:none; border:none; color:var(--text); font-size:20px; min-height:40px; min-width:40px;}
+
+/* Consulted recipes modal list */
+.consulted-item{padding:8px 0; border-bottom:1px solid var(--border); font-size:14px; display:flex; gap:8px; align-items:center;}
+
+/* Nav drawer (mobile full menu) */
+.nav-drawer-bg{display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:300;}
+.nav-drawer-bg.show{display:block;}
+.nav-drawer{
+  position:fixed; top:0; left:0; bottom:0; width:78%; max-width:300px; background:var(--bg2); z-index:301;
+  padding:18px 12px; overflow-y:auto; transform:translateX(-100%); transition:transform .3s ease;
+}
+.nav-drawer-bg.show .nav-drawer{transform:translateX(0);}
+.hamburger-btn{display:none;}
+@media(max-width:880px){.hamburger-btn{display:flex;}}
+
+/* Flashcards grid (keto sí o keto no) */
+.flash-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:12px;}
+@media(max-width:720px){.flash-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:460px){.flash-grid{grid-template-columns:repeat(2,1fr);}}
+.fg-card{
+  aspect-ratio:1; perspective:800px; min-height:80px;
+}
+.fg-inner{position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d;}
+.fg-card.flipped .fg-inner{transform:rotateY(180deg);}
+.fg-face{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center; padding:8px; font-size:12.5px; gap:4px;
+  background:var(--card); border:1px solid var(--border); box-shadow:var(--shadow);
+}
+.fg-face .fg-emoji{font-size:22px;}
+.fg-face.back{transform:rotateY(180deg);}
+.fg-face.back.yes{border-color:var(--success); background:rgba(95,208,160,.12);}
+.fg-face.back.no{border-color:#e05f5f; background:rgba(224,95,95,.12);}
+.fg-mark{font-size:20px; font-weight:800;}
+.faq-item{border-bottom:1px solid var(--border); padding:12px 0;}
+.faq-q{font-weight:700; color:var(--text); cursor:pointer; min-height:48px; display:flex; align-items:center; justify-content:space-between;}
+.faq-a{display:none; color:var(--text-dim); padding-top:6px; font-size:14.5px;}
+.faq-item.open .faq-a{display:block;}
+/* ===== Print-only view (used to export Diario / Favoritas as PDF via browser print dialog) ===== */
+.print-only{display:none;}
+@media print{
+  body > *:not(#diarioPrintArea):not(#favPrintArea){display:none !important;}
+  #diarioPrintArea, #favPrintArea{
+    display:block !important; position:static; background:#fff; color:#111; padding:20px;
+    font-family:'Lora',serif;
+  }
+  #diarioPrintArea *, #favPrintArea *{color:#111 !important;}
+  #diarioPrintArea h1, #favPrintArea h1{font-family:'Playfair Display',serif; color:#c91bc0 !important; margin-bottom:4px;}
+  #diarioPrintArea .dp-entry{border-bottom:1px solid #ddd; padding:14px 0;}
+  #diarioPrintArea .dp-date{font-weight:700; color:#c91bc0 !important; margin-bottom:4px;}
+  #favPrintArea .fp-recipe{border-bottom:1px solid #ddd; padding:16px 0; page-break-inside:avoid;}
+  #favPrintArea .fp-recipe h3{font-family:'Playfair Display',serif; color:#c91bc0 !important; margin:0 0 4px;}
+  #favPrintArea .fp-meta{font-size:12.5px; color:#555 !important; margin-bottom:8px;}
+  #favPrintArea h5{color:#a8791f !important; font-size:12px; text-transform:uppercase; letter-spacing:1px; margin:10px 0 4px;}
+  #favPrintArea ul, #favPrintArea ol{margin:0 0 6px; padding-left:18px;}
+  #favPrintArea li{margin-bottom:3px;}
+}
+</style>
+</head>
+<body data-theme="dark">
+<!-- WELCOME -->
+<div id="welcome">
+  <div class="welcome-deco" id="welcomeDeco"></div>
+  <div class="welcome-logo">RICO & KETO</div>
+  <div class="welcome-sub">Tu recetario keto completo · sin vueltas</div>
+  <div class="welcome-quote">"Esta guía es lo que hubiera querido tener desde el primer día. Recetas simples. Plan claro. Sin vueltas."</div>
+  <button id="btnStart" class="clickable" onclick="startApp()">Empezar mi camino keto →</button>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button class="icon-btn clickable hamburger-btn" onclick="openDrawer()" title="Menú">☰</button>
+      <div class="brand"><span class="brand-badge">🥑</span> RICO & KETO</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn clickable" onclick="toggleTheme()" id="themeBtn" title="Modo día/noche">🌙</button>
+      <button class="icon-btn clickable" onclick="go('progreso')" title="Mi progreso">🏆</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <div class="nav-sep">Tu guía</div>
+      <button class="nav-item clickable" data-nav="inicio" onclick="go('inicio')">🏠 Inicio</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="m1" onclick="go('capitulos');setChapter('m1')">🔑 Keto Sin Misterios</button>
+      <button class="nav-item clickable" data-nav="plan21" onclick="go('plan21')">📅 Plan de 21 Días</button>
+      <button class="nav-item clickable" data-nav="recetas" onclick="go('recetas')">🍽️ Recetas Keto dulces y saladas</button>
+      <button class="nav-item clickable" data-nav="postres" onclick="go('postres')">🍰 Postres Keto</button>
+      <button class="nav-item clickable" data-nav="pasteleria" onclick="go('pasteleria')">🥐 Pastelería Keto</button>
+      <button class="nav-item clickable" data-nav="familia" onclick="go('familia')">👨‍👩‍👧 Keto en Familia</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="m5" onclick="go('capitulos');setChapter('m5')">🔍 ¿Estoy en Cetosis?</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="m6" onclick="go('capitulos');setChapter('m6')">✈️ Keto Afuera de Casa</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="m7" onclick="go('capitulos');setChapter('m7')">⚗️ Macros y Suplementos</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="m8" onclick="go('capitulos');setChapter('m8')">🌸 Salud Femenina</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="m9" onclick="go('capitulos');setChapter('m9')">🥡 Meal Prep</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="m10" onclick="go('capitulos');setChapter('m10')">❔ Preguntas Frecuentes</button>
+      <button class="nav-item clickable" data-nav="capitulos" data-chap="apA" onclick="go('capitulos');setChapter('apA')">📚 Apéndices</button>
+      <div class="nav-sep">Extras</div>
+      <button class="nav-item clickable" data-nav="herramientas" onclick="go('herramientas')">🎯 Jugar</button>
+      <button class="nav-item clickable" data-nav="herramientas" data-tool="diario" onclick="openTool('diario')">📔 Diario</button>
+      <button class="nav-item clickable" data-nav="progreso" onclick="go('progreso')">🏆 Mi Progreso</button>
+    </nav>
+
+    <!-- Mobile drawer (mirrors sidebar) -->
+    <div class="nav-drawer-bg" id="navDrawerBg" onclick="if(event.target===this)closeDrawer()">
+      <div class="nav-drawer" id="navDrawer"></div>
+    </div>
+
+    <main>
+      <!-- INICIO -->
+      <!-- INICIO -->
+      <section id="sec-inicio" class="section">
+        <div style="color:var(--primary); font-size:12px; text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-bottom:6px;">Bienvenida</div>
+        <h1 class="page-title">Hola, este es tu punto de partida</h1>
+        <p class="page-sub">No soy nutricionista. No soy médica. Soy alguien que estuvo exactamente donde estás vos: parada frente a la heladera a las 7 de la noche, sin saber qué cocinar. Keto me cambió la vida — esta guía es lo que hubiera querido tener desde el primer día.</p>
+
+        <div class="progress-row" style="grid-template-columns:repeat(3,1fr);">
+          <div class="stat-card clickable" onclick="openConsultedModal()"><div class="num" id="dashConsulted">0/120</div><div class="lbl">🔍 Recetas exploradas</div></div>
+          <div class="stat-card clickable" onclick="openFavModal()"><div class="num" id="dashFavs">0</div><div class="lbl">⭐ Favoritas guardadas</div></div>
+          <div class="stat-card clickable" onclick="openAchModal()"><div class="num" id="dashAch">0/11</div><div class="lbl">🏆 Logros desbloqueados</div></div>
+        </div>
+        <div style="text-align:center; margin:-10px 0 20px;">
+          <button class="reset-btn clickable" onclick="resetProgress()">REINICIO</button>
+        </div>
+
+        <div class="callout warn" style="margin-bottom:24px;">
+          <strong>Importante antes de empezar</strong>
+          <p style="margin-top:6px; color:var(--text-dim);">Antes de comenzar cualquier cambio en tu alimentación, consultá con un médico o profesional de la salud calificado, especialmente si tenés diabetes, hipertensión u otra condición médica, si estás embarazada o en período de lactancia, o si tomás alguna medicación. Esta guía tiene fines exclusivamente informativos y educativos, y no reemplaza el consejo médico profesional.</p>
+        </div>
+
+        <h3>Frases para sostenerte</h3>
+        <div class="carousel" id="carouselTips"></div>
+
+        <h3>Empezá por acá</h3>
+        <div class="module-list">
+          <div class="module-card clickable" onclick="go('recetas')"><div class="m-ic">🍽️</div><h4>Explorá las 45 recetas</h4><p>Buscá por nombre o ingrediente. Todas listas en 3 a 25 minutos.</p></div>
+          <div class="module-card clickable" onclick="go('plan21')"><div class="m-ic">📅</div><h4>Arrancá tu plan de 21 días</h4><p>Semana a semana, día a día, sin adivinar qué comer.</p></div>
+          <div class="module-card clickable" onclick="go('postres')"><div class="m-ic">🍰</div><h4>42 Postres Keto</h4><p>El dulce sin culpa: chocolatería, helados y tartas frías.</p></div>
+          <div class="module-card clickable" onclick="go('pasteleria')"><div class="m-ic">🥐</div><h4>33 Recetas de Pastelería</h4><p>Tortas, muffins, bollería y clásicos franceses en versión keto.</p></div>
+        </div>
+      </section>
+
+      <!-- CAPITULOS -->
+      <section id="sec-capitulos" class="section">
+        <h1 class="page-title" style="font-size:clamp(20px,3.4vw,27px);">📖 El contenido real de tu guía, navegable por sección.</h1>
+        <div class="cat-chips" id="chapterTabs"></div>
+        <div class="card chapter-body" id="chapterContent"></div>
+      </section>
+
+      <!-- RECETAS -->
+      <section id="sec-recetas" class="section">
+        <h1 class="page-title">🍽️ 45 Recetas Keto en 15 Minutos</h1>
+        <p class="page-sub">Buscá por nombre completo o palabra clave (ej: "pollo", "huevo", "atún"). Tocá una tarjeta para ver la receta completa, con temporizador incluido.</p>
+        <div class="recipe-toolbar">
+          <input type="text" id="recipeSearch" placeholder="🔍 Buscar receta por nombre o ingrediente..." oninput="renderRecipeSet('main')">
+        </div>
+        <div class="cat-chips" id="recipeCatChips-main"></div>
+        <div class="recipe-grid-mini" id="recipeGrid-main"></div>
+      </section>
+
+      <!-- POSTRES -->
+      <section id="sec-postres" class="section">
+        <h1 class="page-title">🍰 Postres Keto — El Dulce Sin Culpa</h1>
+        <p class="page-sub">42 recetas: chocolatería, helados, tartas frías, postres express y para ocasiones especiales. Buscá por nombre o ingrediente.</p>
+        <div class="recipe-toolbar">
+          <input type="text" id="recipeSearch-postres" placeholder="🔍 Buscar postre por nombre o ingrediente..." oninput="renderRecipeSet('postres')">
+        </div>
+        <div class="cat-chips" id="recipeCatChips-postres"></div>
+        <div class="recipe-grid-mini" id="recipeGrid-postres"></div>
+      </section>
+
+      <!-- PASTELERIA -->
+      <section id="sec-pasteleria" class="section">
+        <h1 class="page-title">🥐 Pastelería Keto — Edición Avanzada</h1>
+        <p class="page-sub">33 recetas: galettes, brioche, tortas de capas, muffins, bollería, hojaldre y clásicos franceses en versión keto.</p>
+        <div class="recipe-toolbar">
+          <input type="text" id="recipeSearch-pasteleria" placeholder="🔍 Buscar receta por nombre o ingrediente..." oninput="renderRecipeSet('pasteleria')">
+        </div>
+        <div class="cat-chips" id="recipeCatChips-pasteleria"></div>
+        <div class="recipe-grid-mini" id="recipeGrid-pasteleria"></div>
+      </section>
+
+      <!-- PLAN 21 -->
+      <section id="sec-plan21" class="section">
+        <h1 class="page-title">📅 Tu Plan de 21 Días</h1>
+        <p class="page-sub">21 días es el tiempo que necesita tu cuerpo para adaptarse completamente a keto. Semana 1 (adaptación), Semana 2 (adaptación completa), Semana 3 (tu nueva forma de comer).</p>
+        <div class="cat-chips" id="planWeekTabs"></div>
+        <div id="planContent"></div>
+      </section>
+
+      <!-- FAMILIA -->
+      <section id="sec-familia" class="section">
+        <h1 class="page-title">👨‍👩‍👧 Keto en Familia</h1>
+        <div class="card chapter-body" id="familiaContent"></div>
+      </section>
+
+      <!-- HERRAMIENTAS -->
+      <section id="sec-herramientas" class="section">
+        <h1 class="page-title">🎯 Herramientas Interactivas</h1>
+        <div class="tool-tabs" id="toolTabs"></div>
+
+        <div class="tool-panel" id="tool-ruleta">
+          <div class="card">
+            <h3>🎡 Ruleta Keto</h3>
+            <p>Girá la ruleta y recibí un reto, tip o premio del día.</p>
+            <div class="wheel-wrap">
+              <svg id="wheelSvg" viewBox="0 0 200 200"></svg>
+              <button class="btn clickable" onclick="spinWheel()">Girar la ruleta</button>
+              <div class="wheel-result" id="wheelResult"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-quiz">
+          <div class="card">
+            <h3>❓ Quiz Keto</h3>
+            <p id="quizCountText">Preguntas para poner a prueba lo aprendido.</p>
+            <div id="quizArea"></div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-test">
+          <div class="card">
+            <h3>🎯 Test: ¿Qué estilo Keto sos?</h3>
+            <p>Respondé y descubrí tu perfil keto ideal.</p>
+            <div id="testArea"></div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-diario">
+          <div class="card">
+            <h3>📔 Diario Keto</h3>
+            <p>Escribí cómo te sentís hoy. Se guarda automáticamente.</p>
+            <label>Nueva entrada</label>
+            <textarea id="diarioText" placeholder="Hoy me sentí..."></textarea>
+            <button class="btn clickable" style="margin-top:10px;" onclick="saveDiario()">Guardar entrada</button>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; padding-top:16px; border-top:1px solid var(--border);">
+              <button class="btn clickable" onclick="guardarDiarioPDF()">📥 GUARDAR</button>
+              <button class="btn secondary clickable" onclick="nuevoDiario()">🗑️ NUEVO DIARIO</button>
+            </div>
+            <p style="font-size:12px; margin-top:6px;">"GUARDAR" abre el diálogo de impresión de tu navegador: elegí "Guardar como PDF" para descargar tus entradas. "NUEVO DIARIO" borra todas las entradas guardadas para empezar de cero.</p>
+
+            <div id="diarioList" style="margin-top:18px;"></div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-checklist">
+          <div class="card">
+            <h3>✅ Checklist de Hábitos Keto</h3>
+            <p>Los hábitos clave para sostener el plan día a día.</p>
+            <div id="checklistArea"></div>
+            <div style="margin-top:16px;"><button class="reset-btn clickable" onclick="resetChecklist()">REINICIO</button></div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-calculadora">
+          <div class="card">
+            <h3>🧮 Calculadora de Macros</h3>
+            <p>Ingresá tus datos para estimar tus macros keto (grasas 75% / proteínas 20% / carbos 5%).</p>
+            <div class="grid2">
+              <div><label>Peso (kg)</label><input type="number" id="calcPeso" placeholder="65"></div>
+              <div><label>Altura (cm)</label><input type="number" id="calcAltura" placeholder="165"></div>
+              <div><label>Edad</label><input type="number" id="calcEdad" placeholder="35"></div>
+              <div><label>Nivel de actividad</label>
+                <select id="calcActividad">
+                  <option value="1.2">Sedentaria</option>
+                  <option value="1.375">Actividad ligera</option>
+                  <option value="1.55">Actividad moderada</option>
+                  <option value="1.725">Muy activa</option>
+                </select>
+              </div>
+            </div>
+            <label>Objetivo</label>
+            <select id="calcObjetivo">
+              <option value="-15">Bajar de peso</option>
+              <option value="0">Mantener</option>
+              <option value="10">Ganar peso</option>
+            </select>
+            <button class="btn clickable" style="margin-top:12px;" onclick="calcularMacros()">Calcular mis macros</button>
+            <div id="calcResult" style="margin-top:16px;"></div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-tracker">
+          <div class="card">
+            <h3>📊 Tracker de Seguimiento</h3>
+            <p>Registrá tu peso día a día y mirá tu progreso.</p>
+            <div class="grid2">
+              <div><label>Fecha</label><input type="date" id="trackFecha"></div>
+              <div><label>Peso (kg)</label><input type="number" id="trackPeso" placeholder="70.5"></div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+              <button class="btn clickable" onclick="addTrack()">Agregar registro</button>
+              <button class="reset-btn clickable" onclick="resetTracker()">REINICIO</button>
+            </div>
+            <div id="trackList" style="margin-top:16px;"></div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-flashcards">
+          <div class="card">
+            <h3>🃏 Flashcards: ¿keto sí o keto no?</h3>
+            <p>Tocá cada tarjeta para descubrir si el alimento es keto.</p>
+            <div class="flash-grid" id="flashGrid"></div>
+            <div style="margin-top:16px;"><button class="reset-btn clickable" onclick="resetFlashGrid()">REINICIO</button></div>
+          </div>
+        </div>
+
+        <div class="tool-panel" id="tool-temporizador">
+          <div class="card">
+            <h3>⏱️ Temporizador de Cocina</h3>
+            <div class="timer-display" id="timerDisplay">05:00</div>
+            <div class="timer-presets">
+              <button class="chip clickable" onclick="setTimer(5)">5 min</button>
+              <button class="chip clickable" onclick="setTimer(10)">10 min</button>
+              <button class="chip clickable" onclick="setTimer(15)">15 min</button>
+              <button class="chip clickable" onclick="setTimer(20)">20 min</button>
+            </div>
+            <div style="display:flex; gap:10px; justify-content:center;">
+              <button class="btn clickable" onclick="timerToggle()" id="timerBtn">Iniciar</button>
+              <button class="btn secondary clickable" onclick="timerReset()">Reiniciar</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- PROGRESO -->
+      <section id="sec-progreso" class="section">
+        <h1 class="page-title">🏆 Mi Progreso</h1>
+        <div class="progress-row" style="grid-template-columns:repeat(3,1fr);">
+          <div class="stat-card clickable" onclick="openConsultedModal()"><div class="num" id="p_consulted">0/120</div><div class="lbl">🔍 Recetas exploradas</div></div>
+          <div class="stat-card clickable" onclick="openFavModal()"><div class="num" id="p_favs">0</div><div class="lbl">⭐ Favoritas guardadas</div></div>
+          <div class="stat-card clickable" onclick="openAchModal()"><div class="num" id="p_ach">0/11</div><div class="lbl">🏆 Logros desbloqueados</div></div>
+        </div>
+        <div style="text-align:center; margin:-10px 0 20px;">
+          <button class="reset-btn clickable" onclick="resetProgress()">REINICIO</button>
+        </div>
+        <h3 style="margin-top:10px;">🏆 Logros</h3>
+        <div id="achList" class="module-list"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <nav class="bottomnav">
+    <button class="clickable" data-nav="inicio" onclick="go('inicio')"><span class="bn-ic">🏠</span>Inicio</button>
+    <button class="clickable" data-nav="recetas" onclick="go('recetas')"><span class="bn-ic">🍽️</span>Recetas</button>
+    <button class="clickable" data-nav="herramientas" onclick="go('herramientas')"><span class="bn-ic">🎯</span>Jugar</button>
+    <button class="clickable" data-nav="progreso" onclick="go('progreso')"><span class="bn-ic">🏆</span>Progreso</button>
+    <button class="clickable" onclick="openDrawer()"><span class="bn-ic">☰</span>Más</button>
+  </nav>
+
+  <footer class="appfoot">© Rico & Keto — Con cariño y sin carbos, tu guía keto para mujeres ocupadas. Esta app es informativa y no reemplaza el consejo médico profesional.</footer>
+</div>
+
+<!-- MODALS -->
+<div class="modal-bg" id="favModalBg">
+  <div class="modal">
+    <button class="modal-close clickable" onclick="closeModal('favModalBg')">✕</button>
+    <h3>❤️ Tus Recetas Favoritas</h3>
+    <div id="favModalList"></div>
+  </div>
+</div>
+<div class="modal-bg" id="achModalBg">
+  <div class="modal">
+    <button class="modal-close clickable" onclick="closeModal('achModalBg')">✕</button>
+    <h3>🏆 Logros Desbloqueados</h3>
+    <div id="achModalList"></div>
+  </div>
+</div>
+<div class="modal-bg" id="consultedModalBg">
+  <div class="modal">
+    <button class="modal-close clickable" onclick="closeModal('consultedModalBg')">✕</button>
+    <h3>🔍 Recetas que ya exploraste</h3>
+    <div id="consultedModalList"></div>
+  </div>
+</div>
+<div class="modal-bg" id="recipeModalBg">
+  <div class="recipe-modal" id="recipeModalContent"></div>
+</div>
+
+<div id="diarioPrintArea" class="print-only"></div>
+<div id="favPrintArea" class="print-only"></div>
+
+<script>
+/* ============ DATA ============ */
+const RECIPES = [
+{id:1,cat:"Desayunos",icon:"🍳",name:"Huevos Revueltos con Manteca y Queso",time:"5 min",serv:"1 persona",carbs:"1g",ing:["3 huevos","1 cdita de manteca","30g de queso cremoso o cuartirolo","Sal y pimienta a gusto"],prep:["Calentá la sartén a fuego medio-bajo con la manteca.","Batí los huevos con sal y pimienta.","Volcá los huevos y revolvé despacio con espátula.","Antes de que solidifiquen del todo, agregá el queso en cubitos.","Serví cremosos. No los cocinés de más."]},
+{id:2,cat:"Desayunos",icon:"🍳",name:"Omelette de Espinaca y Queso Cremoso",time:"8 min",serv:"1 persona",carbs:"1g",ing:["3 huevos","1/2 taza de espinaca fresca","2 cdas de queso crema","Sal, ajo en polvo, aceite de oliva"],prep:["Batí los huevos con sal y ajo.","Salté la espinaca en aceite 1 minuto.","Volcá los huevos sobre la espinaca.","Cuando los bordes estén firmes, agregá el queso al centro, doblá y serví."]},
+{id:3,cat:"Desayunos",icon:"🍳",name:"Pancakes de Queso Crema",time:"10 min",serv:"1-2 personas",carbs:"3g",ing:["2 huevos","60g de queso crema","1 cdita de edulcorante (opcional)","Canela a gusto"],prep:["Procesá todos los ingredientes en la licuadora.","Calentá una sartén antiadherente a fuego medio.","Volcá pequeñas porciones y cociná 2 min de cada lado.","Serví con manteca y frutos rojos."]},
+{id:4,cat:"Desayunos",icon:"🍳",name:"Waffles Keto con Crema",time:"12 min",serv:"2 personas",carbs:"4g",ing:["3 huevos","50g queso crema","30g harina de almendras","1 cdita polvo de hornear sin gluten","Edulcorante a gusto"],prep:["Mezclá todos los ingredientes con mixer.","Calentá la waflera y rociá con aceite.","Volcá la mezcla y cociná 3-4 minutos.","Serví con crema batida sin azúcar y frutos rojos."]},
+{id:5,cat:"Desayunos",icon:"🍳",name:"Bowl de Palta con Huevo Pochado",time:"10 min",serv:"1 persona",carbs:"2g",ing:["1 palta","2 huevos","Jugo de limón","Sal, pimienta, cúrcuma"],prep:["Herví agua con un chorrito de vinagre.","Cascá el huevo en un remolino de agua y cocí 3 min.","Serví la palta en rodajas con sal y limón.","Poné el huevo pochado encima y espolvoreá cúrcuma."]},
+{id:6,cat:"Desayunos",icon:"🍳",name:"Tortilla Española Keto",time:"15 min",serv:"2-3 personas",carbs:"4g",ing:["4 huevos","1/2 zucchini (reemplaza la papa)","1/2 cebolla","Aceite de oliva, sal"],prep:["Cortá el zucchini y la cebolla en rodajas finas.","Salteá en aceite a fuego medio hasta tiernos (7 min).","Batí los huevos con sal y volcá sobre las verduras.","Cociná tapado a fuego bajo 5 minutos.","Doblá o invertí en un plato para dorar del otro lado."]},
+{id:7,cat:"Desayunos",icon:"🍳",name:"Huevos Revueltos con Salmón Ahumado",time:"7 min",serv:"1 persona",carbs:"1g",ing:["3 huevos","60g salmón ahumado","1 cda de queso crema","Ciboulette, sal, pimienta"],prep:["Batí los huevos con queso crema.","Calentá sartén con manteca a fuego bajo.","Revolvé despacio hasta cremosos.","Apagá el fuego e incorporá el salmón.","Terminá con ciboulette picado."]},
+{id:8,cat:"Desayunos",icon:"🍳",name:"Desayuno de Queso y Jamón a la Sartén",time:"5 min",serv:"1 persona",carbs:"1g",ing:["2 fetas jamón cocido","2 fetas queso pategrass o mozzarella","1 huevo"],prep:["En sartén caliente sin aceite, poné el jamón.","Encima del jamón, colocá el queso.","Cuando el queso empiece a fundirse, cascá el huevo encima.","Tapá y cociná 2 minutos más. Serví caliente."]},
+{id:9,cat:"Desayunos",icon:"🍳",name:"Batido Keto de Cacao y Crema",time:"3 min",serv:"1 persona",carbs:"4g",ing:["1 taza de leche de almendras sin endulzar","2 cdas de crema de leche","1 cda de cacao puro","Edulcorante a gusto","Hielo"],prep:["Poné todo en la licuadora.","Procesá 30 segundos.","Verificá el dulzor y ajustá.","Tomá inmediatamente."]},
+{id:10,cat:"Desayunos",icon:"🍳",name:"Tazón de Yogur Keto",time:"5 min",serv:"1 persona",carbs:"8g",ing:["150g yogur griego entero (sin azúcar)","1 cdita semillas de chía","Nueces picadas","Frutos rojos frescos","Canela"],prep:["Serví el yogur en un bowl.","Agregá las semillas, los frutos rojos y las nueces.","Espolvoreá canela encima.","Listo: 5 minutos sin prender el fuego."]},
+{id:11,cat:"Almuerzos",icon:"🥗",name:"Ensalada de Pollo Grillado con Palta",time:"10 min",serv:"1-2 personas",carbs:"5g",ing:["200g pechuga de pollo","1 palta","Rúcula o lechuga","Tomates cherry","Aceite de oliva, limón, sal"],prep:["Grillá el pollo sazonado con sal y ajo.","Cortá en tiras.","Armá la ensalada con rúcula, palta y tomates.","Agregá el pollo encima.","Aderezá con aceite de oliva y limón."]},
+{id:12,cat:"Almuerzos",icon:"🥗",name:"Bowl de Atún con Palta",time:"5 min (sin cocción)",serv:"1 persona",carbs:"4g",ing:["1 lata de atún al natural","1/2 palta","Tomate cherry","Cebolla morada","Aceite de oliva, limón, sal"],prep:["Drená el atún.","Mezclá con palta en cubitos y tomates.","Agregá cebolla morada picada fina.","Aderezá con aceite de oliva y limón. Serví frío."]},
+{id:13,cat:"Almuerzos",icon:"🥗",name:"Pollo al Limón con Espárragos",time:"15 min",serv:"2 personas",carbs:"4g",ing:["2 pechugas de pollo","1 atado de espárragos","Jugo de 1 limón","Romero, ajo, sal, aceite"],prep:["Aplaná el pollo y sazonálo.","Calentá aceite en sartén, sellá el pollo dorado.","Agregá los espárragos y el ajo, salteá 3 minutos.","Rociá con jugo de limón y romero.","Tapá 2 minutos más a fuego bajo y serví."]},
+{id:14,cat:"Almuerzos",icon:"🥗",name:"Ensalada César Keto",time:"8 min",serv:"2 personas",carbs:"3g",ing:["1 lechuga romana","150g pollo grillado","Queso parmesano en virutas","3 cdas mayonesa, 1 cdita mostaza, limón, ajo"],prep:["Cortá la lechuga y el pollo.","Mezclá la mayonesa, mostaza, limón y ajo para el aderezo.","Mezclá lechuga, pollo y aderezo.","Terminá con viruta de parmesano encima."]},
+{id:15,cat:"Almuerzos",icon:"🥗",name:"Cazuela de Carne con Verduras",time:"15 min",serv:"2-3 personas",carbs:"7g",ing:["250g carne picada o cubos","1/2 zapallito","1/2 morrón","Tomate triturado sin azúcar","Ajo, orégano, sal, aceite"],prep:["Dorá la carne en una cacerola con aceite y ajo.","Agregá el morrón y el zapallito en cubos, salteá 3 min.","Volcá el tomate triturado, condimentá con orégano y sal.","Cociná tapado 8 minutos a fuego medio.","Serví con queso rallado encima."]},
+{id:16,cat:"Almuerzos",icon:"🥗",name:"Wrap de Lechuga con Pollo y Queso",time:"8 min",serv:"1-2 personas",carbs:"3g",ing:["Hojas grandes de lechuga mantecosa","150g pollo desmenuzado","Queso cuartirolo","Palta, sal, pimentón"],prep:["Usá las hojas de lechuga como 'tortilla'.","Rellenalas con pollo, queso y palta.","Espolvoreá pimentón y sal.","Enrollá y comé como un wrap."]},
+{id:17,cat:"Almuerzos",icon:"🥗",name:"Cazuela de Pollo y Hongos",time:"15 min",serv:"3 personas",carbs:"4g",ing:["300g pollo en cubos","200g champiñones","1/2 taza crema de leche","Ajo, tomillo, sal, aceite"],prep:["Dorá el pollo en aceite con ajo.","Agregá los champiñones en láminas, salteá 4 minutos.","Incorporá la crema de leche y el tomillo.","Dejá reducir 5 minutos a fuego bajo.","Serví con perejil picado encima."]},
+{id:18,cat:"Almuerzos",icon:"🥗",name:"Ensalada Griega Keto",time:"8 min",serv:"2 personas",carbs:"6g",ing:["Lechuga romana","Pepino","Tomates cherry","Aceitunas","Queso feta","Aceite de oliva, orégano, sal"],prep:["Cortá el pepino, los tomates y la lechuga.","Armá la ensalada en un bowl grande.","Agregá las aceitunas y el queso feta desmenuzado.","Aderezá con abundante aceite de oliva y orégano."]},
+{id:19,cat:"Almuerzos",icon:"🥗",name:"Sopa de Huevo y Espinaca",time:"10 min",serv:"2 personas",carbs:"2g",ing:["2 tazas caldo de pollo o verduras","1 taza espinaca fresca","2 huevos","Ajo, sal, ciboulette"],prep:["Herví el caldo con ajo.","Agregá la espinaca y cocí 2 minutos.","Rompé los huevos y revolvelos en la sopa caliente.","Cociná 2 minutos más a fuego bajo.","Serví con ciboulette picado."]},
+{id:20,cat:"Almuerzos",icon:"🥗",name:"Tartaletas de Atún Keto",time:"10 min",serv:"2 personas",carbs:"2g",ing:["1 lata de atún","3 huevos","50g queso rallado","1/4 cebolla picada","Sal, pimentón, aceite"],prep:["Mezclá todos los ingredientes.","Vertí la mezcla en moldes de muffin engrasados.","Horneá a 180°C por 12-15 minutos.","Dejá enfriar 5 minutos antes de desmoldar."]},
+{id:21,cat:"Cenas",icon:"🍽️",name:"Milanesa de Pollo al Horno con Brócoli",time:"20 min",serv:"2 personas",carbs:"3g",ing:["2 pechugas aplanadas","100g parmesano rallado","2 huevos","1 taza brócoli","Ajo en polvo, sal, aceite"],prep:["Pasá el pollo por huevo batido y luego por parmesano.","Colocá en bandeja con aceite.","Horneá a 200°C por 15-18 minutos.","Salteá el brócoli con ajo y sal.","Serví junto."]},
+{id:22,cat:"Cenas",icon:"🍽️",name:"Hamburguesas Keto Sin Pan",time:"12 min",serv:"2 personas",carbs:"4g",ing:["300g carne picada","Ajo en polvo, sal, pimienta, orégano","Queso para fundir","Lechuga, tomate, palta para servir"],prep:["Mezclá la carne con los condimentos y formá las hamburguesas.","Cociná en sartén o parrilla 5-6 min de cada lado.","En el último minuto, poné queso encima y tapá para fundir.","Serví sobre hoja de lechuga con tomate y palta."]},
+{id:23,cat:"Cenas",icon:"🍽️",name:"Sopa Crema de Brócoli y Queso",time:"15 min",serv:"3-4 personas",carbs:"6g",ing:["2 tazas de brócoli","1 taza caldo de pollo","1/2 taza crema de leche","100g queso cremoso","Sal, ajo"],prep:["Cociná el brócoli en el caldo hasta tierno (8 min).","Procesá con mixer de mano hasta cremoso.","Agregá la crema y el queso, revolvé a fuego bajo.","Condimentá con sal y ajo.","Serví con queso rallado extra encima."]},
+{id:24,cat:"Cenas",icon:"🍽️",name:"Salmón al Horno con Manteca y Ajo",time:"15 min",serv:"2 personas",carbs:"1g",ing:["2 postas de salmón","2 cdas manteca","3 dientes de ajo picado","Jugo de limón, eneldo, sal"],prep:["Precalentá el horno a 200°C.","Poné el salmón en papel aluminio.","Colocá encima la manteca, el ajo y el limón.","Cerrá el papel y horneá 12 minutos.","Abrí y grillá 2 minutos más."]},
+{id:25,cat:"Cenas",icon:"🍽️",name:"Berenjenas Rellenas de Carne",time:"20 min",serv:"2 personas",carbs:"8g",ing:["2 berenjenas medianas","200g carne picada","Tomate triturado","Queso rallado","Ajo, orégano, sal, aceite"],prep:["Cortá las berenjenas al medio y vaciá un poco la pulpa.","Dorá la carne con ajo y la pulpa.","Agregá tomate y orégano, cocí 5 minutos.","Rellenalas y cubrilas con queso rallado.","Horneá a 190°C por 15 minutos."]},
+{id:26,cat:"Cenas",icon:"🍽️",name:"Tarta de Verduras Sin Masa",time:"20 min",serv:"4 personas",carbs:"5g",ing:["4 huevos","1/2 taza crema de leche","Espinaca, zapallito, morrón","100g queso rallado","Sal, pimienta, nuez moscada"],prep:["Precalentá el horno a 180°C.","Salteá las verduras con sal.","Batí los huevos con crema, queso y condimentos.","Agregá las verduras a la mezcla.","Horneá en molde engrasado por 20 minutos."]},
+{id:27,cat:"Cenas",icon:"🍽️",name:"Pizza Base de Coliflor",time:"25 min",serv:"2-3 personas",carbs:"9g",ing:["1 coliflor mediana (rallada)","2 huevos","100g mozzarella rallada","Tomate sin azúcar, queso, condimentos a gusto"],prep:["Rallá la coliflor y microondá 5 minutos.","Exprimí bien el agua con un repasador.","Mezclá con huevos y 50g de mozzarella.","Formá la base en placa y horneá 15 min a 200°C.","Agregá los toppings y horneá 10 minutos más."]},
+{id:28,cat:"Cenas",icon:"🍽️",name:"Pollo Relleno con Ricota y Espinaca",time:"20 min",serv:"2 personas",carbs:"3g",ing:["2 pechugas de pollo","100g ricota","1/2 taza espinaca cocida","Sal, ajo, pimentón, palillos"],prep:["Abrí las pechugas como libro.","Mezclá la ricota con espinaca, sal y ajo.","Rellenalas y cerrá con palillos.","Dorá en sartén con aceite por todos lados.","Terminá en horno 15 min a 180°C."]},
+{id:29,cat:"Cenas",icon:"🍽️",name:"Lomo de Cerdo al Romero",time:"20 min",serv:"3 personas",carbs:"0g",ing:["500g lomo de cerdo","Romero fresco","Ajo, aceite de oliva","Sal gruesa, pimienta negra"],prep:["Mariná el cerdo con ajo, romero, aceite y sal (idealmente 30 min).","Calentá sartén a fuego alto.","Sellá el lomo por todos lados.","Terminá en horno a 190°C por 15 minutos.","Dejá reposar 5 minutos antes de cortar."]},
+{id:30,cat:"Cenas",icon:"🍽️",name:"Revuelto de Chorizo Colorado y Verduras",time:"12 min",serv:"2 personas",carbs:"5g",ing:["200g chorizo colorado (sin relleno dulce)","1 zapallito","1/2 morrón","3 huevos","Ajo, aceite, sal"],prep:["Cortá el chorizo en rodajas y dorá en sartén.","Agregá zapallito y morrón en cubos.","Salteá todo junto 5 minutos.","Agregá los huevos batidos y revolvé.","Cociná hasta el punto deseado."]},
+{id:31,cat:"Snacks",icon:"🧀",name:"Chips de Queso Parmesano",time:"8 min",serv:"2 personas",carbs:"1g",ing:["100g parmesano rallado grueso","Orégano o pimentón a gusto"],prep:["Precalentá el horno a 180°C.","Poné cucharadas de parmesano en placa con papel.","Espolvoreá condimentos.","Horneá 6-8 minutos hasta dorado.","Dejá enfriar: quedan crocantes."]},
+{id:32,cat:"Snacks",icon:"🧀",name:"Dip de Palta y Lima",time:"5 min (sin cocción)",serv:"2-3 personas",carbs:"2g",ing:["2 paltas maduras","Jugo de 1 lima o limón","Ajo en polvo, sal, cilantro o perejil","Tomate cherry para acompañar"],prep:["Pisá la palta con tenedor.","Agregá el limón, el ajo y la sal.","Mezclá bien.","Serví con tiras de pepino, apio o chips de queso."]},
+{id:33,cat:"Snacks",icon:"🧀",name:"Picada Keto Familiar",time:"5 min (sin cocción)",serv:"4 personas",carbs:"2-4g según porción",ing:["Queso cuartirolo, brie o camembert","Salame o longaniza","Aceitunas","Nueces y almendras","Pepinillos"],prep:["Disponé todo en una tabla o fuente.","Acompañá con chips de queso (Receta N°31).","Sin pan, sin galletas: no hace falta.","Es el snack keto más fácil y más rico."]},
+{id:34,cat:"Snacks",icon:"🧀",name:"Huevos Rellenos con Mayonesa y Atún",time:"10 min",serv:"2 personas",carbs:"1g",ing:["4 huevos duros","2 cdas mayonesa","1/2 lata atún","Mostaza, sal, pimentón ahumado"],prep:["Cortá los huevos al medio y retirá las yemas.","Mezclá las yemas con atún, mayonesa y mostaza.","Rellenálos y espolvoreá pimentón.","Refrigerá hasta servir."]},
+{id:35,cat:"Snacks",icon:"🧀",name:"Palitos de Apio con Queso Crema",time:"3 min (sin cocción)",serv:"1-2 personas",carbs:"2g",ing:["3-4 ramas de apio","3 cdas queso crema","Sal, pimentón, hierbas"],prep:["Cortá el apio en bastones.","Condimentá el queso crema con sal y hierbas.","Untá el apio con el queso.","Comé de inmediato."]},
+{id:36,cat:"Snacks",icon:"🧀",name:"Almendras Tostadas con Romero",time:"8 min",serv:"2-3 personas",carbs:"3g por porción",ing:["1 taza almendras crudas","1 cdita aceite de oliva","Romero, sal gruesa, ajo en polvo"],prep:["Mezclá las almendras con aceite, romero y sal.","Tostálas en sartén a fuego medio 5-7 minutos.","Revolvé constantemente para no quemar.","Dejá enfriar y guardá en frasco."]},
+{id:37,cat:"Snacks",icon:"🧀",name:"Smoothie Verde Keto",time:"3 min",serv:"1 persona",carbs:"4g",ing:["1 taza espinaca fresca","1/2 palta","1/2 taza crema de coco","1 cdita jengibre rallado","Hielo"],prep:["Poné todo en la licuadora.","Procesá hasta suave.","Si está muy espeso, agregá agua fría.","Tomálo inmediatamente."]},
+{id:38,cat:"Snacks",icon:"🧀",name:"Chocolate Caliente Keto",time:"5 min",serv:"1 persona",carbs:"3g",ing:["1 taza leche de almendras","1 cda cacao puro","1 cda crema de leche","Edulcorante a gusto","Canela"],prep:["Calentá la leche de almendras sin hervir.","Disolvé el cacao en un poco de leche fría.","Mezclá todo, agregá la crema.","Endulzá y espolvoreá canela."]},
+{id:39,cat:"Bebidas",icon:"🥤",name:"Café Bulletproof",time:"5 min",serv:"1 taza",carbs:"0g — Grasas 14g",ing:["1 taza café negro recién hecho","1 cda manteca sin sal (de buena calidad)","1 cda aceite de coco o MCT oil","Edulcorante opcional"],prep:["Preparás el café como siempre.","Volcá en licuadora junto con la manteca y el aceite.","Licuá 20-30 segundos hasta espumar.","Tomálo inmediatamente. No lo revolvás con cuchara: la licuadora es clave para la espuma."]},
+{id:40,cat:"Bebidas",icon:"🥤",name:"Agua de Pepino y Limón con Electrolitos",time:"5 min",serv:"1 litro",carbs:"1g — repone electrolitos",ing:["1 litro de agua","1/2 pepino en rodajas","Jugo de 1 limón","1/4 cdita sal marina","Hojas de menta fresca, hielo"],prep:["Cortá el pepino en rodajas finas.","Mezclá el agua con el limón, la sal y la menta.","Agregá el pepino y el hielo.","Dejá reposar 10 minutos para que libere sabor.","Tomá durante el día en lugar de agua sola."]},
+{id:41,cat:"Bebidas",icon:"🥤",name:"Caldo de Huesos Keto-Flu Buster",time:"2-3 horas",serv:"4-6 tazas",carbs:"0-1g — rico en colágeno y electrolitos",ing:["Huesos de pollo, vaca o cerdo (carcasa, pata, costilla)","Apio, puerro, ajo","Laurel, pimienta en grano, sal gruesa","1 cda vinagre de manzana"],prep:["Poné los huesos en olla con agua fría y el vinagre.","Dejá reposar 30 min antes de encender el fuego.","Herví a fuego muy bajo 2-3 horas.","Colá y guardá en la heladera hasta 5 días.","Tomá una taza caliente con sal extra durante los primeros días de keto."]},
+{id:42,cat:"Bebidas",icon:"🥤",name:"Golden Milk Keto (Leche Dorada)",time:"7 min",serv:"1 taza",carbs:"2g — antiinflamatorio natural",ing:["1 taza leche de almendras sin endulzar","1 cdita cúrcuma","1/2 cdita canela","1/4 cdita jengibre en polvo","1 cda aceite de coco","Edulcorante a gusto, pimienta negra"],prep:["Calentá la leche de almendras sin hervir.","Agregá la cúrcuma, canela, jengibre y pimienta.","Revolvé bien e incorporá el aceite de coco.","Endulzá a gusto. Es antiinflamatorio y reconfortante para tomar de noche."]},
+{id:43,cat:"Salsas",icon:"🌿",name:"Mayonesa Casera Keto",time:"5 min",serv:"1 frasco (aprox 300ml)",carbs:"0g por porción",ing:["2 yemas de huevo temperatura ambiente","200ml aceite de girasol o de oliva suave","1 cdita mostaza","Jugo de 1/2 limón","Sal a gusto"],prep:["Poné las yemas con la mostaza y el limón en un bowl.","Empezá a agregar el aceite gota a gota mientras batís.","Una vez que emulsionó, agregá el aceite en hilo más continuo.","Condimentá con sal.","Guardá en la heladera hasta 5-7 días."]},
+{id:44,cat:"Salsas",icon:"🌿",name:"Aderezo Ranch Keto",time:"5 min (sin cocción)",serv:"1 frasco",carbs:"1g por porción",ing:["3 cdas mayonesa","3 cdas crema ácida o yogur griego","1 diente ajo picado fino","Eneldo seco, ciboulette, perejil","Sal, pimienta, jugo de limón"],prep:["Mezclá la mayonesa con la crema ácida.","Agregá el ajo y las hierbas.","Condimentá con sal, pimienta y limón.","Refrigerá 30 minutos antes de usar. Ideal para ensaladas, dip o sobre pollo grillado."]},
+{id:45,cat:"Salsas",icon:"🌿",name:"Chimichurri Keto",time:"10 min (sin cocción)",serv:"1 frasco",carbs:"0g por porción",ing:["1 atado perejil fresco","4 dientes de ajo","1/2 taza aceite de oliva","3 cdas vinagre de vino tinto","Orégano, pimentón, sal, pimienta roja"],prep:["Picá el perejil y el ajo muy finamente.","Mezclá con el aceite y el vinagre.","Agregá todas las especias.","Dejá reposar al menos 1 hora.","Guardá en frasco de vidrio. Dura 1 semana en heladera."]}
+];
+
+const CATS = ["Todas","Desayunos","Almuerzos","Cenas","Snacks","Bebidas","Salsas"];
+
+const CATS_POSTRES = ["Todas","Chocolatería","Helados","Tartas Frías","Express","Ocasiones","Cremas y Salsas"];
+const POSTRES = [
+{id:1,cat:"Chocolatería",icon:"🍫",name:"Tableta de Chocolate con Sal y Almendras",time:"20 min + 1 h heladera",serv:"1 tableta grande",carbs:"3g cada 30g",ing:["200g chocolate 85%","Almendras enteras tostadas","Escamas de sal marina","Ralladura de naranja (opcional)"],prep:["Temperá el chocolate (método siembra).","Volcá sobre papel metalizado formando un rectángulo.","Distribuí las almendras antes de que endurezca.","Espolvoreá las escamas de sal y la ralladura.","Refrigerá 1 hora. Rompé en trozos irregulares."]},
+{id:2,cat:"Chocolatería",icon:"🍫",name:"Rocós de Chocolate y Frutos Secos",time:"15 min + 30 min heladera",serv:"20 unidades",carbs:"2g c/u",ing:["150g chocolate 85%","1/2 taza nueces trozadas","1/4 taza almendras fileteadas","2 cdas coco rallado sin azúcar","Pizca de sal"],prep:["Derretí el chocolate (sin temperar).","Mezclá todos los frutos secos.","Incorporalos al chocolate derretido.","Formá montoncitos con cuchara sobre papel de horno.","Refrigerá 30 minutos hasta solidificar."]},
+{id:3,cat:"Chocolatería",icon:"🍫",name:"Bombones Rellenos de Crema de Maní",time:"30 min + 2 h heladera",serv:"16 bombones",carbs:"2g c/u",ing:["200g chocolate 85%","4 cdas crema de maní natural","2 cdas eritritol en polvo","1/2 cdita vainilla","Pizca de sal marina"],prep:["Temperá el chocolate. Llená los moldes hasta la mitad.","Refrigerá 10 minutos hasta semisólido.","Mezclá crema de maní con eritritol y vainilla.","Poné una cdita del relleno en cada bombón.","Cubrí con más chocolate. Nivelá.","Refrigerá 2 horas. Desmoldá con cuidado."]},
+{id:4,cat:"Chocolatería",icon:"🍫",name:"Ganache de Chocolate con Crema",time:"15 min + 1 h heladera",serv:"1 frasco",carbs:"3g por 2 cdas",ing:["150g chocolate 85%","100ml crema de leche entera","1 cda eritritol","1/2 cdita vainilla"],prep:["Calentá la crema hasta casi hervir. Retirá del fuego.","Volcála sobre el chocolate picado. Esperá 2 min.","Revolvé desde el centro hacia afuera hasta homogéneo.","Agregá eritritol y vainilla. Mezclá.","Volcá en frasco. Refrigerá 1 hora."]},
+{id:5,cat:"Chocolatería",icon:"🍫",name:"Trufas de Chocolate en Tres Sabores",time:"30 min + 2 h heladera",serv:"24-30 trufas",carbs:"2-3g c/u",ing:["200g chocolate 85%","80ml crema de leche","Opción A: esencia de naranja + ralladura","Opción B: 1 cdita café instantáneo","Opción C: esencia de menta + coco tostado"],prep:["Hacé una ganache base (crema caliente sobre chocolate).","Dividí en tres partes. Saborizá cada una.","Refrigerá 2 horas hasta firme.","Formá bolitas con cucharita de melón.","Rebozá cada sabor con su cobertura."]},
+{id:6,cat:"Chocolatería",icon:"🍫",name:"Mini Budines de Vainilla en Frascos",time:"15 min + 35 min horno",serv:"6 frascos 200ml",carbs:"4g por frasco",ing:["1 taza harina de almendras","3 huevos","1/3 taza eritritol","1/4 taza manteca","100ml crema de leche","2 cditas vainilla","1 cdita polvo de hornear"],prep:["Precalentá horno a 170°C.","Batí todos los ingredientes hasta suave.","Vertí en frascos de vidrio limpios (hasta 2/3).","Horneá abiertos 30-35 minutos.","Enfriá completamente antes de cerrar.","Decorá la tapa con un moño o etiqueta."]},
+{id:7,cat:"Chocolatería",icon:"🍫",name:"Brownies Envueltos para Regalo",time:"10 min + 22 min horno",serv:"16 brownies",carbs:"3g c/u",ing:["1 taza harina de almendras","1/2 taza cacao amargo","3 huevos","1/2 taza eritritol","100g manteca","1 cdita vainilla","1 cdita polvo de hornear"],prep:["Mezclá todos los ingredientes hasta homogéneo.","Horneá a 170°C en bandeja 18-20 min.","Enfriá. Cortá en 16 cuadrados perfectos.","Envolvé cada uno en papel metalizado dorado.","Decorá con cinta y etiqueta."]},
+{id:8,cat:"Chocolatería",icon:"🍫",name:"Mermelada Keto de Frutos Rojos",time:"15 min",serv:"1 frasco (aprox 300ml)",carbs:"3g por cda",ing:["2 tazas frambuesas o frutillas frescas","4 cdas eritritol","1 cdita jugo de limón","1 cdita gelatina sin sabor"],prep:["Calentá las frutas con eritritol y limón a fuego medio.","Pisálas con tenedor o mixer.","Hidratá la gelatina en 2 cdas de agua fría; disolvé en la mezcla caliente.","Revolvé bien y volcá en frasco esterilizado.","Refrigerá 2 horas mínimo. Dura 2 semanas en heladera."]},
+{id:9,cat:"Chocolatería",icon:"🍫",name:"Bombones Rellenos de Mascarpone y Limón",time:"30 min + 1 h heladera",serv:"16 bombones",carbs:"3g c/u",ing:["150g chocolate 85%","100g mascarpone","3 cdas eritritol en polvo","Ralladura de 1 limón","1 cdita jugo de limón"],prep:["Temperá el chocolate y pintá moldes con una capa fina. Refrigerá 5 min.","Relleno: batí mascarpone con eritritol, ralladura y jugo de limón.","Rellená los moldes sin llegar al borde.","Cubrí con más chocolate temperado.","Refrigerá 1 hora mínimo. Desmoldá con cuidado."]},
+{id:10,cat:"Chocolatería",icon:"🍫",name:"Cuchara de Chocolate para Café Caliente",time:"15 min + 30 min heladera",serv:"8 cucharas",carbs:"4g c/u",ing:["100g chocolate 85%","Eritritol a gusto","1/2 cdita vainilla o canela","8 cucharas plásticas o de madera"],prep:["Derretí el chocolate con eritritol y vainilla.","Sumergí la parte de cada cuchara en el chocolate.","Sacá el exceso agitando suavemente.","Apoyá en papel de horno y refrigerá 30 min.","Decorá con cacao en polvo. Para usar: revolvé en café caliente."]},
+{id:11,cat:"Chocolatería",icon:"🍫",name:"Mendicantes Keto (Medallones de Chocolate)",time:"20 min + 30 min heladera",serv:"12 medallones",carbs:"3g c/u",ing:["150g chocolate 85% temperado","Frutos rojos secos sin azúcar","Pistachos sin sal","Coco rallado tostado","Semillas de chía"],prep:["Temperá el chocolate.","Con una cuchara, formá círculos de 5-6cm sobre papel metalizado.","Antes de que solidifiquen, distribuí toppings encima de cada uno.","Refrigerá 30 min. Embolsálos en celofán para regalar."]},
+{id:12,cat:"Chocolatería",icon:"🍫",name:"Torta de Chocolate Sin Horno (raw keto)",time:"20 min + 4 h heladera",serv:"10 porciones",carbs:"5g por porción",ing:["Base: 1 taza nueces + 1/2 taza cacao + 3 cdas eritritol + 3 cdas aceite de coco derretido","Relleno: 2 paltas + 4 cdas cacao + 5 cdas eritritol + 1/2 taza leche de coco + 1 cdita vainilla"],prep:["Base: procesá nueces hasta harina gruesa. Incorporá cacao, eritritol y aceite. Presioná en molde forrado.","Relleno: procesá todos los ingredientes hasta cremoso.","Verificá el dulzor y ajustá.","Volcá sobre la base y alisá con espátula.","Refrigerá 4 horas mínimo. Decorá con cacao tamizado y frutos rojos. (100% raw, sin horno)"]},
+{id:13,cat:"Helados",icon:"🍦",name:"Helado de Vainilla Cremoso (Sin Máquina)",time:"20 min + 6 h freezer",serv:"8 porciones",carbs:"2g por porción",ing:["400ml crema de leche entera bien fría","4 yemas de huevo","5 cdas eritritol en polvo muy fino","2 cditas extracto de vainilla puro","Pizca de sal"],prep:["Batí la crema fría a punto chantilly firme. Reservá en heladera.","Batí las yemas con el eritritol hasta que tripliquen su volumen (5-7 min).","Agregá la vainilla y la sal a las yemas. Mezclá.","Incorporá la crema batida en 3 veces, con movimientos envolventes.","Volcá en un recipiente hermético bajo y ancho.","Freezar 6 horas, revolviendo a las 2h y 4h para romper cristales."]},
+{id:14,cat:"Helados",icon:"🍦",name:"Helado de Chocolate Intenso",time:"25 min + 6 h freezer",serv:"8 porciones",carbs:"3g por porción",ing:["400ml crema de leche bien fría","100g chocolate 85% derretido y frío","4 cdas cacao amargo","5 cdas eritritol en polvo","3 yemas","1 cdita vainilla","Pizca de sal"],prep:["Batí crema a chantilly firme. Reservá.","Batí yemas con eritritol hasta pálidas.","Incorporá el chocolate derretido (frío) a las yemas.","Agregá el cacao tamizado y la vainilla.","Integrá la crema en 3 veces con movimientos envolventes.","Freezar 6 horas, revolviendo a las 2h y 4h."]},
+{id:15,cat:"Helados",icon:"🍦",name:"Helado de Frutillas y Crema",time:"15 min + 5 h freezer",serv:"6 porciones",carbs:"3g por porción",ing:["300ml crema de leche bien fría","200g frutillas frescas o congeladas","4 cdas eritritol en polvo","1 cdita jugo de limón","1 cdita gelatina sin sabor (opcional)"],prep:["Procesá las frutillas con eritritol y limón hasta puré liso.","Colá para eliminar semillas (opcional).","Hidratá la gelatina en 1 cda de agua fría; fundí al microondas. Incorporá al puré.","Batí la crema a punto chantilly firme.","Mezclá el puré frío con la crema en movimientos envolventes.","Freezar 5 horas. Revolver a las 2h."]},
+{id:16,cat:"Helados",icon:"🍦",name:"Paletas de Coco y Lima",time:"15 min + 4 h freezer",serv:"8 paletas",carbs:"3g por paleta",ing:["400ml leche de coco entera (lata)","3 cdas eritritol","Ralladura de 1 lima grande","2 cdas jugo de lima","1 cdita extracto de coco (opcional)"],prep:["Agitá bien la lata de coco antes de abrir.","Mezclá la leche de coco con eritritol, ralladura y jugo de lima.","Probá y ajustá la acidez y el dulzor.","Volcá en moldes de paleta. Insertá los palitos. Cubrí con film.","Freezar mínimo 4 horas o toda la noche."]},
+{id:17,cat:"Helados",icon:"🍦",name:"Semifrío de Limón y Almendras",time:"30 min + 5 h freezer",serv:"10 porciones",carbs:"4g por porción",ing:["Base: 1 taza almendras procesadas + 3 cdas manteca + 2 cdas eritritol","400ml crema de leche","150g queso crema","5 cdas eritritol en polvo","Ralladura + jugo de 2 limones","1 cdita gelatina sin sabor hidratada"],prep:["Procesá almendras con manteca y eritritol. Presioná en molde desmontable. Freezar 20 min.","Batí la crema a chantilly firme. Reservá.","Batí queso crema con eritritol, ralladura y jugo de limón.","Integrá la gelatina hidratada y fundida.","Incorporá la crema batida. Volcá sobre la base.","Freezar 5 h."]},
+{id:18,cat:"Helados",icon:"🍦",name:"Helado de Café y Cardamomo",time:"20 min + 6 h freezer",serv:"6 porciones",carbs:"2g por porción",ing:["350ml crema de leche bien fría","2 cdas café instantáneo fuerte","1/2 cdita cardamomo molido","4 cdas eritritol en polvo","2 yemas","1 cdita vainilla"],prep:["Disolvé el café instantáneo en 1 cda de agua caliente. Enfriá.","Batí las yemas con eritritol hasta pálidas.","Agregá el café frío, el cardamomo y la vainilla.","Batí la crema a punto chantilly firme.","Integrá la mezcla de yemas a la crema con movimientos envolventes.","Freezar 6 horas, revolviendo a las 2h y 4h."]},
+{id:19,cat:"Helados",icon:"🍦",name:"Granizado de Pepino y Limón",time:"10 min + 3 h freezer",serv:"4 porciones",carbs:"2g por porción",ing:["2 pepinos medianos pelados","4 cdas eritritol","Jugo de 2 limones","Ralladura de 1 limón","10 hojas de menta fresca","200ml agua fría"],prep:["Licuá el pepino con el agua hasta liso. Colá bien.","Agregá el eritritol, el jugo y la ralladura de limón.","Picá la menta muy fina e incorporá.","Volcá en recipiente bajo y plano.","Freezar 3 horas, rascando con tenedor cada hora para crear cristales.","Servir inmediatamente, rascando y sirviendo en copas heladas."]},
+{id:20,cat:"Helados",icon:"🍦",name:"Helado de Mantequilla de Maní y Chocolate",time:"25 min + 6 h freezer",serv:"8 porciones",carbs:"4g por porción",ing:["350ml crema de leche bien fría","4 cdas crema de maní natural (sin azúcar)","4 cdas eritritol en polvo","2 yemas","50g chocolate 85% picado fino (para swirl)","1 cdita vainilla"],prep:["Batí yemas con eritritol y vainilla hasta pálidas.","Incorporá la crema de maní. Mezclá hasta suave.","Batí la crema a punto chantilly firme.","Integrá la mezcla de maní a la crema con movimientos envolventes.","Volcá en recipiente. Esparcí el chocolate picado encima.","Con un palillo, hacé remolinos (swirl). Freezar 6 h."]},
+{id:21,cat:"Tartas Frías",icon:"🥧",name:"Cheesecake Frío de Maracuyá",time:"25 min + 4 h heladera",serv:"10 porciones",carbs:"4g por porción",ing:["Base: 1 tz almendras molidas + 3 cdas manteca + 2 cdas eritritol","300g queso crema","200ml crema de leche","5 cdas eritritol en polvo","Pulpa de 4 maracuyás","2 cditas gelatina sin sabor"],prep:["Mezclá la base y presioná en molde desmontable. Refrigerá 1 hora.","Batí queso crema con eritritol hasta suave.","Batí la crema a chantilly firme. Reservá.","Filtrá la pulpa de maracuyá para quitar semillas.","Hidratá la gelatina; fundí; incorporá al queso crema.","Integrá la crema batida. Volcá sobre la base. Decorá con semillas. Refrigerá 4 h."]},
+{id:22,cat:"Tartas Frías",icon:"🥧",name:"Tarta Fría de Chocolate y Avellanas",time:"30 min + 3 h heladera",serv:"12 porciones",carbs:"5g por porción",ing:["Base: 3/4 tz nueces + 2 cdas cacao + 3 cdas manteca + 2 cdas eritritol","200g chocolate 85% derretido","250ml crema de leche","3 cdas eritritol","60g avellanas tostadas trozadas","1 cdita vainilla"],prep:["Procesá la base y compactá en molde. Refrigerá 1 hora.","Calentá la crema hasta casi hervir. Volcá sobre el chocolate picado. Esperá 2 min. Revolvé.","Agregá eritritol y vainilla. Mezclá hasta liso.","Incorporá 3/4 de las avellanas. Volcá sobre la base.","Decorá con el resto de avellanas. Refrigerá 3 horas mínimo."]},
+{id:23,cat:"Tartas Frías",icon:"🥧",name:"Cheesecake de Matcha y Coco",time:"25 min + 4 h heladera",serv:"10 porciones",carbs:"4g por porción",ing:["Base: 1 tz coco rallado + 3 cdas manteca + 2 cdas eritritol","300g queso crema","200ml leche de coco sólida (lata)","4 cdas eritritol en polvo","2 cditas polvo de matcha de calidad","2 cditas gelatina sin sabor"],prep:["Tostá el coco en sartén seca hasta dorado. Mezclá con manteca y eritritol. Compactá en molde. Refrigerá.","Batí queso crema con eritritol y matcha hasta sin grumos.","Incorporá la crema de coco sólida.","Hidratá la gelatina; fundí; incorporá.","Volcá sobre la base. Refrigerá 4 horas. Decorá con cacao y hojas de menta."]},
+{id:24,cat:"Tartas Frías",icon:"🥧",name:"Tarta Helada de Limón y Menta",time:"20 min + 4 h freezer",serv:"10 porciones",carbs:"4g por porción",ing:["Base: 1 tz almendras molidas + 3 cdas manteca + 2 cdas eritritol","300ml crema de leche bien fría","150g queso crema","Ralladura y jugo de 3 limones","1 puñado de menta fresca procesada fina","4 cdas eritritol en polvo","2 cditas gelatina sin sabor"],prep:["Compactá la base en molde desmontable forrado con film. Freezar 20 min.","Batí queso crema con eritritol, ralladura y jugo de limón.","Incorporá la menta procesada.","Batí la crema a chantilly firme.","Integrá la gelatina hidratada y fundida, luego la crema batida.","Volcá sobre la base. Freezar 4 horas. Desmoldar y dejar 15 min antes de servir."]},
+{id:25,cat:"Tartas Frías",icon:"🥧",name:"Tarta Fría de Dulce de Leche Keto",time:"30 min + 4 h heladera",serv:"10 porciones",carbs:"4g por porción",ing:["Base: 3/4 tz almendras + 1/4 tz nueces + 3 cdas manteca + 2 cdas eritritol","DDL keto: 200ml crema + 3 cdas eritritol oscuro + 1 cda manteca","250g queso crema + 150ml crema de leche","2 cditas gelatina sin sabor"],prep:["Hacé el dulce de leche keto: cociná la crema con eritritol y manteca a fuego bajo 20-25 min hasta caramelizar. Enfriá.","Compactá la base en molde. Refrigerá 1 hora.","Batí queso crema con 3/4 del dulce de leche keto.","Batí los 150ml de crema a chantilly. Integrá con la gelatina hidratada.","Mezclá todo con movimientos suaves. Volcá sobre la base.","Cubrí con el dulce de leche restante en hilo. Refrigerá 4 horas."]},
+{id:26,cat:"Tartas Frías",icon:"🥧",name:"Mini Tartaletas de Frutilla con Crema Pastelera Keto",time:"30 min + 1 h heladera",serv:"12 tartaletas",carbs:"4g por tartaleta",ing:["Base: 1 tz harina almendras + 2 cdas manteca + 1 cda eritritol + 1 yema","Crema pastelera: 3 yemas + 250ml crema + 3 cdas eritritol + 1 cdita vainilla + 1 cda almidón de maíz","Topping: 12 frutillas frescas cortadas"],prep:["Mezclá la base hasta arena húmeda. Presioná en moldes individuales.","Horneá las bases a 170°C por 12-14 min hasta doradas. Enfriá.","Crema: calentá la crema con eritritol hasta casi hervir.","Batí las yemas con el almidón. Volcá la crema caliente sobre las yemas en hilo. Volvé al fuego hasta espesar.","Agregá la vainilla. Enfriá cubierta con film en contacto.","Rellená con crema y decorá con frutilla. Refrigerá 1 hora."]},
+{id:27,cat:"Tartas Frías",icon:"🥧",name:"Tarta Fría de Arándanos y Lavanda",time:"25 min + 3 h heladera",serv:"10 porciones",carbs:"4g por porción",ing:["Base: 1 tz almendras + 3 cdas manteca + 1 cda eritritol","300g queso crema","200ml crema de leche","4 cdas eritritol en polvo","200g arándanos frescos o congelados","1 cdita lavanda seca comestible (opcional)","2 cditas gelatina sin sabor"],prep:["Compactá la base. Refrigerá.","Cociná los arándanos con 2 cdas eritritol hasta que exploten. Enfriá.","Batí queso crema con eritritol. Batí la crema a chantilly.","Integrá la gelatina hidratada y fundida, luego la crema.","Volcá la mitad del relleno sobre la base. Cubrí con la mitad de los arándanos.","Terminá con el resto del relleno y decorá con el compote de arándanos y flores de lavanda."]},
+{id:28,cat:"Express",icon:"⚡",name:"Mug Cake de Chocolate al Microondas",time:"5 min",serv:"1 porción",carbs:"3g",ing:["2 cdas harina de almendras","1 cda cacao amargo","1 huevo","2 cdas eritritol","1 cda manteca derretida","1/2 cdita polvo de hornear","1 cdita vainilla","Pizca de sal"],prep:["Mezclá todos los ingredientes en una taza grande apta para microondas.","Revolvé bien con tenedor hasta sin grumos.","Microondas potencia alta: 90 segundos exactos.","Revisá el centro: si sigue líquido, 20 segundos más.","Dejá reposar 1 minuto.","Servir directamente en la taza con crema batida encima."]},
+{id:29,cat:"Express",icon:"⚡",name:"Parfait de Yogur, Nueces y Cacao",time:"5 min",serv:"1 porción",carbs:"6g",ing:["150g yogur griego entero sin azúcar","1 cda cacao amargo","2 cdas eritritol","2 cdas nueces trozadas","1 cda coco rallado sin azúcar","3-4 frambuesas frescas (opcional)"],prep:["Mezclá el yogur con el eritritol hasta disolver.","En un vaso alto o copa, alterná capas: mitad del yogur.","Segunda capa: cacao, nueces y coco mezclados.","Tercera capa: el resto del yogur.","Decorá con frambuesas y cacao tamizado. Servir inmediato."]},
+{id:30,cat:"Express",icon:"⚡",name:"Mousse Exprés de Limón",time:"8 min + 30 min heladera",serv:"2 porciones",carbs:"3g por porción",ing:["200ml crema de leche bien fría","3 cdas jugo de limón fresco","Ralladura de 1 limón","3 cdas eritritol en polvo","Pizca de sal"],prep:["Asegurate de que la crema esté muy fría.","Batí la crema con el eritritol hasta que empiece a espesar.","Incorporá el jugo de limón, la ralladura y la sal sin dejar de batir.","Batí hasta punto chantilly firme (el limón coagula la crema).","Distribuí en copas. Refrigerá 30 min o servir inmediatamente."]},
+{id:31,cat:"Express",icon:"⚡",name:"Chocolate Caliente Espeso al Estilo Chocolatería",time:"6 min",serv:"1 taza grande",carbs:"4g",ing:["250ml leche de almendras sin azúcar","30g chocolate 85% picado fino","1 cda cacao amargo","2 cdas eritritol","1/2 cdita canela","1/4 cdita cardamomo (opcional)","Pizca de sal y vainilla"],prep:["Calentá la leche de almendras a fuego medio-bajo hasta casi hervir.","Agregá el chocolate picado y revolvé hasta derretir.","Incorporá el cacao, eritritol, canela y cardamomo.","Batí con batidor de mano 30 segundos: queda espumoso.","Agregá vainilla y sal. Servir caliente, decorar con canela tamizada."]},
+{id:32,cat:"Express",icon:"⚡",name:"Crema de Queso con Frutos Rojos Tibios",time:"7 min",serv:"2 porciones",carbs:"5g",ing:["150g queso crema a temperatura ambiente","2 cdas eritritol en polvo","1 cdita vainilla","1/2 taza frambuesas o frutillas frescas","1 cda eritritol extra para los frutos","1 cdita manteca"],prep:["Batí el queso crema con eritritol y vainilla hasta suave y esponjoso. Distribuí en 2 platos.","En sartén pequeña, derretí la manteca a fuego medio.","Agregá los frutos rojos y el eritritol extra. Cociná 2-3 minutos.","Volcá los frutos tibios sobre el queso crema frío.","Servir inmediatamente: el contraste caliente/frío es lo mejor de este postre."]},
+{id:33,cat:"Express",icon:"⚡",name:"Panna Cotta Exprés de Coco",time:"8 min + 2 h heladera",serv:"4 porciones",carbs:"3g por porción",ing:["400ml leche de coco entera (lata)","2 cdas eritritol","1 cdita vainilla","1.5 cditas gelatina sin sabor","2 cdas agua fría","Topping: ralladura de lima + coco tostado"],prep:["Hidratá la gelatina en el agua fría por 5 minutos.","Calentá la leche de coco con eritritol a fuego bajo hasta casi hervir (no debe hervir).","Retirá del fuego. Disolvé la gelatina hidratada revolviendo bien.","Agregá la vainilla. Mezclá.","Volcá en 4 moldes o vasos. Enfriá a temperatura ambiente 15 min.","Refrigerá 2 horas mínimo. Decorá con ralladura de lima y coco tostado al servir."]},
+{id:34,cat:"Ocasiones",icon:"🎉",name:"Tarta Mousse de Tres Chocolates",time:"45 min + 5 h heladera",serv:"14 porciones",carbs:"5g por porción",ing:["Base cacao: 1 tz almendras + 3 cdas cacao + 3 cdas manteca + 2 cdas eritritol","Mousse oscuro: 100g chocolate 85% + 150ml crema","Mousse medio: 70g chocolate 70% + 150ml crema + 1 cda eritritol","Mousse blanco keto: 150ml crema + 60g manteca de cacao + 2 cdas eritritol + vainilla","1 cda gelatina sin sabor por cada capa"],prep:["Compactá la base en molde desmontable alto. Refrigerá 1 hora.","Hacé cada mousse por separado: derretí el chocolate, enfriá, incorporá crema batida + gelatina.","Volcá el mousse oscuro sobre la base. Refrigerá 1 hora hasta firme.","Volcá el mousse de chocolate medio. Refrigerá 1 hora.","Volcá el mousse blanco keto. Refrigerá 3 horas más.","Desmoldar y servir con ralladura de chocolate oscuro encima."]},
+{id:35,cat:"Ocasiones",icon:"🎉",name:"Pavlova Keto con Crema y Frutos Rojos",time:"30 min + 1.5 h horno",serv:"8 porciones",carbs:"4g por porción",ing:["Merengue: 4 claras + 6 cdas eritritol en polvo + 1 cdita vinagre blanco + 1 cdita maicena sin TACC + 1 cdita vainilla","Relleno: 300ml crema de leche batida a chantilly + 2 cdas eritritol","Topping: frambuesas, arándanos, frutillas + menta"],prep:["Batí las claras a punto nieve firme. Incorporá el eritritol cda por cda sin dejar de batir.","Agregá vinagre, maicena y vainilla. Batí 1 min más.","Formá un disco en papel de horno de 22cm con bordes más altos.","Horneá a 130°C por 1 hora y 20 min. Apagá el horno y dejá enfriar adentro (no abras las primeras 2 horas).","Rellená con crema chantilly justo antes de servir. Decorá con los frutos rojos."]},
+{id:36,cat:"Ocasiones",icon:"🎉",name:"Coulant de Chocolate (Lava Cake) Keto",time:"15 min + 12 min horno",serv:"4 coulants",carbs:"4g por unidad",ing:["100g chocolate 85%","80g manteca","3 huevos + 2 yemas extra","5 cdas eritritol en polvo","2 cdas harina de almendras","1 cdita vainilla","Pizca de sal","Manteca extra para engrasar moldes"],prep:["Precalentá horno a 200°C. Engrasá 4 moldes de flan con manteca y cacao.","Derretí el chocolate con la manteca. Enfriá 10 min.","Batí los huevos y yemas con eritritol 5 minutos hasta pálidos y espumosos.","Integrá el chocolate derretido (frío) a los huevos.","Incorporá la harina de almendras, vainilla y sal.","Distribuí en los 4 moldes. Horneá exactamente 11-12 min. Desmoldar INMEDIATAMENTE."]},
+{id:37,cat:"Ocasiones",icon:"🎉",name:"Crêpes Keto con Crema y Frutos del Bosque",time:"25 min",serv:"8 crêpes (2 porc. x persona)",carbs:"4g por porción",ing:["Crêpes: 3 huevos + 100g queso crema + 1 cda eritritol + 1 cdita vainilla + pizca de sal","Relleno: 200ml crema de leche batida + 3 cdas eritritol + 1 cdita vainilla","Topping: 1 taza mix de frutos del bosque + 2 cdas eritritol calentados"],prep:["Procesá todos los ingredientes de los crêpes hasta mezcla lisa y sin grumos.","Dejá reposar 10 minutos.","Cociná en sartén antiadherente a fuego medio-bajo con un poco de manteca.","Hacé crêpes finísimos, manejalos con cuidado.","Rellená con la crema batida endulzada y enrollá.","Cubrí con los frutos del bosque tibios. Servir inmediatamente."]},
+{id:38,cat:"Ocasiones",icon:"🎉",name:"Torta de Cumpleaños Keto (Versión Premium)",time:"50 min + 2 h heladera",serv:"14 porciones",carbs:"5g por porción",ing:["Bizcochuelo: 2 tzs harina almendras + 4 huevos + 1/2 tz eritritol + 1/2 tz manteca + 1/2 tz crema + 2 cditas polvo hornear + 1 cdita vainilla","Almíbar keto: 1/4 tz agua + 2 cdas eritritol + 1 cdita vainilla","Crema entre capas: 300ml crema + 4 cdas eritritol + 1 cdita vainilla","Cobertura: 200ml crema + 100g chocolate 85% (ganache)","Decoración: frutos rojos frescos + flores comestibles"],prep:["Hacé 2 bizcochuelos en moldes de 22cm. Horneá a 170°C por 25-28 min. Enfriá completamente (mínimo 1 hora). Cortá cada uno al medio.","Humedecé cada capa con el almíbar keto con pincel.","Armá con crema entre cada capa. Cubrí todo con la crema exterior.","Hacé el ganache: crema caliente sobre chocolate picado. Volcá sobre la torta.","Decorá con frutos rojos y flores comestibles. Refrigerá 2 horas."]},
+{id:39,cat:"Cremas y Salsas",icon:"🍮",name:"Crema Pastelera Keto (Base Universal)",time:"15 min + 1 h heladera",serv:"300ml (6-8 postres)",carbs:"2g por porción de 2 cdas",ing:["4 yemas de huevo","250ml crema de leche entera","4 cdas eritritol en polvo","1 cda almidón de maíz sin TACC","1 cdita extracto de vainilla puro","Pizca de sal"],prep:["Calentá la crema con la mitad del eritritol hasta casi hervir. Retirá.","Batí las yemas con el eritritol restante y el almidón hasta suave.","Volcá la crema caliente sobre las yemas en hilo fino, revolviendo constantemente.","Volvé la mezcla al fuego bajo. Revolvé sin parar hasta que espese y 'burbujee'.","Agregá vainilla y sal. Retirá inmediatamente del fuego.","Cubrí con film en contacto. Refrigerá 1 hora. Dura 4 días en heladera."]},
+{id:40,cat:"Cremas y Salsas",icon:"🍮",name:"Salsa de Caramelo Keto (Sin Azúcar)",time:"20 min",serv:"200ml",carbs:"1g por cda",ing:["200ml crema de leche entera","4 cdas alulosa (o eritritol)","2 cdas manteca","1/2 cdita sal marina fina","1/2 cdita vainilla"],prep:["En sartén de fondo grueso, calentá la alulosa a fuego medio-bajo sin revolver al principio.","Cuando empiece a dorarse en los bordes, revolvé suavemente.","Cociná hasta color ámbar dorado (3-4 min), vigilá porque quema rápido.","Retirá del fuego. Agregá la crema caliente de a poco (va a burbujear mucho).","Revolvé fuerte para integrar. Volvé al fuego 2 min.","Agregá manteca, sal y vainilla. Enfriá. Guardá en frasco."]},
+{id:41,cat:"Cremas y Salsas",icon:"🍮",name:"Crema de Coco Batida con Vainilla",time:"10 min",serv:"250ml",carbs:"1g por cda grande",ing:["1 lata de leche de coco entera (400ml) refrigerada toda la noche","2 cdas eritritol en polvo","1 cdita extracto de vainilla","Pizca de sal"],prep:["Abrí la lata sin agitar (la parte sólida está arriba).","Sacá solo la parte sólida con cuchara. Descartá el líquido o usálo en smoothies.","Batí la crema sólida con el eritritol, vainilla y sal.","Batí 3-4 minutos hasta que esté esponjosa y cremosa.","Usár inmediatamente o guardar en heladera (se solidifica un poco)."]},
+{id:42,cat:"Cremas y Salsas",icon:"🍮",name:"Salsa de Frutos Rojos (Coulis Keto)",time:"10 min",serv:"200ml",carbs:"2g por 2 cdas",ing:["250g frambuesas, frutillas o mezcla (frescos o congelados)","3 cdas eritritol","1 cdita jugo de limón","1/4 cdita vainilla (opcional)","1/2 cdita gelatina sin sabor (para versión más espesa)"],prep:["Calentá los frutos rojos con el eritritol y el limón a fuego medio.","Pisálos con tenedor o mixer de inmersión hasta textura deseada.","Para versión lisa: colá a través de un tamiz fino.","Para versión espesa: agregá la gelatina hidratada en 1 cda de agua fría.","Revolvé bien. Dejá enfriar. Guardá en frasco hermético. Dura 10 días en heladera."]}
+];
+
+const CATS_PASTELERIA = ["Todas","Galettes","Brioche y Glasé","Tortas","Muffins y Cupcakes","Pan y Bollería","Hojaldre","Clásicos Franceses","Cremas"];
+const PASTELERIA = [
+{id:1,cat:"Galettes",icon:"🥧",name:"Galette Rústica de Peras y Almendras Keto",time:"25 min + 25 min horno",serv:"6-8 porciones",carbs:"5g por porción",ing:["Masa: 1.5 tzs mozzarella derretida + 3/4 tz harina de almendras + 1 huevo + sal","Relleno: zucchini + esencia de pera + canela + eritritol","Crema de almendras: 50g manteca + 50g almendras molidas + 2 cdas eritritol + 1 huevo"],prep:["Prepará la masa fathead: derretí mozzarella, incorporá harina y huevo. Refrigerá 20 min.","Salteá zucchini en rodajas con eritritol, canela y esencia de pera.","Batí manteca con almendras, eritritol y huevo para la crema.","Extendé la masa en círculo rústico. Untá la crema en el centro.","Distribuí el zucchini. Doblá los bordes sobre el relleno.","Horneá a 190°C por 22-25 min hasta dorado."]},
+{id:2,cat:"Galettes",icon:"🥧",name:"Galette de Queso de Cabra y Espinaca",time:"20 min + 20 min horno",serv:"6 porciones",carbs:"4g por porción",ing:["Masa fathead (mozzarella derretida + harina almendras + huevo)","150g queso de cabra","1 taza espinaca fresca","2 cdas aceite de oliva + ajo","Nueces trozadas para topping"],prep:["Prepará la masa fathead y extendé en círculo sobre papel de horno.","Salteá la espinaca con ajo y aceite. Enfriá.","Distribuí el queso de cabra desmenuzado en el centro.","Agregá la espinaca salteada encima.","Doblá los bordes. Esparcí nueces trozadas.","Horneá a 190°C por 18-20 min."]},
+{id:3,cat:"Brioche y Glasé",icon:"🍞",name:"Brioche Keto Básico",time:"40 min + 25 min horno",serv:"8-10 porciones",carbs:"3g por porción",ing:["2 tzs mozzarella rallada derretida","1 tz harina de almendras","2 cdas queso crema","3 huevos (2 en la masa, 1 para pintar)","2 cdas eritritol","1 cdita vainilla","1 cdita polvo de hornear"],prep:["Derretí mozzarella con queso crema en microondas (90 seg).","Incorporá harina, eritritol y polvo de hornear. Mezclá bien.","Agregá 2 huevos y vainilla. Amasá hasta homogéneo.","Dividí en 8 bolitas. Colocá en molde enmantecado.","Pintá con huevo batido. Refrigerá 15 min antes de hornear.","Horneá a 180°C por 22-25 min hasta dorado intenso."]},
+{id:4,cat:"Brioche y Glasé",icon:"🎨",name:"Glasé Real Keto Base",time:"10 min",serv:"Para 20-24 galletitas",carbs:"0g (eritritol)",ing:["2 tzs eritritol procesado hasta polvo muy fino","3 cdas claras de huevo pasteurizadas","1 cdita zumo de limón","Colorantes naturales"],prep:["Procesá el eritritol 3 minutos extra para obtener polvo ultrafino.","Batí las claras hasta espumosas (no a punto nieve).","Incorporá el eritritol en polvo poco a poco.","Agregá el limón. Batí hasta consistencia de cinta.","Dividí y colorea con colorantes naturales.","Usá dentro de las 2 horas (se endurece al aire)."]},
+{id:5,cat:"Tortas",icon:"🍰",name:"Lamington Keto (Bizcochuelo Bañado en Chocolate y Coco)",time:"20 min + 22 min horno + baño",serv:"16 cuadrados",carbs:"3g por cuadrado",ing:["Bizcochuelo: 1.5 tzs harina almendras + 3 huevos + 3 cdas eritritol + 1/4 tz manteca + 1/4 tz crema + 1 cdita vainilla + 1 cdita polvo hornear","Baño: 150g chocolate 85% derretido + 80ml crema de leche caliente + 2 cdas eritritol","1 taza coco rallado sin azúcar para rebozar"],prep:["Hacé el bizcochuelo en molde rectangular. Horneá a 170°C, 20-22 min.","Enfriá completamente. Cortá en 16 cuadrados.","Freezá los cuadrados 30 min.","Hacé el ganache mezclando el chocolate con la crema caliente y el eritritol.","Bañá cada cuadrado en el ganache con dos tenedores.","Pasálos por el coco rallado inmediatamente. Dejá secar sobre papel de horno."]},
+{id:6,cat:"Clásicos Franceses",icon:"☕",name:"Tiramisu Keto (Sin Azúcar, Sin Savoiardi)",time:"30 min + 4 h heladera",serv:"10 porciones",carbs:"4g por porción",ing:["'Savoiardi' keto: 4 huevos separados + 3 cdas eritritol + 3 cdas harina almendras + 1 cdita vainilla","Almíbar de café: café bien cargado frío + 1 cda eritritol","Crema mascarpone: 250g mascarpone + 200ml crema + 4 cdas eritritol + 3 yemas","Cacao amargo para decorar"],prep:["Bizcochuelo savoiardi keto: batí yemas con eritritol, incorporá harina. Batí claras a nieve, integrá. Horneá en bandeja 12 min a 170°C. Cortá en dedos.","Empapá los 'savoiardi' keto en el café brevemente.","Crema: batí mascarpone con yemas y eritritol. Incorporá la crema batida.","Armá en fuente: capa de bizcochuelos, capa de crema. Repetí.","Cubrí con crema final. Refrigerá 4 horas mínimo.","Tamizá cacao antes de servir."]},
+{id:7,cat:"Tortas",icon:"🍰",name:"Pistachio Latte Cake Keto",time:"30 min + 30 min horno",serv:"12 porciones",carbs:"4g por porción",ing:["Bizcochuelo: 2 tzs harina de almendras + 4 huevos + 1/2 tz eritritol + 1/3 tz manteca + 1/2 tz crema + 2 cditas polvo hornear + sal","Crema de café: 200g manteca + 4 cdas eritritol en polvo + 2 cditas café espresso concentrado","Cobertura de pistacho: 100g pasta de pistacho sin azúcar + 3 cdas eritritol + 50ml crema"],prep:["Batí los huevos con eritritol 5 min. Incorporá manteca tibia y crema.","Agregá harina de almendras y polvo hornear. Horneá en 2 moldes a 170°C por 28-30 min.","Crema de café: batí la manteca 5 min, incorporá eritritol y café concentrado.","Armá la torta: disco, crema de café, disco. Cubrí el exterior con crema.","Calentá la pasta de pistacho con crema. Volcá sobre la torta fría como drip.","Decorá con pistachos enteros tostados y refrigerá hasta servir."]},
+{id:8,cat:"Tortas",icon:"🍰",name:"Cottage Cheese Cheesecake Keto (Alto en Proteína)",time:"20 min + 1h horno + 4h heladera",serv:"10 porciones",carbs:"5g por porción",ing:["Base: 1 tz harina de almendras + 3 cdas manteca derretida + 2 cdas eritritol","Relleno: 400g queso cottage procesado + 200g queso crema + 4 huevos + 6 cdas eritritol + 1 cdita vainilla + ralladura de 1 limón","Coulis de frutilla: 200g frutillas + 2 cdas eritritol + jugo de limón"],prep:["Base: mezclá harina, manteca y eritritol. Presioná en molde desmontable. Horneá 10 min a 175°C.","Procesá el cottage cheese hasta completamente liso. Mezclá con queso crema, huevos, eritritol y vainilla.","Volcá sobre la base. Horneá a baño maría 160°C por 55-60 min (centro ligeramente tembloroso).","Apagá el horno y dejá la puerta entreabierta 30 min.","Refrigerá 4 horas mínimo.","Servir con el coulis de frutilla por encima."]},
+{id:9,cat:"Tortas",icon:"🍰",name:"Bizcochuelo Keto Maestro (Base Universal)",time:"15 min + 30 min horno",serv:"12 porciones (molde 22cm)",carbs:"3g por porción",ing:["2 tzs harina de almendras","1/4 tz harina de coco","4 huevos grandes a temp. ambiente","1/2 tz eritritol en polvo","1/3 tz manteca derretida (tibia)","1/2 tz crema de leche","2 cditas polvo de hornear","1 cdita extracto de vainilla","Pizca de sal"],prep:["Precalentá horno a 170°C. Engrasá y enhariná el molde.","Batí los huevos con el eritritol 5-6 minutos hasta pálidos y triplicados.","Incorporá la manteca tibia y la crema. Batí suave.","Agregá la vainilla y la sal.","Incorporá las harinas y el polvo de hornear tamizados con espátula, movimientos envolventes.","Horneá 28-32 minutos. Palillo limpio = listo. Desmoldar frío."]},
+{id:10,cat:"Tortas",icon:"🍰",name:"Torta Red Velvet Keto",time:"20 min + 30 min horno + armado",serv:"14 porciones",carbs:"4g por porción",ing:["2 recetas de bizcochuelo keto maestro (sin vainilla)","2 cdas cacao amargo","3 cdas remolacha en polvo (colorante natural)","1 cdita vinagre de manzana","Crema: 400g queso crema + 200ml crema + 5 cdas eritritol + 1 cdita vainilla"],prep:["Hacé el bizcochuelo reemplazando parte de la harina por cacao y remolacha.","Agregá el vinagre al final (activa el color de la remolacha).","Hacé 2 discos. Enfriá completamente.","Batí la crema de queso crema con eritritol y vainilla hasta firme.","Armá: disco, crema, disco, crema exterior.","Decorá con migajas del bizcochuelo encima (técnica clásica del red velvet)."]},
+{id:11,cat:"Tortas",icon:"🍰",name:"Torta de Zanahoria Keto con Frosting de Queso Crema",time:"20 min + 35 min horno + armado",serv:"12 porciones",carbs:"5g por porción",ing:["1.5 tzs harina de almendras","3 huevos","1/3 tz eritritol","1/3 tz aceite de coco derretido","1.5 tzs zanahoria rallada fina (exprimir exceso de agua)","1 cdita canela + 1/2 cdita jengibre + pizca nuez moscada","1.5 cditas polvo de hornear","Frosting: 300g queso crema + 4 cdas eritritol + 1 cdita vainilla + ralladura limón"],prep:["Mezclá todos los ingredientes secos. Incorporá los húmedos.","Agregá la zanahoria rallada bien seca.","Horneá en molde engrasado a 170°C, 32-35 min.","Enfriá completamente (mínimo 2 horas antes de frosting).","Batí el frosting hasta suave y esponjoso.","Cubrí la torta. Decorá con nueces trozadas encima."]},
+{id:12,cat:"Tortas",icon:"🍰",name:"Torta Naked de Vainilla y Frutos Rojos",time:"25 min + 30 min horno + armado",serv:"12 porciones",carbs:"4g por porción",ing:["Bizcochuelo keto maestro (2 discos)","Almíbar keto: 3 cdas agua + 2 cdas eritritol + 1 cdita vainilla","Crema chantilly: 400ml crema bien fría + 4 cdas eritritol en polvo + vainilla","Mix de frutos rojos frescos","Hojas de menta para decorar"],prep:["Hacé los 2 bizcochuelos. Enfriá y cortá cada uno en 2 capas (4 capas totales).","Humedecé cada capa con el almíbar keto usando pincel de cocina.","Batí la crema a punto chantilly firme.","Armá la torta: capa, crema generosa, frutos rojos, capa siguiente.","Aplicá una capa delgada y rústica de crema al exterior (naked look: se ven las capas).","Decorá la superficie con frutos rojos y menta. Refrigerá hasta servir."]},
+{id:13,cat:"Tortas",icon:"🍰",name:"Torta Selva Negra Keto",time:"30 min + 30 min horno + armado",serv:"14 porciones",carbs:"5g por porción",ing:["2 discos de bizcochuelo keto de chocolate","Almíbar de kirsch keto: 3 cdas agua + 2 cdas eritritol + 1 cdita esencia de cereza","Crema chantilly: 500ml crema bien fría + 5 cdas eritritol + vainilla","300g cerezas frescas (o descongeladas, bien secas)","Chocolate 85% para rizos: 100g"],prep:["Hacé 2 bizcochuelos de chocolate. Cortá cada uno en 2 capas.","Humedecé con el almíbar de kirsch keto.","Batí la crema a chantilly muy firme.","Armá: capa, crema, cerezas, capa siguiente. Cubrí bien el exterior.","Hacé los rizos de chocolate: con un pelador de verduras sobre el chocolate a temperatura ambiente.","Cubrí la parte superior con los rizos y cerezas enteras para decorar."]},
+{id:14,cat:"Muffins y Cupcakes",icon:"🧁",name:"Muffins de Arándanos y Ralladura de Limón",time:"10 min + 22 min horno",serv:"12 muffins",carbs:"3g por muffin",ing:["1.5 tzs harina de almendras","3 huevos","3 cdas eritritol","1/3 tz manteca derretida","1/4 tz crema de leche","1 cdita polvo de hornear","Ralladura de 2 limones","1 taza arándanos frescos o congelados","Pizca de sal"],prep:["Precalentá horno a 180°C. Colocá pirotines en la bandeja de muffins.","Mezclá los secos. Incorporá los húmedos. No sobrebatir.","Integrá los arándanos con movimientos envolventes (si congelados, no descongelar).","Distribuí en los pirotines, llenando 3/4.","Horneá 20-22 minutos hasta que el palillo salga limpio.","Enfriá 10 minutos en la bandeja antes de desmoldar."]},
+{id:15,cat:"Muffins y Cupcakes",icon:"🧁",name:"Muffins de Banana Keto (Sin Banana Real)",time:"12 min + 22 min horno",serv:"10 muffins",carbs:"3g por muffin",ing:["1.5 tzs harina de almendras","3 huevos","3 cdas eritritol","1/4 tz manteca derretida","1/4 tz crema de leche","1 cdita esencia de banana","1.5 cditas polvo de hornear","1/2 cdita canela","1/3 tz nueces trozadas"],prep:["Mezclá todos los ingredientes hasta homogéneo (no sobrebatir).","La esencia de banana recrea el aroma sin los carbos de la banana real.","Incorporá las nueces al final.","Distribuí en pirotines.","Horneá a 175°C por 20-22 minutos.","Enfriá antes de desmoldar."]},
+{id:16,cat:"Muffins y Cupcakes",icon:"🧁",name:"Muffins de Espinaca y Queso (Salados Keto)",time:"10 min + 20 min horno",serv:"10 muffins",carbs:"2g por muffin",ing:["1 tz harina de almendras","4 huevos","1/2 tz queso rallado (reggianito o cheddar)","1 tz espinaca fresca picada fina","3 cdas queso crema","1 cdita polvo de hornear","Sal, pimienta, ajo en polvo","Opcional: 50g jamón serrano picado"],prep:["Mezclá todos los ingredientes. No lleva eritritol, es una versión salada.","Ajustá sal y pimienta al gusto.","Distribuí en pirotines o molde de muffin silicona bien engrasado.","Horneá a 180°C por 18-20 minutos.","Están listos cuando el centro no se mueve al agitar.","Servir tibios. Conservar en heladera hasta 3 días."]},
+{id:17,cat:"Muffins y Cupcakes",icon:"🧁",name:"Cupcakes de Vainilla con Buttercream Keto",time:"20 min + 18 min horno + frosting",serv:"12 cupcakes",carbs:"3-4g por cupcake",ing:["Base: 1.5 tzs harina almendras + 3 huevos + 4 cdas eritritol + 1/3 tz manteca + 1/4 tz crema + 1.5 cditas polvo hornear + vainilla + sal","Buttercream keto: 200g manteca + 4 cdas eritritol en polvo muy fino + 2 cditas vainilla + 1-2 cdas crema"],prep:["Hacé la masa de cupcakes mezclando secos y húmedos por separado, luego integrando.","Distribuí en pirotines. Horneá a 175°C por 16-18 min.","Enfriá COMPLETAMENTE antes de frosting (mínimo 45 min).","Buttercream: batí la manteca 5 minutos hasta pálida y esponjosa.","Incorporá el eritritol en polvo en 3 veces. Agregá vainilla y crema.","Aplicar con manga y punta estrella."]},
+{id:18,cat:"Muffins y Cupcakes",icon:"🧁",name:"Cupcakes de Chocolate con Frosting de Ganache",time:"20 min + 18 min horno",serv:"12 cupcakes",carbs:"4g por cupcake",ing:["Base: 1.5 tzs harina almendras + 3 cdas cacao amargo + 3 huevos + 4 cdas eritritol + 1/3 tz manteca + 1/4 tz crema + 1.5 cditas polvo hornear + vainilla","Ganache frosting: 150g chocolate 85% + 120ml crema de leche + 2 cdas eritritol"],prep:["Hacé los cupcakes de chocolate. Horneá a 175°C por 16-18 min.","Enfriá completamente.","Ganache: calentá la crema hasta casi hervir. Volcá sobre el chocolate picado.","Esperá 2 min. Revolvé desde el centro. Agregá eritritol.","Refrigerá 30 min hasta consistencia de frosting.","Aplicá encima de los cupcakes con espátula o manga."]},
+{id:19,cat:"Muffins y Cupcakes",icon:"🧁",name:"Cupcakes de Matcha con Frosting de Coco",time:"20 min + 18 min horno",serv:"12 cupcakes",carbs:"3g por cupcake",ing:["Base: 1.5 tzs harina almendras + 2 cditas matcha calidad ceremonial + 3 huevos + 4 cdas eritritol + 1/3 tz manteca + 1/4 tz crema + 1.5 cditas polvo hornear + pizca sal","Frosting: 200ml crema de coco sólida (lata refrigerada) + 3 cdas eritritol en polvo + 1 cdita esencia de coco"],prep:["Mezclá el matcha con la harina de almendras.","Incorporá los húmedos. Distribuí en pirotines.","Horneá 16-18 min a 175°C.","Frosting: batí la crema de coco sólida con eritritol y esencia hasta esponjosa.","Refrigerá el frosting 15 min si quedó muy blando.","Aplicar sobre los cupcakes. Decorar con un poco de matcha tamizado."]},
+{id:20,cat:"Pan y Bollería",icon:"🍞",name:"Pan de Pascua Keto",time:"40 min + 30 min horno",serv:"10 porciones",carbs:"4g por porción",ing:["2 tzs mozzarella derretida + 2 cdas queso crema","1.5 tzs harina de almendras","2 huevos + 1 yema para pintar","3 cdas eritritol","1 cdita ralladura de naranja + limón","1 cdita vainilla","1 cdita polvo de hornear","3 cdas pasas de uva remojadas (opcional)"],prep:["Derretí mozzarella con queso crema. Incorporá harina y polvo de hornear.","Agregá huevos, eritritol, ralladura y vainilla. Amasá bien.","Incorporá las pasas (si las usás) bien secas.","Formá una trenza o rosca. Colocá en papel de horno.","Refrigerá 20 min. Pintá con yema.","Horneá a 180°C por 25-30 min hasta dorado intenso."]},
+{id:21,cat:"Pan y Bollería",icon:"🍞",name:"Rolls de Canela Keto (Cinnamon Rolls)",time:"35 min + 20 min horno",serv:"8 rolls",carbs:"4g por roll",ing:["Masa: 2 tzs mozzarella + 2 cdas queso crema + 1.5 tzs harina almendras + 1 huevo + 1 cdita polvo hornear","Relleno: 4 cdas manteca blanda + 4 cdas eritritol + 2 cditas canela","Glaseado: 3 cdas queso crema + 2 cdas eritritol en polvo + 2 cdas crema + 1 cdita vainilla"],prep:["Hacé la masa fathead. Extendé sobre papel de horno en rectángulo fino.","Untá con la manteca blanda mezclada con eritritol y canela.","Enrollá firmemente desde el lado largo. Cortá en 8 rolls.","Colocá en molde engrasado. Refrigerá 15 min.","Horneá a 185°C por 18-20 min hasta dorado.","Cubrí con el glaseado mientras están tibios."]},
+{id:22,cat:"Pan y Bollería",icon:"🍞",name:"Scones Keto de Queso y Ciboulette",time:"15 min + 18 min horno",serv:"8 scones",carbs:"3g por scone",ing:["1.5 tzs harina de almendras","1 huevo","3 cdas manteca fría cortada en cubos","1/3 tz queso rallado duro","2 cdas queso crema","1 cdita polvo de hornear","2 cdas ciboulette fresca picada","Sal, pimienta","Leche de almendras para pintar"],prep:["Procesá la harina con la manteca fría hasta textura arena.","Agregá el huevo, queso crema, queso rallado y ciboulette.","Mezclá hasta que se una la masa, no amasar de más.","Formá disco de 2cm de altura. Cortá triángulos o círculos.","Colocá en bandeja con papel. Pintá con leche de almendras.","Horneá a 190°C por 16-18 min hasta dorados."]},
+{id:23,cat:"Pan y Bollería",icon:"🍞",name:"Bagels Keto de Sésamo",time:"25 min + 20 min horno",serv:"6 bagels",carbs:"3g por bagel",ing:["2 tzs mozzarella rallada derretida","3/4 tz harina de almendras","1 huevo en la masa + 1 para pintar","1 cdita polvo de hornear","1 cdita psyllium husk (para elasticidad)","Pizca sal","Sésamo para decorar (negro y blanco)"],prep:["Derretí la mozzarella. Incorporá harina, psyllium y polvo de hornear.","Agregá el huevo. Amasá bien hasta masa homogénea.","Dividí en 6 partes. Formá rollitos y cerrá en círculo (el bagel).","Colocá en papel de horno. Pintá con huevo batido.","Espolvoreá con sésamo, presionando para que adhiera.","Horneá a 190°C por 18-20 min hasta dorado intenso."]},
+{id:24,cat:"Hojaldre",icon:"🥐",name:"Croissants Keto (Versión Avanzada)",time:"1.5 horas (incluye refrigeración)",serv:"8 croissants",carbs:"4g por croissant",ing:["Masa: 2 tzs mozzarella derretida + 1.5 tzs harina almendras + 1 huevo + 1 cdita polvo hornear + pizca sal","150g manteca bien fría en lámina de 1cm para laminar","Para pintar: 1 yema + 1 cda crema"],prep:["Hacé la masa fathead. Extendé en rectángulo sobre papel film. Refrigerá 20 min.","Colocá la lámina de manteca fría en el centro. Envolvé con la masa (pliegue 1).","Refrigerá 20 min. Pliegue 2. Refrigerá 20 min. Pliegue 3.","Refrigerá 30 min final. Extendé finamente. Cortá triángulos.","Enrollá cada triángulo desde la base al vértice, curvando ligeramente.","Pintá con yema + crema. Horneá a 200°C por 14-16 min hasta muy dorados."]},
+{id:25,cat:"Hojaldre",icon:"🥐",name:"Medialunas Keto de Jamón y Queso",time:"50 min (incl. refrigeración)",serv:"10 medialunas",carbs:"3g por medialuna",ing:["Masa: igual al croissant keto (versión simplificada, 2 pliegues)","Relleno: 100g jamón cocido + 80g queso en fetas","Para pintar: 1 huevo batido"],prep:["Hacé la masa con 2 pliegues. Refrigerá bien.","Extendé la masa en círculo grande. Cortá triángulos.","Colocá un trozo de jamón y uno de queso en la base del triángulo.","Enrollá desde la base al vértice firmemente.","Pintá con huevo. Colocá en bandeja.","Horneá a 190°C por 15-18 min hasta dorado y el queso empiece a salir."]},
+{id:26,cat:"Hojaldre",icon:"🥐",name:"Palmeras de Canela Keto",time:"45 min (incl. refrigeración)",serv:"20 palmeras",carbs:"2g por palmera",ing:["Masa fathead: 1.5 tzs mozzarella + 3/4 tz harina almendras + 1 huevo + pizca sal","Relleno: 4 cdas eritritol + 2 cditas canela + 2 cdas manteca blanda"],prep:["Hacé la masa fathead. Extendé en rectángulo fino sobre papel de horno.","Untá con la manteca blanda mezclada con eritritol y canela.","Enrollá desde los dos lados hacia el centro (forma clásica de palmera).","Refrigerá 30 min. Cortá en rodajas de 1cm.","Colocá sobre papel de horno con espacio entre ellas.","Horneá a 190°C por 12-14 min hasta caramelizadas, girando a los 8 min."]},
+{id:27,cat:"Clásicos Franceses",icon:"🇫🇷",name:"Soufflé de Chocolate Keto",time:"20 min + 12 min horno",serv:"4 soufflés individuales",carbs:"4g por soufflé",ing:["100g chocolate 85%","60g manteca","4 huevos separados","4 cdas eritritol en polvo","1 cda harina de almendras","1 cdita vainilla","Pizca de sal y crémor tártaro"],prep:["Precalentá horno a 190°C. Engrasá con manteca 4 ramequines. Espolvoreá con cacao.","Derretí chocolate con manteca. Enfriá 5 min.","Batí yemas con 2 cdas eritritol hasta pálidas. Incorporá el chocolate.","Batí las claras con sal y crémor tártaro a punto nieve. Agregá 2 cdas eritritol al final.","Incorporá las claras en 3 veces al chocolate, movimientos envolventes muy suaves.","Llenás los ramequines al 90%. Horneá exactamente 11-12 minutos. Servir INMEDIATAMENTE."]},
+{id:28,cat:"Clásicos Franceses",icon:"🇫🇷",name:"Clafoutis de Cerezas Keto",time:"10 min + 35 min horno",serv:"8 porciones",carbs:"5g por porción",ing:["3 huevos","200ml crema de leche","3 cdas eritritol","3 cdas harina de almendras","1 cdita vainilla","Ralladura de 1 limón","300g cerezas frescas (o frambuesas)","Manteca para el molde"],prep:["Precalentá horno a 180°C. Engrasá una fuente de cerámica baja.","Batí los huevos con el eritritol hasta espumosos.","Incorporá la crema, harina de almendras, vainilla y ralladura.","Distribuí las cerezas en la fuente engrasada.","Volcá la mezcla sobre las cerezas.","Horneá 32-35 min hasta que el centro esté firme y los bordes dorados."]},
+{id:29,cat:"Clásicos Franceses",icon:"🇫🇷",name:"Crumble de Manzana Verde y Canela Keto",time:"15 min + 30 min horno",serv:"8 porciones",carbs:"6g por porción",ing:["Relleno: 3 manzanas verdes peladas y en cubos + 2 cdas eritritol + 1 cdita canela + 1 cda manteca","Crumble: 1 tz harina de almendras + 1/2 tz coco rallado + 3 cdas eritritol + 3 cdas manteca fría + 1/2 cdita canela + pizca sal"],prep:["Precalentá horno a 180°C.","Salteá las manzanas con eritritol, canela y manteca 3-4 minutos hasta ligeramente tiernas.","Volcá en fuente para horno.","Mezclá los ingredientes del crumble hasta textura de arena gruesa.","Distribuí el crumble uniformemente sobre las manzanas.","Horneá 28-30 min hasta que el crumble esté dorado y crujiente. Servir tibio con crema batida."]},
+{id:30,cat:"Clásicos Franceses",icon:"🇫🇷",name:"Financiers Keto (Pastelitos de Almendra)",time:"10 min + 15 min horno",serv:"12 financiers",carbs:"2g por financier",ing:["125g manteca dorada (avellana)","3 claras de huevo","1 tz harina de almendras","4 cdas eritritol en polvo","1/2 cdita extracto de almendras (o vainilla)","Pizca de sal"],prep:["Dorá la manteca en sartén a fuego medio hasta que huela a avellana y esté color dorado oscuro (manteca noisette). Enfriá.","Batí las claras hasta espumosas (no a punto nieve).","Incorporá la harina de almendras, eritritol y sal a las claras.","Agregá la manteca noisette (fría) y el extracto de almendras.","Llená moldes de financier o muffin mini engrasados hasta 3/4.","Horneá a 200°C por 12-14 min hasta bordes dorados y centro firme."]},
+{id:31,cat:"Cremas",icon:"🍮",name:"Merengue Italiano Keto",time:"20 min",serv:"Para cubrir 1 torta grande",carbs:"0g",ing:["4 claras de huevo a temperatura ambiente","6 cdas eritritol en polvo muy fino","4 cdas agua","1/4 cdita crémor tártaro","1 cdita vainilla"],prep:["Hacé un almíbar: eritritol + agua a fuego medio hasta 115°C (punto bolita blanda).","Mientras tanto, batí las claras con el crémor tártaro a punto nieve firme.","Cuando el almíbar esté listo, volcálo en hilo fino sobre las claras sin parar de batir.","Batí a velocidad alta hasta que el bol esté frío al tacto (8-10 min).","Agregá la vainilla. Batí 1 min más.","Aplicar inmediatamente: con espátula o manga."]},
+{id:32,cat:"Cremas",icon:"🍮",name:"Crema Diplomática Keto (Pastelera + Chantilly)",time:"25 min + 1 h heladera",serv:"Para 1 torta grande o 16 tartaletas",carbs:"3g por porción de 2 cdas",ing:["Crema pastelera keto: 4 yemas + 250ml crema + 3 cdas eritritol + 1 cda almidón maíz + vainilla","Crema chantilly: 200ml crema bien fría + 2 cdas eritritol en polvo + vainilla"],prep:["Hacé la crema pastelera: calentá la crema, volcá sobre yemas batidas con eritritol y almidón.","Volvé al fuego revolviendo hasta espesar. Agregá vainilla.","Cubrí con film en contacto. Refrigerá 1 hora.","Batí la crema chantilly hasta punto firme.","Cuando la crema pastelera esté bien fría, batila para suavizar.","Incorporá la chantilly en 2-3 veces con movimientos envolventes."]},
+{id:33,cat:"Cremas",icon:"🍮",name:"Crema de Manteca Italiana (Swiss Meringue Buttercream Keto)",time:"35 min",serv:"Para cubrir 1 torta grande",carbs:"1g por 2 cdas",ing:["4 claras de huevo","6 cdas eritritol en polvo","250g manteca a temperatura ambiente (en cubos)","1 cdita extracto de vainilla","Pizca de sal"],prep:["Batí las claras con el eritritol a baño maría hasta 60°C (caliente al tacto).","Retirá y batí a velocidad alta hasta que el bol esté frío (10-12 min).","Con el merengue frío y firme, empezá a agregar la manteca cubo por cubo.","La crema puede 'cortarse' al inicio, seguí batiendo, se va a unir.","Agregá la vainilla y la sal. Batí 2 min más.","Aplicar inmediatamente o refrigerar y rebatir antes de usar."]}
+];
+
+const FLASH_SINO = [
+{item:"Palta",emoji:"🥑",yes:true,expl:"2g de carbos netos cada 100g. Tu mejor amiga keto."},
+{item:"Pan blanco",emoji:"🍞",yes:false,expl:"12g de carbos netos por rebanada. Fuera del plan."},
+{item:"Huevos",emoji:"🥚",yes:true,expl:"0g de carbos. Podés comerlos todos los días, de todas las formas."},
+{item:"Banana",emoji:"🍌",yes:false,expl:"24g de carbos en una banana mediana. Muy por arriba del límite diario."},
+{item:"Queso cremoso",emoji:"🧀",yes:true,expl:"Solo 1g de carbos cada 50g. Ideal para keto."},
+{item:"Arroz blanco",emoji:"🍚",yes:false,expl:"28g de carbos netos cada 100g cocido."},
+{item:"Aceite de oliva",emoji:"🫒",yes:true,expl:"0g de carbos. Es puro combustible keto."},
+{item:"Miel",emoji:"🍯",yes:false,expl:"17g de carbos por cucharada. Igual de restringida que el azúcar."},
+{item:"Salmón",emoji:"🐟",yes:true,expl:"0g de carbos y rico en potasio, ideal para tus electrolitos."},
+{item:"Yogur light",emoji:"🥛",yes:false,expl:"Tiene más azúcar que el entero: 17g de carbos cada 150g."},
+{item:"Chocolate 85%",emoji:"🍫",yes:true,expl:"Con moderación, es la opción keto. Evitá el chocolate con leche."},
+{item:"Papa",emoji:"🥔",yes:false,expl:"17g de carbos netos cada 100g hervida."},
+{item:"Frutos rojos",emoji:"🫐",yes:true,expl:"En pequeña cantidad son la excepción de fruta permitida en keto."},
+{item:"Cerveza",yes:false,emoji:"🍺",expl:"Alta en carbohidratos. Si tomás alcohol, mejor un destilado sin azúcar."},
+{item:"Frutos secos",emoji:"🥜",yes:true,expl:"Nueces, almendras y maní son keto, siempre con moderación."},
+{item:"Espinaca",emoji:"🥬",yes:true,expl:"Solo 1g de carbos netos cada 100g cocida. Verdura keto por excelencia."},
+{item:"Choclo",emoji:"🌽",yes:false,expl:"Muy alto en carbohidratos comparado con otras verduras. No es apto para keto."},
+{item:"Mate sin azúcar",emoji:"🧉",yes:true,expl:"0g de carbos. Es compatible con keto siempre que no le agregues azúcar."},
+{item:"Jugo de naranja",emoji:"🍊",yes:false,expl:"22g de carbos cada 200ml, aunque sea 'exprimido natural' sigue siendo azúcar líquida."},
+{item:"Coliflor",emoji:"🥦",yes:true,expl:"3g de carbos netos cada 100g. Ideal para reemplazar arroz, puré o base de pizza."}
+];
+
+
+const TIPS = [
+"La regla de oro: si creció en la tierra o tiene madre, probablemente está bien. Si viene en un paquete con más de 5 ingredientes, revisá.",
+"No necesitás contar cada gramo. Con las recetas de esta guía, ya está calculado. Solo seguí el plan y listo.",
+"Si superás la primera semana, lo más difícil ya pasó. El caldo de huesos de esta guía está diseñado exactamente para acompañarte esos 7 días.",
+"Tu plato: pollo + ensalada. Plato familiar: pollo + arroz + ensalada. Vos simplemente no ponés el arroz en tu plato. Eso es todo.",
+"No necesitás convencer a nadie. Solo mostrá resultados.",
+"Muchos alimentos que parecen 'sin azúcar' tienen carbos. Siempre leé la etiqueta.",
+"Una receta simple para la keto-sal: 1 litro de agua + 1/2 cdita sal de mesa + jugo de 1 limón. Es el suero casero keto.",
+"Regla de oro del meal prep: siempre tenés disponibles los 'tres pilares': proteína cocida, verdura lavada y grasa lista.",
+"La regla de los 3 cambios en el restaurante: sin pan, sin papas/arroz, grillado o al horno en lugar de rebozado.",
+"El juego de largo plazo no lo gana quien nunca falla. Lo gana quien sabe recuperarse rápido."
+];
+
+const ROULETTE_PRIZES = [
+// Retos
+"Preparate un Café Bulletproof (Receta N°39) 🥤",
+"Tomá tu keto-sal hoy: 1L agua + 1/2 cdita sal + limón 🧂",
+"Escribí una entrada en tu Diario Keto 📔",
+"Armá la Picada Keto Familiar este finde (Receta N°33) 🧀",
+"Caminá 15 minutos hoy 🚶‍♀️",
+"Probá una receta nueva de las 45 recetas 🍽️",
+"Tomá 2 litros de agua hoy 💧",
+"Preparate Chips de Parmesano para tu snack (Receta N°31) 🧀",
+"Revisá una etiqueta antes de comprarla: buscá azúcares ocultos 🔍",
+"Compartí el plato base común con tu familia hoy 👨‍👩‍👧",
+"Hacé tu meal prep del domingo: 90 minutos, 5 días resueltos 🥡",
+"Probá un postre keto nuevo hoy (sección Postres Keto) 🍰",
+"Cociná algo de la sección Pastelería Keto para sorprender 🥐",
+"Completá el Checklist de Hábitos Keto de hoy ✅",
+"Preparate un Caldo de Huesos Keto-Flu Buster (Receta N°41) 🍲",
+"Anotá tu peso de hoy en el Tracker de Seguimiento 📊",
+"Girá de nuevo mañana a la misma hora: creá el hábito 🔁",
+"Elegí una receta de Snacks para tu merienda de hoy 🧀",
+"Probá el Test de Perfil Keto si todavía no lo hiciste 🎯",
+"Reforzá tus electrolitos: agregá una pizca extra de sal al agua 🧂",
+// Tips
+"Tip: si tenés hambre entre comidas, probablemente te falta grasa o proteína 🥑",
+"Tip: el keto flu es temporal — con agua, sal y paciencia, pasa en 3 a 5 días ⏳",
+"Tip: leé bien las etiquetas, muchos 'sin azúcar' esconden carbohidratos 🔍",
+"Tip: no necesitás contar calorías, con las recetas de la guía ya está calculado 🧮",
+"Tip: dormir mal sube el cortisol y puede frenar tus resultados 😴",
+"Tip: el aliento con olor metálico es una señal de que estás en cetosis 👃",
+"Tip: la regla de los 3 cambios en restaurantes: sin pan, sin papas/arroz, grillado o al horno 🍽️",
+"Tip: si te estancás, revisá lácteos y edulcorantes en exceso ⚖️",
+"Tip: el estrés bloquea la cetosis — probá respiración consciente unos minutos 🧘‍♀️",
+"Tip: cociná una vez, comé varios días — el meal prep es tu mejor aliado 🥡",
+// Permitidos keto
+"Permitido keto: palta / aguacate en cualquier comida 🥑",
+"Permitido keto: huevos todos los días, de todas las formas 🥚",
+"Permitido keto: quesos variados — cremoso, parmesano, brie, mozzarella 🧀",
+"Permitido keto: carnes y aves sin límite de tipo 🍗",
+"Permitido keto: pescados y mariscos, ricos en omega 3 🐟",
+"Permitido keto: aceite de oliva, manteca y aceite de coco 🫒",
+"Permitido keto: frutos secos con moderación — nueces, almendras, maní 🥜",
+"Permitido keto: chocolate mayor a 85% cacao 🍫",
+"Permitido keto: verduras verdes — espinaca, brócoli, zucchini, rúcula 🥦",
+"Permitido keto: yerba mate y café sin azúcar ☕"
+];
+
+const FLASHCARDS = [
+{f:"Cetosis",b:"Estado metabólico donde tu cuerpo, sin glucosa disponible, empieza a quemar grasa como combustible principal."},
+{f:"Carbos Netos",b:"Carbohidratos totales menos la fibra dietaria. Es lo que realmente impacta tu cetosis. Objetivo: 20-30g por día."},
+{f:"Keto Flu (gripe keto)",b:"Cansancio, dolor de cabeza e irritabilidad en los primeros 3-5 días por la pérdida de electrolitos. Es normal y temporal."},
+{f:"Macros",b:"Grasas (70-75%), proteínas (20-25%) y carbohidratos (5% o menos) — los tres macronutrientes que definen keto."},
+{f:"Electrolitos",b:"Sodio, potasio y magnesio. Se pierden al hacer keto y hay que reponerlos con sal, caldo y alimentos ricos en ellos."},
+{f:"Meal Prep",b:"Cocinar por adelantado una o dos veces por semana para tener comida keto lista todos los días."},
+{f:"Plato Base Común",b:"Estrategia familiar: cociná un plato que todos coman, y solo cambiá o quitá el acompañamiento de carbohidratos en el tuyo."},
+{f:"Keto Lazy",b:"Versión simplificada de keto: eliminás los carbohidratos evidentes sin contar macros ni pesar ingredientes."},
+{f:"Clean Keto",b:"Versión estricta de keto que prioriza alimentos reales y minimiza productos procesados, incluso si son 'keto'."},
+{f:"Ayuno Intermitente 16:8",b:"16 horas de ayuno y 8 horas para comer. La cetosis suele facilitar el ayuno de forma natural."}
+];
+
+const ACHIEVEMENTS = [
+{id:"start",ic:"🚀",name:"Primer Paso",desc:"Entraste a la app por primera vez."},
+{id:"fav1",ic:"❤️",name:"Favorita",desc:"Marcaste tu primera receta favorita."},
+{id:"chef",ic:"👩‍🍳",name:"Chef Keto",desc:"Abriste 10 recetas distintas."},
+{id:"quiz",ic:"❓",name:"Quiz Master",desc:"Completaste el quiz keto."},
+{id:"test",ic:"🎯",name:"Autoconocimiento",desc:"Completaste el test de perfil keto."},
+{id:"wheel",ic:"🎡",name:"Ruleta Girada",desc:"Giraste la ruleta keto."},
+{id:"diario",ic:"📔",name:"Diario Iniciado",desc:"Escribiste tu primera entrada de diario."},
+{id:"check7",ic:"✅",name:"Semana 1 Superada",desc:"Completaste el checklist de hábitos."},
+{id:"flash10",ic:"🃏",name:"Estudiante Keto",desc:"Recorriste todas las flashcards."},
+{id:"timer",ic:"⏱️",name:"Cronometrista",desc:"Usaste el temporizador de cocina."},
+{id:"reader",ic:"📖",name:"Lectora Completa",desc:"Abriste todos los capítulos de la guía."},
+{id:"calc",ic:"🧮",name:"Calculadora Usada",desc:"Calculaste tus macros keto."}
+];
+
+const MODULES = [
+{id:"m1",title:"Keto Sin Misterios",icon:"🔑",html:`
+<div class="quote-box">La historia de Marcela: 37 años, dos hijos, un trabajo en administración. Llevaba cuatro años 'empezando' dietas. Buscó en Google y encontró 200 artículos contradictorios. Lo dejó antes de empezar. Hasta que alguien le explicó en tres oraciones qué era keto de verdad. Eso fue todo lo que necesitó.</div>
+<h3>¿Qué es la dieta keto?</h3>
+<p>Keto (o cetogénica) es una forma de comer donde reducís los carbohidratos al mínimo y aumentás las grasas buenas. Sin carbos, tu cuerpo no tiene glucosa para usar como combustible. Entonces empieza a quemar grasa. Eso se llama <strong>cetosis</strong>.</p>
+<p>En lenguaje simple: tu cuerpo pasa de funcionar con azúcar a funcionar con grasa propia. El resultado: bajás de peso, tenés más energía y tu cabeza está más clara.</p>
+<h3>¿Qué podés comer?</h3>
+<div class="callout star">La regla de oro: si creció en la tierra o tiene madre, probablemente está bien. Si viene en un paquete con más de 5 ingredientes, revisá.</div>
+<p><strong>✔ Sí podés comer:</strong></p>
+<ul><li>Carnes y aves (pollo, carne, cerdo, pavo)</li><li>Pescados y mariscos</li><li>Huevos (todos los días, todas las formas)</li><li>Quesos (cremoso, cuartirolo, parmesano, mozzarella, brie, camembert)</li><li>Verduras verdes (espinaca, brócoli, zucchini, lechuga, rúcula, kale)</li><li>Palta / aguacate — tu mejor amiga keto</li><li>Aceite de oliva, manteca, crema de leche, aceite de coco</li><li>Frutos secos (nueces, almendras, maní — con moderación)</li><li>Crema de maní sin azúcar · Chocolate &gt;85% cacao · Yerba mate y té sin azúcar</li></ul>
+<p><strong>✘ No podés comer:</strong></p>
+<ul><li>Pan, arroz, fideos, harinas (ni integrales)</li><li>Azúcar, miel, dulces, golosinas</li><li>Frutas (excepto frutos rojos en pequeña cantidad)</li><li>Papas, batatas, mandioca, choclo</li><li>Leche (tiene lactosa = carbohidratos)</li><li>Cerveza, vino dulce, tragos azucarados</li><li>Jugos, gaseosas, bebidas energizantes</li><li>Legumbres en exceso (lentejas, garbanzos, porotos)</li></ul>
+<h3>¿Cuántos carbos por día?</h3>
+<p>El objetivo es mantenerse entre <strong>20 y 30 gramos de carbohidratos netos por día</strong>. Los carbos netos se calculan restando la fibra del total de carbohidratos.</p>
+<div class="callout star">No necesitás contar cada gramo. Con las recetas de esta guía, ya está calculado. Solo seguí el plan y listo.</div>
+<h3>Los macros keto</h3>
+<ul><li><strong>Grasas:</strong> 70-75% de las calorías totales. Son tu combustible.</li><li><strong>Proteínas:</strong> 20-25%. Mantienen tu masa muscular.</li><li><strong>Carbohidratos:</strong> 5% o menos. Siempre netos.</li></ul>
+<p>Para una mujer de talla y actividad promedio, eso significa aproximadamente 1.600–1.800 calorías diarias con 125–140g de grasas, 80–90g de proteínas y menos de 30g de carbos netos.</p>
+<h3>Los 3 errores más comunes al empezar keto</h3>
+<p><strong>Error 1: No tomar suficiente agua y sal.</strong> Cuando empezás keto, tu cuerpo elimina agua y con ella electrolitos (sodio, potasio, magnesio). Si no los reponés, vas a sentir dolor de cabeza y cansancio.</p>
+<p><strong>Error 2: Tener miedo a la grasa.</strong> Palta, aceite de oliva, manteca, queso crema: no son el enemigo. Son lo que te va a mantener satisfecha y sin hambre.</p>
+<p><strong>Error 3: Rendirse en la primera semana.</strong> Los primeros 3-5 días son los más difíciles ('keto flu'). Es completamente normal y temporal. Quien pasa esa semana, llega a los resultados.</p>
+<div class="callout star">Si superás la primera semana, lo más difícil ya pasó. El caldo de huesos de esta guía está diseñado exactamente para acompañarte esos 7 días.</div>
+<h3>Beneficios que muchas mujeres experimentan con keto</h3>
+<ul><li>Pérdida de peso sostenida, especialmente de grasa abdominal</li><li>Menos hambre y ansiedad</li><li>Más energía y claridad mental</li><li>Menos retención de líquidos e hinchazón</li><li>Mejor calidad de sueño</li><li>Mayor estabilidad en el estado de ánimo</li><li>Menor inflamación</li><li>Mejor relación con la comida</li></ul>
+<div class="callout warn">Importante: si tenés diabetes, hipertensión o alguna condición médica, consultá con tu médico antes de empezar keto. Esta guía es informativa, no reemplaza el consejo médico profesional.</div>`},
+{id:"m5",title:"¿Estoy en Cetosis?",icon:"🔍",html:`
+<div class="quote-box">La historia de Patricia: tenía dos semanas haciendo keto 'bien'. Compró tiras de cetosis, le salió negativo. Pánico. Lo que Patricia no sabía es que su cuerpo ya le estaba dando todas las señales de que estaba funcionando.</div>
+<h3>Las señales de que estás en cetosis</h3>
+<p>No necesitás gastar en tiras ni aparatos. Tu cuerpo te lo dice:</p>
+<ul><li>Menos hambre entre comidas</li><li>Más energía y mente clara, especialmente después del mediodía</li><li>Aliento con sabor metálico o a fruta</li><li>Orina con olor más fuerte o diferente</li><li>Mejor sueño y descanso más profundo</li><li>Ropa que empieza a quedar más suelta</li></ul>
+<h3>Las señales de que algo no está funcionando</h3>
+<ul><li>Seguís con mucha hambre: probablemente estás comiendo demasiados carbos ocultos</li><li>Te sentís cansada todo el tiempo: revisá si estás tomando suficiente sal y electrolitos</li><li>No bajás nada en 2 semanas: revisá los lácteos, el maní y los edulcorantes</li></ul>
+<h3>Los carbos ocultos que arruinan la cetosis</h3>
+<div class="callout warn">Muchos alimentos que parecen 'sin azúcar' tienen carbos. Siempre leé la etiqueta.</div>
+<ul><li>Yogur 'light' o 'descremado' — tiene más azúcar que el entero</li><li>Salsas de tomate industriales — casi siempre tienen azúcar</li><li>Embutidos baratos — rellenos con almidón y azúcar</li><li>Edulcorantes en exceso</li><li>Frutas 'saludables' — banana, mango, uva tienen muchísimos carbos</li><li>Leche de almendras comercial — a veces azucarada</li><li>Jugos 'naturales' — aunque sean sin azúcar agregada, tienen fructosa</li></ul>`},
+{id:"m6",title:"Keto Afuera de Casa",icon:"✈️",html:`
+<div class="quote-box">La historia de Lorena: ejecutiva de ventas que viaja mucho por trabajo. Pensó 'esto es imposible para mi estilo de vida'. A los 15 días de practicar los pedidos en restaurantes, ya era automático.</div>
+<h3>En el restaurante</h3>
+<div class="callout star">La regla de los 3 cambios: (1) sin pan, (2) sin papas/arroz, (3) grillado o al horno en lugar de rebozado. Con eso, el 90% del menú se vuelve keto.</div>
+<ul><li><strong>Hamburguesía:</strong> sin pan, con queso, ensalada en lugar de papas.</li><li><strong>Pizzería:</strong> ensalada con mozzarella, o pizza sin masa.</li><li><strong>Japonés:</strong> sashimi (sin arroz), tataki, edamame, miso soup.</li><li><strong>Parrilla:</strong> el paraíso keto. Solo pedí ensalada en lugar del pan.</li><li><strong>Comida latinoamericana:</strong> carnes, ensaladas, palta. Evitá el arroz, los frijoles y las tortillas.</li><li><strong>Italiano:</strong> parmigiana sin rebozar, ensaladas, carnes.</li></ul>
+<h3>En reuniones y cumpleaños</h3>
+<p>Esta es la situación más complicada emocionalmente, no por los alimentos sino por la presión social.</p>
+<div class="callout star">Estrategia: comé algo antes de ir. Nunca llegues con hambre a una reunión keto-incompatible. Buscá en cualquier mesa: quesos, fiambres, carne, ensaladas, palta.</div>
+<h3>En viajes</h3>
+<p>Lo mejor de keto en viajes: los alimentos keto no necesitan heladera. Almendras, nueces, queso envasado, atún en lata, maní sin sal son tu kit de supervivencia. Para viajes largos, anticipate: buscá supermercados cerca del hotel.</p>`},
+{id:"m7",title:"Macros, Electrolitos y Suplementos",icon:"⚗️",html:`
+<h3>Electrolitos: por qué son tan importantes</h3>
+<p>Cuando hacés keto, tus riñones excretan más sodio, lo que lleva también a la pérdida de potasio y magnesio. Este desbalance es la causa del keto flu.</p>
+<ul><li><strong>Sodio:</strong> sal de mesa normal. Agregá más sal a todo, caldo con sal, caldo de huesos.</li><li><strong>Potasio:</strong> palta (muy alto en potasio), espinaca, nueces, salmón.</li><li><strong>Magnesio:</strong> almendras, espinaca, semillas de calabaza. También podés suplementar.</li></ul>
+<div class="callout star">Una receta simple para la keto-sal: 1 litro de agua + 1/2 cdita sal de mesa + jugo de 1 limón. Tomála durante el día. Es el suero casero keto.</div>
+<h3>Suplementos que pueden ayudar (opcionales)</h3>
+<ul><li>Magnesio glicinato o citrato: para calambres y sueño (300-400mg antes de dormir)</li><li>Omega 3: si no comés salmón frecuente</li><li>Vitamina D: especialmente en invierno</li><li>Creatina: si hacés ejercicio de fuerza</li><li>Colágeno: para pelo, piel y articulaciones</li></ul>
+<p>Ninguno de estos es obligatorio. Muchas mujeres hacen keto sin suplementar nada y tienen excelentes resultados.</p>
+<h3>Cómo calcular tus macros (si querés ser precisa)</h3>
+<p>Podés usar la calculadora incluida en la sección Herramientas de esta app: solo ingresá peso, altura, edad, nivel de actividad y objetivo.</p>
+<div class="callout star">Si no querés calcular nada, no hace falta. Con las recetas de esta guía y el plan de 21 días, los macros están controlados.</div>`},
+{id:"m8",title:"Keto y Salud Femenina",icon:"🌸",html:`
+<div class="quote-box">La historia de Gabriela: 44 años, tenía síndrome de ovario policístico diagnosticado desde los 30. A los tres meses de keto, sus niveles de insulina habían mejorado de forma significativa.</div>
+<h3>Por qué keto funciona especialmente bien en mujeres</h3>
+<p>El cuerpo femenino tiene una relación con la insulina diferente al masculino. Las mujeres tienden a acumular más grasa en respuesta a los picos de glucosa, especialmente en la zona abdominal.</p>
+<h3>Keto y Síndrome de Ovario Policístico (SOP)</h3>
+<p>El SOP está íntimamente relacionado con la resistencia a la insulina. Estudios clínicos muestran que reducir los carbohidratos mejora significativamente la sensibilidad a la insulina en mujeres con SOP.</p>
+<div class="callout warn">Si tenés SOP diagnosticado, keto puede ser especialmente beneficioso, pero es fundamental hacerlo bajo supervisión médica y con análisis de laboratorio periódicos.</div>
+<h3>Keto y ciclo menstrual</h3>
+<p>Las primeras 4-8 semanas, algunas mujeres notan retrasos o irregularidades. Es esperable y generalmente temporal. Lo positivo: reducción del dolor premenstrual y menos cambios de humor.</p>
+<h3>Keto y menopausia</h3>
+<p>La menopausia trae cambios hormonales que facilitan la acumulación de grasa abdominal. Keto aborda directamente este mecanismo, con resultados superiores a dietas hipocalóricas convencionales.</p>
+<h3>Keto y salud ósea</h3>
+<p>Los estudios actuales no muestran pérdida ósea significativa en keto correctamente implementado. La clave es consumir suficiente calcio y vitamina D.</p>
+<h3>Keto y embarazo / lactancia</h3>
+<p>Keto estricto no se recomienda durante el embarazo ni la lactancia sin seguimiento médico especializado. Consultá con tu obstetra antes de hacer cualquier cambio dietético.</p>
+<h3>Análisis de laboratorio recomendados antes y durante keto</h3>
+<ul><li>Glucemia en ayunas e insulina basal</li><li>Perfil lipídico completo: colesterol total, HDL, LDL, triglicéridos</li><li>TSH y T4 libre (función tiroidea)</li><li>Hemograma completo</li><li>Vitamina D</li><li>Magnesio sérico</li></ul>`},
+{id:"m9",title:"Meal Prep",icon:"🥡",html:`
+<div class="quote-box">La historia de Cecilia: médica de turnos de 12 horas. Cada domingo pasaba 90 minutos en la cocina. El resto de la semana tardaba 5 minutos en armar su plato. Dejó de pedir delivery casi por completo.</div>
+<h3>¿Qué es el meal prep y por qué cambia todo?</h3>
+<p>Meal prep es el hábito de cocinar por adelantado una o dos veces por semana. Cuando la heladera tiene opciones keto listas, la decisión correcta es la más fácil.</p>
+<h3>La sesión de meal prep del domingo: 90 minutos, 5 días de comida</h3>
+<p><strong>Bloque 1 — Proteínas (40 min):</strong> horno a 200°C con 600g pechuga de pollo y 400g carne. Cociná 8-10 huevos duros. Abrí 2 latas de atún y preparalas con palta.</p>
+<p><strong>Bloque 2 — Verduras (25 min):</strong> salteá espinaca con ajo (dura 4 días). Cortá brócoli en floretes crudo en frasco. Lavá y secá lechuga.</p>
+<p><strong>Bloque 3 — Extras (25 min):</strong> hacé una tanda de chips de parmesano (Receta N°31, dura una semana). Preparás el aderezo de la semana.</p>
+<div class="callout star">Regla de oro del meal prep: siempre tenés disponibles los 'tres pilares': proteína cocida, verdura lavada/cortada y grasa lista (palta, aderezo, queso). Con eso, armás cualquier comida en 5 minutos.</div>
+<h3>Cómo organizar la heladera para el éxito keto</h3>
+<ul><li>Estante a la vista: quesos en porciones, huevos duros, paltas, yogur griego</li><li>Estante del medio: pollo cocido, carne, bowl de atún, ensalada lista</li><li>Cajón de verduras: lechuga lavada, verduras cortadas</li><li>Puerta: manteca, aderezos caseros, mostaza, aceitunas</li><li>Freezer: porciones extra de proteína para emergencias</li></ul>
+<h3>5 combos de plato rápidos con meal prep hecho</h3>
+<ul><li>Pollo del domingo + espinaca salteada + palta en rodajas</li><li>Huevo duro + bowl de atún + lechuga</li><li>Carne recalentada + brócoli salteado + chips de parmesano</li><li>Yogur griego + nueces + 2 huevos duros</li><li>Wrap de lechuga con pollo desmenuzado + queso + aderezo ranch</li></ul>
+<h3>Batch cooking: organizá una vez y resolvé toda la semana</h3>
+<p>Se pueden congelar: carne picada cocida, pollo desmenuzado, sopa de brócoli, tarta de verduras sin masa, hamburguesas crudas ya formadas. NO congela bien: palta, ensaladas armadas, queso crema, huevos duros.</p>`},
+{id:"m10",title:"Preguntas Frecuentes",icon:"❔",html:`<div id="faqContainer"></div>`},
+{id:"apA",title:"Apéndice A — Tablas de Referencia Rápida",icon:"📊",html:`
+<h3>Tabla de carbohidratos de alimentos comunes (carbos netos)</h3>
+<ul><li>Palta 100g: 2g · Espinaca cocida 100g: 1g · Brócoli 100g: 4g · Zucchini 100g: 2g</li><li>Tomate cherry 100g: 4g · Pepino 100g: 2g · Lechuga 100g: 1g · Morrón rojo 100g: 5g</li><li>Coliflor 100g: 3g · Espárragos 100g: 2g · Champiñones 100g: 2g</li><li>Queso cremoso 50g: 1g · Mozzarella 50g: 1g · Parmesano 30g: 1g</li><li>Huevos 1 unidad: 0g · Pollo sin piel 100g: 0g · Carne picada 100g: 0g · Salmón 100g: 0g · Atún en lata: 0g</li><li>Crema de leche 100ml: 3g · Yogur griego entero 150g: 7g</li><li>Nueces 30g: 2g · Almendras 30g: 3g · Chocolate 85% 30g: 5g</li><li>Aceite de oliva 1 cda: 0g · Manteca 1 cda: 0g · Frutos rojos 50g: 4g</li></ul>
+<h3>Alimentos a evitar: tienen más carbos de lo que parece</h3>
+<ul><li>Pan blanco 1 rebanada: 12g · Arroz blanco cocido 100g: 28g · Fideos cocidos 100g: 25g</li><li>Papa hervida 100g: 17g · Banana 1 mediana: 24g · Naranja 1 mediana: 15g · Manzana 1 mediana: 21g</li><li>Leche entera 200ml: 10g · Yogur light 150g: 17g · Granola 50g: 30g</li><li>Poroto/garbanzos 100g: 20g · Jugo de naranja 200ml: 22g · Miel 1 cda: 17g · Ketchup 2 cdas: 10g</li></ul>
+<h3>Guía de etiquetas: cómo leer un producto</h3>
+<ul><li>Carbohidratos totales por porción: el dato clave</li><li>Fibra dietaria: restá esta cantidad del total</li><li>Azúcares: siempre son parte del total de carbohidratos</li><li>Ingredientes: si aparece azúcar, jarabe de maíz o glucosa en los primeros 3, evitá el producto</li></ul>
+<div class="callout star">Fórmula: Carbos netos = Carbohidratos totales − Fibra dietaria. Si el resultado es mayor a 5g por porción, pensá bien si vale la pena incluirlo en tu día.</div>
+<h3>Guía de Troubleshooting: Síntomas y Soluciones</h3>
+<ul>
+<li><strong>Dolor de cabeza (días 2-5):</strong> deficiencia de sodio → agregá más sal, tomá caldo con sal.</li>
+<li><strong>Calambres nocturnos:</strong> deficiencia de magnesio → suplementá 300mg antes de dormir.</li>
+<li><strong>Mucha hambre entre comidas:</strong> poca grasa o proteína → agregá más palta, queso o aceite de oliva.</li>
+<li><strong>Mareos al levantarse:</strong> hipotensión por bajo sodio → tomá agua con sal, levantate despacio.</li>
+<li><strong>Estreñimiento (semana 1-2):</strong> poca fibra o hidratación → agregá espinaca, chía, lino, 2.5L de agua.</li>
+<li><strong>No bajás peso en 2+ semanas:</strong> carbos ocultos o exceso de lácteos → revisá etiquetas.</li>
+<li><strong>Aliento con olor fuerte:</strong> cetosis activa (acetona) → es señal positiva, mejora con más agua.</li>
+<li><strong>Piel seca o cabello con menos volumen:</strong> cambios hormonales en adaptación → asegurá grasa y vitaminas.</li>
+<li><strong>Sueño agitado o insomnio:</strong> cortisol elevado o falta de magnesio → magnesio al acostarse, evitá café después de las 2pm.</li>
+<li><strong>Irritabilidad o mal humor:</strong> keto flu + bajo glucosa → normal y temporal.</li>
+<li><strong>Mucha sed:</strong> el riñón excreta más agua en keto → tomá agua con electrolitos.</li>
+<li><strong>Palpitaciones:</strong> deficiencia de potasio o magnesio → agregá palta, espinaca; consultá médico si persiste.</li>
+</ul>`},
+{id:"apB",title:"Apéndice B — Keto y Emociones",icon:"💗",html:`
+<h3>Por qué el aspecto emocional importa tanto como la comida</h3>
+<p>Hacer keto no es solo cambiar lo que comés. Es cambiar tu relación con la comida. Y eso involucra emociones, hábitos de toda la vida, presiones sociales y momentos de debilidad que no tienen nada que ver con el hambre física.</p>
+<h3>El ciclo emocional típico del primer mes</h3>
+<ul><li><strong>Días 1-3:</strong> Entusiasmo. Todo parece fácil y posible.</li><li><strong>Días 4-7:</strong> La crisis. El keto flu. El cuerpo protesta.</li><li><strong>Semana 2:</strong> Alivio. El cuerpo se adaptó. Los resultados aparecen.</li><li><strong>Semana 2-3:</strong> Tentación social. El primer 'tropiezo' real o imaginado.</li><li><strong>Semana 3-4:</strong> Resolución. Ya es hábito. Ya sabés qué comer sin esfuerzo.</li></ul>
+<div class="callout star">Saber de antemano que el día 5 va a ser difícil es la mitad de la batalla. Cuando llegue, ya sabés que es temporal y que del otro lado está la recompensa.</div>
+<h3>La comida emocional y keto</h3>
+<p>Muchas de nosotras usamos la comida para manejar emociones: el estrés, la soledad, el aburrimiento, la ansiedad. Al eliminar el azúcar, también eliminás los picos de dopamina que genera. El proceso requiere identificar qué emoción estás queriendo tapar con comida y buscar otra salida: una caminata, llamar a una amiga, escribir, tomar un mate.</p>
+<h3>Cómo hablar con vos misma cuando fallás</h3>
+<p><strong>Lo que no funciona:</strong> 'ya lo arruiné todo', 'no tengo fuerza de voluntad', 'keto no es para mí'.</p>
+<p><strong>Lo que sí funciona:</strong> 'comí algo fuera, la próxima comida es keto', 'perder cetosis por un día no es perder el mes', 'el siguiente desayuno es mi nuevo punto de partida'.</p>
+<div class="callout star">El juego de largo plazo no lo gana quien nunca falla. Lo gana quien sabe recuperarse rápido.</div>
+<h3>Keto y autoestima</h3>
+<p>Algo ocurre que muchas mujeres no anticipan: cuando te sentís bien físicamente, cambia algo también en cómo te ves a vos misma. No es solo el peso. Es sentirte capaz de sostener un compromiso con vos misma.</p>`},
+{id:"apC",title:"Apéndice C — Keto en Fechas Especiales",icon:"🎉",html:`
+<h3>El problema de las fiestas con keto</h3>
+<p>Navidad, Semana Santa, cumpleaños, asados familiares: la comida es el centro de los festejos y la mayoría de esos alimentos están cargados de carbohidratos. La buena noticia: podés disfrutar las fiestas sin salirte de keto.</p>
+<h3>Menú de Navidad o Fin de Año Keto</h3>
+<p><strong>Entrada:</strong> tabla de fiambres y quesos, pickles y aceitunas, camarones o langostinos a la plancha con manteca y ajo.</p>
+<p><strong>Plato principal:</strong> lomo de cerdo al horno con romero y ajo, pollo al horno relleno con ricota y espárragos, cordero a la parrilla, ensalada verde con nueces y queso azul, gratin de coliflor con crema.</p>
+<p><strong>Postre:</strong> Mousse de chocolate 85%, Cheesecake keto con frutos rojos, Pannacotta de vainilla.</p>
+<div class="callout star">En las fiestas, hay muchas cosas que ya son keto: las carnes, los quesos, los fiambres, las ensaladas. Enfocate en eso y evitá el pan, las pastas, el arroz y los postres con azúcar.</div>
+<h3>Menú de Asado Keto</h3>
+<p>El asado argentino es naturalmente keto. Chorizo, morcilla, chinchulines, riñones: todos keto. Vacío, asado de tira, costeleta, entrecot: keto puro. Ensalada mixta con aceite de oliva en lugar de papas fritas. Provoleta: keto y deliciosa. Lo único a evitar: el pan para el chorizo, la papa al horno y las empanadas.</p>
+<h3>Torta de cumpleaños keto</h3>
+<p><strong>Base:</strong> mezclá 100g harina de almendras + 1 huevo + 2 cdas manteca + edulcorante. Horneá 15 min.</p>
+<p><strong>Relleno:</strong> 300g queso crema + edulcorante + ralladura de limón. Distribuí sobre la base fría.</p>
+<p><strong>Cobertura:</strong> frutos rojos frescos. Refrigerá 2 horas y serví.</p>`},
+{id:"apD",title:"Apéndice D — Keto Avanzado",icon:"🧭",html:`
+<h3>Keto lazy (keto perezoso)</h3>
+<p>Para quienes no quieren medir ni calcular macros: simplemente eliminás los carbohidratos evidentes (pan, arroz, azúcar, harinas, frutas dulces) y comés hasta saciarte con alimentos permitidos.</p>
+<h3>Keto limpio (clean keto)</h3>
+<p>Una versión más estricta que prioriza alimentos enteros y minimiza productos procesados, incluso si son "keto". Sin barras de proteína, galletas keto industriales ni proteínas en polvo con edulcorantes artificiales.</p>
+<h3>Keto mediterráneo</h3>
+<p>Una fusión entre keto y la dieta mediterránea: aceite de oliva extra virgen como grasa principal, pescados y mariscos frecuentes, abundancia de verduras y hierbas frescas, quesos curados y frutos secos con moderación. Suele ser la opción más amigable para mujeres que buscan keto saludable.</p>
+<h3>Keto carnívoro</h3>
+<p>Solo carne, pescado, huevos y algunas grasas animales. Sin verduras. Es la versión más restrictiva y no es adecuada para todas; no es sostenible a largo plazo sin supervisión médica.</p>
+<h3>Ayuno intermitente + keto</h3>
+<p>Combinación popular, especialmente el 16:8. La cetosis facilita el ayuno: muchas mujeres no sienten hambre por la mañana después de 2-3 semanas de keto.</p>
+<div class="callout warn">Precaución: no todas toleran el ayuno intermitente, especialmente quienes tienen hipoglucemia, trastornos alimentarios o condiciones hormonales. Consultá siempre con un profesional antes de implementarlo.</div>
+<h3>Cómo salir de un estancamiento</h3>
+<ul><li>Revisar los lácteos: queso crema y yogur son fuentes ocultas de carbohidratos</li><li>Eliminar edulcorantes: algunos disparan insulina similar al azúcar</li><li>Moverte más: una caminata adicional puede ayudar</li><li>Ayuno de 24h: solo agua, caldo, mate o café</li><li>Revisar la proteína: comer muy poco puede frenar el metabolismo</li><li>Dormir suficiente: la falta de sueño eleva el cortisol</li></ul>
+<h3>Keto y hormonas femeninas</h3>
+<ul><li><strong>Insulina:</strong> reducir carbohidratos la baja, beneficioso para mujeres con SOP</li><li><strong>Estrógeno:</strong> pueden presentarse cambios temporales en el ciclo menstrual</li><li><strong>Cortisol:</strong> el estrés elevado bloquea la cetosis</li><li><strong>Hormona tiroidea:</strong> si hay hipotiroidismo, keto puede requerir ajustes y seguimiento</li></ul>`}
+];
+
+const FAQ = [
+["¿Cuánto peso voy a bajar?","La primera semana muchas personas notan una baja de peso (en algunos casos entre 2–4 kg), principalmente por pérdida de líquidos y glucógeno. A partir de ahí, la pérdida de grasa suele ser más gradual. Cada persona es diferente."],
+["¿Puedo tomar alcohol?","El alcohol puede interrumpir la cetosis de forma temporal. Si elegís consumir, opciones con menor impacto: vino tinto seco (poca cantidad) o whisky, vodka, gin sin agregados azucarados. Cerveza, vino dulce y tragos azucarados: NO."],
+["¿Y si tengo antojo de algo dulce?","Muchas personas notan que los antojos disminuyen con el tiempo. Mientras tanto, podés optar por chocolate 85%, postres de esta guía o frutos rojos con crema."],
+["¿Puedo hacer keto si estoy amamantando?","Durante la lactancia es importante priorizar una alimentación suficiente y equilibrada. Enfocate en reducir azúcares y ultraprocesados. Siempre consultá con tu médico antes de modificar tu alimentación en esta etapa."],
+["¿Qué pasa si 'hago trampa' un día?","No pasa nada grave. Salís de cetosis por 1-2 días y volvés. No empieces de cero: tomá el siguiente desayuno keto y seguí adelante."],
+["¿Keto es apto para vegetarianas?","Puede adaptarse, aunque requiere más planificación: huevos, quesos, tofu, tempeh, frutos secos y semillas."],
+["¿Keto es apto para celíacos?","Sí. La alimentación keto se basa en alimentos naturales naturalmente libres de gluten. Prestá atención a productos procesados como embutidos o salsas."],
+["¿Keto es apto para intolerancias?","Sí, es bastante flexible. Si hay intolerancia a la lactosa, podés priorizar carnes, huevos, verduras, palta, aceite de oliva y frutos secos."],
+["¿Por cuánto tiempo tengo que hacer keto?","Tantas semanas como quieras. Algunas mujeres hacen keto estricto 3 meses y luego mantienen bajo en carbohidratos. No hay un plazo obligatorio."],
+["¿Puedo tomar café?","Sí, el café puro es keto. Con crema de leche también. El café Bulletproof es popular para las mañanas."],
+["¿El estreñimiento es normal al empezar?","Puede ocurrir al inicio. Incorporar verduras, semillas y buena hidratación suele ayudar. Si persiste, consultá a un profesional."],
+["¿Keto afecta la tiroides?","Para mujeres con hipotiroidismo, keto puede requerir ajustes. Es fundamental hacer seguimiento médico si tenés condiciones tiroideas."],
+["¿Puedo tomar mate?","Sí, el mate sin azúcar es compatible con keto. Con crema de leche o leche de almendras también está bien."],
+["¿Qué hago si me queda bien pero mi familia se queja?","La estrategia del plato base común (Módulo 4) resuelve el 90% de los conflictos. La familia generalmente cambia de opinión cuando ve los resultados."],
+["¿Puedo comer afuera todos los días?","Es posible encontrar opciones compatibles en muchos lugares, eligiendo preparaciones simples y evitando acompañamientos con carbohidratos."],
+["¿Keto sirve para el síndrome premenstrual?","Algunas mujeres reportan mejoras en hinchazón o antojos, aunque la experiencia puede variar."],
+["¿Necesito contar calorías en keto?","No necesariamente. Al priorizar alimentos saciantes, muchas personas comen de forma más intuitiva sin necesidad de contar calorías."],
+["¿Es normal sentirse cansada al principio?","Sí, algunas personas experimentan cansancio o baja energía en los primeros días ('gripe keto'). Suele mejorar con buena hidratación y electrolitos."],
+["¿Keto es caro?","No necesariamente. Podés adaptarlo a tu presupuesto con huevos, carne, pollo, verduras de estación y grasas básicas."],
+["¿Necesito hacer ejercicio para ver resultados?","No es obligatorio. Muchas personas ven cambios solo con la alimentación, aunque moverse puede potenciar los resultados."],
+["¿Voy a pasar hambre?","En general, no. Al incluir grasas y proteínas, muchas personas sienten mayor saciedad."],
+["¿Es difícil de mantener en el tiempo?","Al principio puede requerir adaptación, pero con el tiempo se vuelve más natural. La clave está en simplificar las comidas."],
+["¿Qué hago si me estanco?","Los estancamientos son parte del proceso. Revisar hábitos, porciones, nivel de estrés y descanso puede ayudar."],
+["¿Puedo hacer keto siendo vegetariana estricta o vegana?","Es más difícil pero posible con huevos, quesos (si no sos vegana), tofu, tempeh, frutos secos y semillas. Requiere planificación extra para cubrir proteínas."],
+["¿Los suplementos son obligatorios?","No. El magnesio, omega 3 o electrolitos son opcionales y ayudan en casos puntuales, pero muchas mujeres hacen keto sin suplementar nada."],
+["¿Puedo combinar keto con ayuno intermitente?","Sí, es una combinación popular (16:8). La cetosis suele facilitar el ayuno, pero no es apta para todas: consultá con un profesional si tenés hipoglucemia o trastornos alimentarios."],
+["¿Qué pasa si tengo antojos muy fuertes de dulce al principio?","Es normal los primeros días: tu cerebro está acostumbrado a los picos de dopamina del azúcar. Con el tiempo el antojo baja. Mientras tanto, un cuadradito de chocolate 85% puede ayudar."],
+["¿Puedo tomar bebidas alcohólicas sin salir de cetosis?","El alcohol interrumpe la cetosis temporalmente porque el hígado lo prioriza. Si elegís tomar, las opciones con menor impacto son los destilados sin azúcar agregada."],
+["¿Cómo sé si una salsa o aderezo comprado es keto?","Revisá que no tenga azúcar, jarabe de maíz o almidón entre los primeros ingredientes. Ante la duda, las versiones caseras de esta guía son la opción más segura."],
+["¿Los chicos pueden comer las recetas de esta guía?","Sí, la mayoría son alimentos reales (carnes, huevos, verduras, quesos) aptos para toda la familia. Solo los chicos en crecimiento deberían sumar carbohidratos extra como arroz, pan o papa."],
+["¿Qué debo hacer si tengo mucha sed en los primeros días?","Es normal: el riñón excreta más agua en keto. Tomá agua con electrolitos (sal, limón) en lugar de solo agua pura."],
+["¿Puedo seguir esta guía si tengo el colesterol alto?","En keto, los triglicéridos suelen mejorar y el HDL tiende a subir, pero el LDL puede variar según la persona. Es importante hacerte análisis periódicos y consultar con tu médico."],
+["¿Cuánta agua tengo que tomar por día en keto?","No hay una cifra única, pero como referencia esta guía recomienda unos 2.5 litros diarios, sumando electrolitos, especialmente en la primera semana."],
+["¿Puedo usar edulcorantes artificiales sin problema?","Con moderación sí, pero en exceso algunos edulcorantes pueden disparar una respuesta de insulina similar al azúcar y frenar tu progreso. Si te estancás, es uno de los primeros puntos a revisar."]
+];
+
+const FAMILIA_HTML = `
+<div class="quote-box">La historia de Sandra: 39 años, tres hijos. Su marido le dijo que él no iba a 'comer raro'. Al tercer día, casi lo dejaba. Hasta que empezó a servir lo mismo para todos, solo cambiando el acompañamiento. La milanesa keto de parmesano se convirtió en la favorita del nene de 6 años.</div>
+<h3>El problema real: no tenés que hacer dos cenas</h3>
+<p>El error más común es pensar que keto es una comida separada y especial. No lo es. Las proteínas y las verduras son la base de casi cualquier comida familiar.</p>
+<h3>La estrategia del 'plato base común'</h3>
+<p>Cociná un plato base que todos pueden comer. El complemento es lo que cambia.</p>
+<div class="callout star">Tu plato: pollo + ensalada. Plato familiar: pollo + arroz + ensalada. Vos simplemente no ponés el arroz en tu plato. Eso es todo.</div>
+<h3>10 platos que toda la familia acepta</h3>
+<ul>
+<li>Milanesas de pollo empanadas en parmesano</li>
+<li>Hamburguesas caseras (vos sin pan, ellos con pan)</li>
+<li>Asado o carne a la plancha (siempre fue keto)</li>
+<li>Pollo al horno con especias</li>
+<li>Cazuela de carne (vos sin papa, todos los demás con)</li>
+<li>Huevos revueltos con jamón y queso</li>
+<li>Tarta de verduras sin masa</li>
+<li>Picada de quesos y fiambres</li>
+<li>Salmón al horno</li>
+<li>Pizza con base de coliflor o queso</li>
+</ul>
+<h3>Cómo manejar los comentarios de la familia</h3>
+<p>'¿Por qué no comés pan?' / '¿Otra vez ensalada?' — la respuesta más simple: <em>"Estoy comiendo lo que me hace bien."</em> Sin debate, sin explicaciones largas, sin pedir permiso.</p>
+<div class="callout star">No necesitás convencer a nadie. Solo mostrá resultados. Cuando empiecen a notarte diferente, van a preguntar solos.</div>
+<h3>Keto y chicos: ¿pueden comer lo mismo?</h3>
+<p>Los chicos en crecimiento necesitan carbohidratos, por lo que no deben seguir una alimentación keto estricta. Pero eso no significa duplicar comidas: preparás un mismo plato base y adaptás los acompañamientos.</p>
+<ul><li>Preparás pollo con verduras → ellos suman arroz o papas</li><li>Hacés carne con ensalada → ellos agregan pasta o pan</li><li>Cociná huevos con queso → ellos pueden acompañar con tostadas</li></ul>
+<p><strong>Idea clave:</strong> podés cuidar tu alimentación sin dejar de lado a tu familia. La clave no es cocinar más, sino organizarte mejor.</p>`;
+
+const PLAN21 = {
+"Semana 1 — Adaptación":[
+["Lunes","Huevos revueltos con manteca y queso (Receta N°1)","Ensalada de pollo grillado con palta (Receta N°5)","Milanesa de pollo al horno con brócoli (Receta N°21)","Yogur griego entero con nueces"],
+["Martes","Omelette de espinaca y queso cremoso (Receta N°2)","Cazuela de carne con verduras (Receta N°12)","Salmón a la plancha con ensalada verde (Receta N°24)","Puñado de almendras y 2 cuadritos de chocolate 85%"],
+["Miércoles","Pancakes de queso crema (Receta N°3)","Bowl de atún con palta y tomate cherry (Receta N°15)","Hamburguesas keto sin pan con ensalada (Receta N°22)","Queso cuartirolo con aceitunas"],
+["Jueves","Huevos duros con palta y sal","Pollo al limón con espárragos (Receta N°13)","Tarta de verduras sin masa (Receta N°26)","Smoothie de crema de coco y espinaca (Receta N°37)"],
+["Viernes","Yogur griego entero con semillas de chía y frutos rojos","Wrap de lechuga con pollo y queso (Receta N°16)","Revuelto de huevos con chorizo colorado y verduras","Nueces y almendras"],
+["Sábado","Waffles keto con crema y frutos rojos (Receta N°4)","Costillas de cerdo al horno con coliflor","Picada keto familiar (Receta N°33)","Mousse de chocolate 85% (Receta N°42)"],
+["Domingo","Huevos benedictinos keto","Asado con ensalada verde y palta","Sopa crema de brócoli y queso (Receta N°23)","Bombones de crema de maní (Receta N°41)"]
+],
+"Semana 2 — Adaptación completa":[
+["Lunes","Tortilla española keto (Receta N°6)","Ensalada césar keto (Receta N°14)","Pollo relleno con ricota y espinaca (Receta N°28)","Chips de queso parmesano (Receta N°31)"],
+["Martes","Batido de proteínas keto con crema y cacao (Receta N°9)","Cazuela de pollo y hongos (Receta N°17)","Berenjenas rellenas de carne (Receta N°29)","Queso crema con pepino y pimentón"],
+["Miércoles","Huevos revueltos con salmón ahumado (Receta N°7)","Ensalada griega keto (Receta N°18)","Lomo de cerdo al romero con coliflor (Receta N°30)","Nueces con chocolate 85%"],
+["Jueves a Domingo","Repetí las recetas de la semana 1 que más te gustaron o elegí cualquiera del Módulo 3. El objetivo de la semana 2 es consolidar el hábito, no introducir mucha variedad.","","",""]
+],
+"Semana 3 — Tu nueva forma de comer":[
+["Toda la semana","La semana 3 se construye con las recetas que más disfrutaste en las semanas 1 y 2. No hay plan fijo: ya sabés moverte.","El objetivo ya no es 'hacer dieta'. Es vivir de esta manera.","",""]
+]
+};
+
+const QUIZ = [
+{q:"¿Cuántos gramos de carbohidratos netos por día es el objetivo en keto?",opts:["20-30g","50-80g","100-150g","Sin límite"],correct:0},
+{q:"¿Qué porcentaje de las calorías diarias deberían venir de grasas en keto?",opts:["10-20%","30-40%","70-75%","90%"],correct:2},
+{q:"¿Cómo se llama el conjunto de síntomas (cansancio, dolor de cabeza) de los primeros días?",opts:["Keto flu","Cetoacidosis","Resistencia a la insulina","Efecto rebote"],correct:0},
+{q:"¿Cuál de estos NO podés comer en keto?",opts:["Palta","Pan blanco","Huevos","Queso"],correct:1},
+{q:"¿Qué mineral es clave para prevenir calambres nocturnos?",opts:["Hierro","Magnesio","Zinc","Yodo"],correct:1},
+{q:"¿Cuántos días dura el plan de adaptación completa de esta guía?",opts:["7 días","14 días","21 días","30 días"],correct:2},
+{q:"¿Cuál es la fórmula de carbos netos?",opts:["Carbos totales + fibra","Carbos totales − fibra","Carbos totales x 2","Proteínas − grasas"],correct:1},
+{q:"En la estrategia del 'plato base común', ¿qué hacés distinto vos respecto a tu familia?",opts:["Cociná todo aparte","Solo quitás el acompañamiento de carbohidratos","Comés menos cantidad","Nada, comés diferente siempre"],correct:1},
+{q:"¿Qué porcentaje de las calorías deberían venir de proteínas en keto?",opts:["5%","20-25%","50%","70%"],correct:1},
+{q:"¿Cuál de estos alimentos SÍ podés comer en keto?",opts:["Banana","Arroz blanco","Palta","Miel"],correct:2},
+{q:"¿Qué mineral se repone con la 'keto-sal' casera (agua + sal + limón)?",opts:["Calcio","Sodio","Hierro","Yodo"],correct:1},
+{q:"¿Qué bebida es conocida como 'café Bulletproof'?",opts:["Café con leche y azúcar","Café con manteca y aceite de coco","Café descafeinado con crema","Café helado con miel"],correct:1},
+{q:"¿Qué significa 'keto lazy' o keto perezoso?",opts:["Hacer keto solo los fines de semana","Eliminar carbohidratos evidentes sin contar macros","Comer una sola vez al día","Evitar todos los lácteos"],correct:1},
+{q:"¿Cuál de estos NO es un signo de estar en cetosis?",opts:["Menos hambre entre comidas","Aliento con sabor metálico","Más energía y mente clara","Aumento de apetito constante"],correct:3},
+{q:"¿Qué se recomienda hacer si 'hacés trampa' un día?",opts:["Abandonar el plan","Ayunar 3 días seguidos","Seguir con el siguiente desayuno keto","Contar calorías el resto del mes"],correct:2},
+{q:"¿Qué tipo de grasa se recomienda como principal en el 'keto mediterráneo'?",opts:["Aceite de girasol","Aceite de oliva extra virgen","Grasa de cerdo","Margarina"],correct:1},
+{q:"¿Cuál de estas NO es una fuente recomendada de electrolitos en keto?",opts:["Caldo de huesos","Palta","Agua con sal","Gaseosa dietética"],correct:3},
+{q:"¿Qué se recomienda hacer antes de ir a una reunión social keto-incompatible?",opts:["Ir con mucha hambre","Comer algo antes de ir","Ayunar todo el día","Llevar solo postres"],correct:1},
+{q:"¿Cuál es el objetivo de carbohidratos netos por día en keto?",opts:["Menos de 5g","Entre 20 y 30g","Entre 80 y 100g","No importa la cantidad"],correct:1},
+{q:"¿Qué se recomienda para romper un estancamiento de peso?",opts:["Comer más edulcorantes","Revisar lácteos y dormir mejor","Dejar de tomar agua","Aumentar el arroz"],correct:1}
+];
+
+const TEST_QUESTIONS = [
+{q:"¿Cuánto tiempo tenés para cocinar entre semana?",opts:[["Casi nada, necesito todo listo",0],["30-40 min los fines de semana",1],["Me gusta cocinar todos los días",2]]},
+{q:"¿Qué tan estricta querés ser con los ingredientes?",opts:[["Lo que sea práctico está bien",0],["Solo comida real, nada procesado",1],["Me interesa la variedad y lo mediterráneo",2]]},
+{q:"¿Cocinás para vos sola o para toda la familia?",opts:[["Solo para mí",0],["Depende del día",1],["Para toda la familia",2]]},
+{q:"¿Qué buscás lograr principalmente?",opts:[["Simplicidad, no pensar mucho",0],["Resultados rápidos y estructura",1],["Sostenibilidad a largo plazo",2]]},
+{q:"¿Cuál es tu presupuesto habitual para las compras?",opts:[["Ajustado, priorizo lo básico",0],["Medio, puedo variar un poco",1],["Amplio, priorizo calidad e ingredientes premium",2]]},
+{q:"¿Hacés actividad física con regularidad?",opts:[["Casi nada",0],["A veces, un par de veces por semana",1],["Sí, entreno con frecuencia",2]]},
+{q:"¿Cómo manejás las salidas y reuniones sociales?",opts:[["Prefiero comer algo antes de ir",0],["Reviso el menú y pido lo más simple",1],["Disfruto explorando opciones nuevas en cualquier lugar",2]]},
+{q:"¿Cuánto estrés sentís en tu día a día?",opts:[["Mucho, necesito todo simplificado",0],["Moderado, puedo organizarme",1],["Poco, tengo tiempo para planificar bien",2]]},
+{q:"¿Preparás comida por adelantado (meal prep)?",opts:[["Nunca, cocino al momento",0],["A veces, algo dejo preparado",1],["Sí, es parte de mi rutina semanal",2]]},
+{q:"¿Qué tan familiarizada estás con la alimentación keto?",opts:[["Recién empiezo",0],["Ya probé antes",1],["La conozco bien y busco variar",2]]}
+];
+const TEST_PROFILES = [
+{min:0,name:"Keto Lazy (Keto Perezoso)",desc:"Tu estilo ideal es simple: eliminá los carbohidratos evidentes y comé hasta saciarte con alimentos permitidos, sin pesar ni contar nada. Ideal para empezar sin abrumarte."},
+{min:7,name:"Keto Estructurado con el Plan de 21 Días",desc:"Te va a servir seguir el plan día por día de esta guía. Tener el menú decidido de antemano es tu mejor aliado."},
+{min:13,name:"Keto Mediterráneo",desc:"Tu perfil combina bien con aceite de oliva extra virgen, pescados, mariscos y abundancia de verduras frescas: la versión más sostenible a largo plazo."},
+{min:17,name:"Keto en Familia con Plato Base Común",desc:"Tu prioridad es sostener keto sin separarte de tu familia. La estrategia del plato base común es tu camino."}
+];
+
+const CHECKLIST_ITEMS = [
+"Tomé agua con sal hoy (o keto-sal casera)",
+"Incluí grasas buenas en mis comidas (palta, aceite de oliva, manteca)",
+"No le tuve miedo a la grasa en mis platos",
+"Comí dentro de mis carbos netos (20-30g)",
+"Preparé o usé algo de mi meal prep",
+"Leí una etiqueta antes de comprar algo envasado",
+"Sostuve el plan hoy, aunque sea imperfecto",
+"Tomé al menos 2 litros de agua durante el día",
+"Prioricé proteína en cada comida principal",
+"Evité picotear entre comidas fuera del plan",
+"Descansé o dormí lo suficiente anoche",
+"Hice algo de movimiento o actividad física hoy",
+"Organicé mi heladera con opciones keto a la vista",
+"Elegí grillado u horneado en lugar de rebozado al comer afuera",
+"Identifiqué una emoción antes de buscar comida para calmarla"
+];
+
+/* ============ STATE (v2) ============ */
+const STORE_KEY = "rk_state_v2";
+const RECIPE_SETS = {
+  main: {data: RECIPES, cats: CATS, gridId:'recipeGrid-main', chipsId:'recipeCatChips-main', searchId:'recipeSearch', label:'Receta'},
+  postres: {data: POSTRES, cats: CATS_POSTRES, gridId:'recipeGrid-postres', chipsId:'recipeCatChips-postres', searchId:'recipeSearch-postres', label:'Postre'},
+  pasteleria: {data: PASTELERIA, cats: CATS_PASTELERIA, gridId:'recipeGrid-pasteleria', chipsId:'recipeCatChips-pasteleria', searchId:'recipeSearch-pasteleria', label:'Receta'}
+};
+const TOTAL_RECIPES = RECIPES.length + POSTRES.length + PASTELERIA.length;
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return {
+    theme:"dark",
+    consulted:[], // ["main-1","postres-5",...]
+    favorites:[], // ["main-1","postres-5",...]
+    achievements:[],
+    diario:[], checklist:{}, tracker:[],
+    quizDone:false, testDone:false, wheelUsed:false, timerUsed:false
+  };
+}
+function saveState(){ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+let state = loadState();
+
+/* ============ WELCOME / DECOR ============ */
+function buildWelcomeDeco(){
+  const deco = document.getElementById('welcomeDeco');
+  const emojis = ["🥑","🥚","🧀","🌿","🍋"];
+  for(let i=0;i<14;i++){
+    const s = document.createElement('span');
+    s.textContent = emojis[i % emojis.length];
+    s.style.left = (Math.random()*90+2)+"%";
+    s.style.bottom = "-40px";
+    s.style.animationDelay = (Math.random()*5)+"s";
+    s.style.fontSize = (18+Math.random()*22)+"px";
+    deco.appendChild(s);
+  }
+}
+buildWelcomeDeco();
+
+function startApp(){
+  document.getElementById('welcome').style.display='none';
+  document.getElementById('app').style.display='block';
+  unlockAchievement('start');
+  initAll();
+}
+
+/* ============ THEME ============ */
+function toggleTheme(){
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  applyTheme();
+  saveState();
+}
+function applyTheme(){
+  document.body.setAttribute('data-theme', state.theme);
+  document.getElementById('themeBtn').textContent = state.theme === 'dark' ? '🌙' : '☀️';
+}
+
+/* ============ NAV ============ */
+function go(section){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById('sec-'+section);
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.nav-item, .bottomnav button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.nav === section && !b.dataset.chap && !b.dataset.tool);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  closeDrawer();
+  if(section==='progreso') renderProgreso();
+}
+
+/* Mobile drawer mirrors sidebar */
+function openDrawer(){
+  const drawer = document.getElementById('navDrawer');
+  drawer.innerHTML = document.getElementById('sidebar').innerHTML;
+  document.getElementById('navDrawerBg').classList.add('show');
+}
+function closeDrawer(){ document.getElementById('navDrawerBg').classList.remove('show'); }
+
+/* ============ ACHIEVEMENTS ============ */
+function unlockAchievement(id){
+  if(!state.achievements.includes(id)){
+    state.achievements.push(id);
+    saveState();
+    renderDashboard();
+    if(document.getElementById('achList')) renderProgreso();
+    setTimeout(()=>{ if(document.getElementById('welcome').style.display==='none'){
+      const a = ACHIEVEMENTS.find(x=>x.id===id);
+      if(a) toast(`🏆 Logro desbloqueado: ${a.name}`);
+    }},300);
+  }
+}
+function toast(msg){
+  let t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = "position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:var(--primary); color:#fff; padding:12px 22px; border-radius:50px; z-index:500; font-size:14px; box-shadow:0 6px 20px rgba(0,0,0,.3); max-width:90vw; text-align:center;";
+  document.body.appendChild(t);
+  setTimeout(()=>{ t.style.transition='opacity .5s'; t.style.opacity='0'; setTimeout(()=>t.remove(),500); }, 2200);
+}
+
+/* ============ DASHBOARD (3 cards) ============ */
+function renderDashboard(){
+  const consultedCount = state.consulted.length;
+  ['dashConsulted'].forEach(id=>{ const e=document.getElementById(id); if(e) e.textContent = consultedCount+"/"+TOTAL_RECIPES; });
+  ['dashFavs','p_favs'].forEach(id=>{ const e=document.getElementById(id); if(e) e.textContent = state.favorites.length; });
+  ['dashAch','p_ach'].forEach(id=>{ const e=document.getElementById(id); if(e) e.textContent = state.achievements.length+"/"+ACHIEVEMENTS.length; });
+  const pConsulted = document.getElementById('p_consulted'); if(pConsulted) pConsulted.textContent = consultedCount+"/"+TOTAL_RECIPES;
+}
+
+function resetProgress(){
+  if(confirm("¿Reiniciar tu barra de progreso (recetas exploradas, favoritas y logros)? Tu diario, checklist y tracker no se van a borrar.")){
+    state.consulted = [];
+    state.favorites = [];
+    state.achievements = [];
+    state.quizDone = false;
+    state.testDone = false;
+    state.wheelUsed = false;
+    state.timerUsed = false;
+    saveState();
+    renderDashboard();
+    if(document.getElementById('achList')) renderProgreso();
+    Object.keys(RECIPE_SETS).forEach(k=>renderRecipeSet(k));
+    toast("Progreso reiniciado ♻️");
+  }
+}
+
+/* ============ MODALS ============ */
+function openFavModal(){
+  const list = document.getElementById('favModalList');
+  if(state.favorites.length===0){
+    list.innerHTML = '<p>Todavía no marcaste recetas como favoritas. Tocá el corazón en cualquier tarjeta para guardarla acá.</p>';
+  } else {
+    const header = `<div style="margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--border);">
+      <button class="btn small clickable" onclick="guardarFavoritasPDF()">📥 GUARDAR FAVORITAS</button>
+      <p style="font-size:12px; margin-top:8px;">Abre el diálogo de impresión de tu navegador: elegí "Guardar como PDF" para descargar tus recetas favoritas y poder imprimirlas.</p>
+    </div>`;
+    const items = state.favorites.map(key=>{
+      const [setKey,id] = key.split('-');
+      const r = RECIPE_SETS[setKey].data.find(x=>x.id==id);
+      if(!r) return '';
+      return `<div class="fav-item clickable" onclick="closeModal('favModalBg'); openRecipeModal('${setKey}',${r.id})"><span>${r.icon}</span><div><strong>${r.name}</strong><br><small style="color:var(--text-dim)">${r.cat} · ${r.time}</small></div></div>`;
+    }).join('');
+    list.innerHTML = header + items;
+  }
+  document.getElementById('favModalBg').classList.add('show');
+}
+function openAchModal(){
+  const list = document.getElementById('achModalList');
+  list.innerHTML = ACHIEVEMENTS.map(a=>{
+    const unlocked = state.achievements.includes(a.id);
+    return `<div class="ach-item ${unlocked?'':'locked'}"><span class="a-ic">${a.ic}</span><div><strong>${a.name}</strong><br><small style="color:var(--text-dim)">${a.desc}</small></div></div>`;
+  }).join('');
+  document.getElementById('achModalBg').classList.add('show');
+}
+function openConsultedModal(){
+  const list = document.getElementById('consultedModalList');
+  if(state.consulted.length===0){
+    list.innerHTML = '<p>Todavía no exploraste ninguna receta. Tocá cualquier tarjeta en Recetas, Postres o Pastelería para verla acá.</p>';
+  } else {
+    list.innerHTML = state.consulted.map(key=>{
+      const [setKey,id] = key.split('-');
+      const r = RECIPE_SETS[setKey] ? RECIPE_SETS[setKey].data.find(x=>x.id==id) : null;
+      if(!r) return '';
+      return `<div class="consulted-item clickable" onclick="closeModal('consultedModalBg'); openRecipeModal('${setKey}',${r.id})"><span>${r.icon}</span><div><strong>${r.name}</strong><br><small style="color:var(--text-dim)">${r.cat}</small></div></div>`;
+    }).join('');
+  }
+  document.getElementById('consultedModalBg').classList.add('show');
+}
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+
+/* ============ RECIPES (3 sets, mini cards + modal) ============ */
+let activeCat = {main:"Todas", postres:"Todas", pasteleria:"Todas"};
+
+function renderRecipeCatChips(setKey){
+  const cfg = RECIPE_SETS[setKey];
+  const el = document.getElementById(cfg.chipsId);
+  el.innerHTML = cfg.cats.map(c=>`<button class="chip clickable ${c===activeCat[setKey]?'active':''}" onclick="setRecipeCat('${setKey}','${c}')">${c}</button>`).join('');
+}
+function setRecipeCat(setKey,c){ activeCat[setKey]=c; renderRecipeCatChips(setKey); renderRecipeSet(setKey); }
+
+function renderRecipeSet(setKey){
+  const cfg = RECIPE_SETS[setKey];
+  const searchEl = document.getElementById(cfg.searchId);
+  const q = searchEl ? searchEl.value.trim().toLowerCase() : "";
+  const grid = document.getElementById(cfg.gridId);
+  let list = cfg.data.filter(r=>{
+    const matchCat = activeCat[setKey]==="Todas" || r.cat===activeCat[setKey];
+    const hay = (r.name+" "+r.ing.join(" ")+" "+r.cat).toLowerCase();
+    const matchQ = q==="" || hay.includes(q);
+    return matchCat && matchQ;
+  });
+  if(list.length===0){
+    grid.innerHTML = '<p style="grid-column:1/-1;">No encontramos resultados con ese criterio. Probá con otra palabra clave.</p>';
+    return;
+  }
+  grid.innerHTML = list.map(r=>{
+    const key = setKey+"-"+r.id;
+    const isFav = state.favorites.includes(key);
+    return `<div class="mini-card clickable" onclick="openRecipeModal('${setKey}',${r.id})">
+      <div class="mc-cat">${r.icon} ${r.cat}</div>
+      <div class="mc-title">${r.name}</div>
+      <div class="mc-meta">⏱ ${r.time} · 🍽 ${r.serv}</div>
+      <button class="mc-heart clickable ${isFav?'fav':''}" onclick="event.stopPropagation(); toggleFav('${setKey}',${r.id})">${isFav?'♥':'♡'}</button>
+    </div>`;
+  }).join('');
+}
+
+function toggleFav(setKey,id){
+  const key = setKey+"-"+id;
+  const idx = state.favorites.indexOf(key);
+  if(idx>-1){ state.favorites.splice(idx,1); }
+  else { state.favorites.push(key); unlockAchievement('fav1'); }
+  saveState();
+  renderRecipeSet(setKey);
+  renderDashboard();
+  // refresh modal favorite button if open
+  const favBtn = document.getElementById('rmFavBtn');
+  if(favBtn && favBtn.dataset.setkey===setKey && favBtn.dataset.id==id){
+    const isFav = state.favorites.includes(key);
+    favBtn.classList.toggle('fav', isFav);
+    favBtn.innerHTML = (isFav?'♥':'♡') + ' ' + (isFav?'En tus favoritas':'Agregar a favoritas');
+  }
+}
+
+/* Parse "20 min", "2-3 horas", "5 min (sin cocción)" etc -> seconds */
+/* Parse "20 min", "2-3 horas", "5 min (sin cocción)", "20 min + 25 min horno" etc.
+   Uses the FIRST number+unit found, since that's the headline duration shown on the card. */
+function parseTimeToSeconds(t){
+  const low = t.toLowerCase();
+  const match = low.match(/(\d+(?:[.,]\d+)?)\s*(?:-|–)?\s*(?:h\b|hora|horas|min|minuto|minutos)/);
+  let minutes = 5;
+  if(match){
+    const num = parseFloat(match[1].replace(',','.'));
+    const isHour = /h/.test(match[0]) && !/min/.test(match[0]);
+    minutes = Math.round(isHour ? num*60 : num);
+  }
+  if(minutes<=0) minutes = 5;
+  if(minutes>180) minutes = 180; // sensible cap for a kitchen timer widget
+  return minutes*60;
+}
+
+let rmTimerInterval = null;
+let rmTimerSeconds = 0;
+let rmTimerOriginalSeconds = 0;
+let rmTimerRunning = false;
+
+function openRecipeModal(setKey,id){
+  const cfg = RECIPE_SETS[setKey];
+  const r = cfg.data.find(x=>x.id===id);
+  if(!r) return;
+  const key = setKey+"-"+id;
+  if(!state.consulted.includes(key)){
+    state.consulted.push(key);
+    if(state.consulted.length>=10) unlockAchievement('chef');
+    saveState();
+    renderDashboard();
+  }
+  const isFav = state.favorites.includes(key);
+  const content = document.getElementById('recipeModalContent');
+  content.innerHTML = `
+    <button class="rm-close clickable" onclick="closeRecipeModal()">✕</button>
+    <div class="rm-eyebrow">${r.cat} · ${cfg.label} #${r.id}</div>
+    <h2>${r.icon} ${r.name}</h2>
+    <div class="rm-chips">
+      <span class="rm-chip">⏱ ${r.time}</span>
+      <span class="rm-chip">🍽 ${r.serv}</span>
+      <span class="rm-chip">⚡ ${r.carbs} carbos netos</span>
+    </div>
+    <button class="rm-favbtn clickable ${isFav?'fav':''}" id="rmFavBtn" data-setkey="${setKey}" data-id="${r.id}" onclick="toggleFav('${setKey}',${r.id})">${isFav?'♥':'♡'} ${isFav?'En tus favoritas':'Agregar a favoritas'}</button>
+    <div class="rm-cols">
+      <div><h5>Ingredientes</h5><ul>${r.ing.map(i=>`<li>${i}</li>`).join('')}</ul></div>
+      <div><h5>Preparación</h5><ol class="rm-steps">${r.prep.map(p=>`<li>${p}</li>`).join('')}</ol></div>
+    </div>
+    <div class="rm-timer">
+      <div><div style="font-size:11px; color:var(--text-dim); text-transform:uppercase;">Temporizador (${r.time})</div><div class="rt-time" id="rmTimerDisplay">00:00</div></div>
+      <div style="display:flex; gap:8px;">
+        <button onclick="rmTimerToggle()" id="rmTimerBtn">En marcha...</button>
+        <button onclick="rmTimerReset()" style="background:var(--card2); color:var(--primary); border:1px solid var(--primary);">Inicio</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('recipeModalBg').classList.add('show');
+  // start timer automatically from the recipe's own duration
+  rmTimerOriginalSeconds = parseTimeToSeconds(r.time);
+  rmTimerSeconds = rmTimerOriginalSeconds;
+  updateRmTimerDisplay();
+  clearInterval(rmTimerInterval);
+  rmTimerRunning = true;
+  document.getElementById('rmTimerBtn').textContent = 'En marcha...';
+  rmTimerInterval = setInterval(rmTimerTick, 1000);
+  if(!state.timerUsed){ state.timerUsed = true; unlockAchievement('timer'); saveState(); }
+}
+function closeRecipeModal(){
+  document.getElementById('recipeModalBg').classList.remove('show');
+  clearInterval(rmTimerInterval);
+  rmTimerRunning = false;
+}
+function updateRmTimerDisplay(){
+  const el = document.getElementById('rmTimerDisplay');
+  if(!el) return;
+  const m = Math.floor(rmTimerSeconds/60), s = rmTimerSeconds%60;
+  el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function rmTimerTick(){
+  if(rmTimerSeconds<=0){
+    clearInterval(rmTimerInterval); rmTimerRunning=false;
+    const btn = document.getElementById('rmTimerBtn'); if(btn) btn.textContent='¡Listo!';
+    toast('⏱️ ¡Tiempo cumplido!');
+    return;
+  }
+  rmTimerSeconds--;
+  updateRmTimerDisplay();
+}
+function rmTimerToggle(){
+  const btn = document.getElementById('rmTimerBtn');
+  if(rmTimerRunning){
+    clearInterval(rmTimerInterval); rmTimerRunning=false;
+    btn.textContent = 'Pausado — Continuar';
+  } else {
+    rmTimerRunning = true;
+    btn.textContent = 'En marcha...';
+    rmTimerInterval = setInterval(rmTimerTick,1000);
+  }
+}
+/* "Inicio" button: always restarts the timer back to the recipe's original duration */
+function rmTimerReset(){
+  clearInterval(rmTimerInterval);
+  rmTimerSeconds = rmTimerOriginalSeconds;
+  updateRmTimerDisplay();
+  rmTimerRunning = true;
+  document.getElementById('rmTimerBtn').textContent='En marcha...';
+  rmTimerInterval = setInterval(rmTimerTick,1000);
+}
+
+/* ============ CHAPTERS ============ */
+let activeChapter = MODULES[0].id;
+const APENDICE_IDS = ["apA","apB","apC","apD"];
+function renderChapterTabs(){
+  const el = document.getElementById('chapterTabs');
+  if(APENDICE_IDS.includes(activeChapter)){
+    el.style.display = 'flex';
+    el.innerHTML = MODULES.filter(m=>APENDICE_IDS.includes(m.id)).map(m=>{
+      const letter = m.id.slice(-1);
+      return `<button class="chip clickable ${m.id===activeChapter?'active':''}" onclick="setChapter('${m.id}')">${m.icon} Apéndice ${letter}</button>`;
+    }).join('');
+  } else {
+    el.style.display = 'none';
+    el.innerHTML = '';
+  }
+}
+function setChapter(id){
+  activeChapter = id;
+  renderChapterTabs();
+  renderChapterContent();
+}
+function renderChapterContent(){
+  const m = MODULES.find(x=>x.id===activeChapter);
+  document.getElementById('chapterContent').innerHTML = `<h2 style="color:var(--primary)">${m.icon} ${m.title}</h2>` + m.html;
+  if(m.id==='m10') renderFAQ();
+}
+function renderFAQ(){
+  const c = document.getElementById('faqContainer');
+  c.innerHTML = FAQ.map((f,i)=>`<div class="faq-item clickable" onclick="this.classList.toggle('open')">
+    <div class="faq-q">${f[0]} <span>+</span></div>
+    <div class="faq-a">${f[1]}</div>
+  </div>`).join('');
+}
+
+/* ============ FAMILIA ============ */
+function renderFamilia(){ document.getElementById('familiaContent').innerHTML = FAMILIA_HTML; }
+
+/* ============ PLAN 21 ============ */
+let activeWeek = Object.keys(PLAN21)[0];
+function renderPlanTabs(){
+  const el = document.getElementById('planWeekTabs');
+  el.innerHTML = Object.keys(PLAN21).map(w=>`<button class="chip clickable ${w===activeWeek?'active':''}" onclick="setWeek('${w.replace(/'/g,"\\'")}')">${w}</button>`).join('');
+}
+function setWeek(w){ activeWeek = w; renderPlanTabs(); renderPlanContent(); }
+function renderPlanContent(){
+  const days = PLAN21[activeWeek];
+  const el = document.getElementById('planContent');
+  el.innerHTML = days.map(d=>`
+    <div class="card" style="margin-bottom:14px;">
+      <h4 style="color:var(--primary)">${d[0]}</h4>
+      ${d[1] ? `<p><strong>🍳 Desayuno:</strong> ${d[1]}</p>`:''}
+      ${d[2] ? `<p><strong>🥗 Almuerzo:</strong> ${d[2]}</p>`:''}
+      ${d[3] ? `<p><strong>🍽️ Cena:</strong> ${d[3]}</p>`:''}
+      ${d[4] ? `<p><strong>🍎 Merienda:</strong> ${d[4]}</p>`:''}
+    </div>`).join('');
+}
+
+/* ============ HERRAMIENTAS TABS ============ */
+const TOOLS = [
+  ["ruleta","🎡 Ruleta"],["quiz","❓ Quiz"],["test","🎯 Test"],["diario","📔 Diario"],
+  ["checklist","✅ Checklist"],["calculadora","🧮 Calculadora"],["tracker","📊 Tracker"],
+  ["flashcards","🃏 Flashcards"],["temporizador","⏱️ Temporizador"]
+];
+let activeTool = "ruleta";
+function renderToolTabs(){
+  document.getElementById('toolTabs').innerHTML = TOOLS.map(t=>`<button class="chip clickable ${t[0]===activeTool?'active':''}" onclick="openTool('${t[0]}')">${t[1]}</button>`).join('');
+}
+function openTool(id){
+  activeTool = id;
+  go('herramientas');
+  renderToolTabs();
+  document.querySelectorAll('.tool-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tool-'+id).classList.add('active');
+}
+
+/* ===== RULETA ===== */
+function buildWheel(){
+  const svg = document.getElementById('wheelSvg');
+  const n = ROULETTE_PRIZES.length;
+  const colors = ["#e821d7","#f26ee7","#c91bc0","#f7a8ef","#b813ad","#ffd3fa"];
+  let html='';
+  for(let i=0;i<n;i++){
+    const a0 = (360/n)*i, a1=(360/n)*(i+1);
+    const r=95, cx=100, cy=100;
+    const x0 = cx + r*Math.cos(Math.PI*a0/180), y0 = cy + r*Math.sin(Math.PI*a0/180);
+    const x1 = cx + r*Math.cos(Math.PI*a1/180), y1 = cy + r*Math.sin(Math.PI*a1/180);
+    html += `<path d="M${cx},${cy} L${x0},${y0} A${r},${r} 0 0,1 ${x1},${y1} Z" fill="${colors[i%colors.length]}" stroke="#1a1220" stroke-width="1"/>`;
+  }
+  html += `<circle cx="100" cy="100" r="14" fill="#fff"/><text x="100" y="106" text-anchor="middle" font-size="16">🥑</text>`;
+  svg.innerHTML = html;
+}
+let wheelRotation = 0;
+function spinWheel(){
+  const svg = document.getElementById('wheelSvg');
+  const n = ROULETTE_PRIZES.length;
+  const idx = Math.floor(Math.random()*n);
+  const sliceDeg = 360/n;
+  const targetMod = (360 - (idx*sliceDeg + sliceDeg/2)) % 360;
+  const currentMod = ((wheelRotation % 360) + 360) % 360;
+  let delta = targetMod - currentMod;
+  if(delta <= 0) delta += 360;
+  const extraTurns = 12; // lots of extra full turns on every single click
+  wheelRotation += delta + 360*extraTurns;
+  svg.style.transform = `rotate(${wheelRotation}deg)`;
+  document.getElementById('wheelResult').textContent = "";
+  setTimeout(()=>{
+    document.getElementById('wheelResult').textContent = "🎉 " + ROULETTE_PRIZES[idx];
+    if(!state.wheelUsed){ state.wheelUsed = true; unlockAchievement('wheel'); saveState(); }
+  }, 2650);
+}
+
+/* ===== QUIZ ===== */
+let quizAnswers = [];
+function renderQuiz(){
+  quizAnswers = new Array(QUIZ.length).fill(null);
+  const countEl = document.getElementById('quizCountText');
+  if(countEl) countEl.textContent = `${QUIZ.length} preguntas para poner a prueba lo aprendido.`;
+  const area = document.getElementById('quizArea');
+  area.innerHTML = QUIZ.map((q,qi)=>`
+    <div class="q-block">
+      <p><strong>${qi+1}. ${q.q}</strong></p>
+      <div class="q-options">
+        ${q.opts.map((o,oi)=>`<button class="q-opt clickable" id="q${qi}o${oi}" onclick="answerQuiz(${qi},${oi})">${o}</button>`).join('')}
+      </div>
+    </div>`).join('') + `<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;"><button class="btn clickable" onclick="submitQuiz()">Ver resultado</button><button class="reset-btn clickable" onclick="resetQuiz()">REINICIO</button></div><div id="quizResult" style="margin-top:14px; font-weight:700;"></div>`;
+}
+function answerQuiz(qi,oi){
+  quizAnswers[qi]=oi;
+  QUIZ[qi].opts.forEach((_,i)=>{
+    document.getElementById(`q${qi}o${i}`).classList.toggle('selected', i===oi);
+  });
+}
+function submitQuiz(){
+  let correct=0;
+  QUIZ.forEach((q,qi)=>{
+    q.opts.forEach((_,oi)=>{
+      const el = document.getElementById(`q${qi}o${oi}`);
+      el.classList.remove('correct','wrong');
+      if(oi===q.correct) el.classList.add('correct');
+      else if(quizAnswers[qi]===oi) el.classList.add('wrong');
+    });
+    if(quizAnswers[qi]===q.correct) correct++;
+  });
+  document.getElementById('quizResult').textContent = `Obtuviste ${correct} de ${QUIZ.length} correctas.`;
+  if(!state.quizDone){ state.quizDone=true; unlockAchievement('quiz'); saveState(); }
+}
+function resetQuiz(){
+  renderQuiz();
+  toast('Quiz reiniciado ♻️');
+}
+
+/* ===== TEST ===== */
+let testAnswers = [];
+function renderTest(){
+  testAnswers = new Array(TEST_QUESTIONS.length).fill(null);
+  const area = document.getElementById('testArea');
+  area.innerHTML = TEST_QUESTIONS.map((q,qi)=>`
+    <div class="q-block">
+      <p><strong>${qi+1}. ${q.q}</strong></p>
+      <div class="q-options">
+        ${q.opts.map((o,oi)=>`<button class="q-opt clickable" id="t${qi}o${oi}" onclick="answerTest(${qi},${oi},${o[1]})">${o[0]}</button>`).join('')}
+      </div>
+    </div>`).join('') + `<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;"><button class="btn clickable" onclick="submitTest()">Descubrir mi perfil</button><button class="reset-btn clickable" onclick="resetTest()">REINICIO</button></div><div id="testResult" style="margin-top:14px;"></div>`;
+}
+function answerTest(qi,oi,val){
+  testAnswers[qi]=val;
+  TEST_QUESTIONS[qi].opts.forEach((_,i)=>document.getElementById(`t${qi}o${i}`).classList.toggle('selected', i===oi));
+}
+function submitTest(){
+  if(testAnswers.includes(null)){ alert("Respondé todas las preguntas para ver tu resultado."); return; }
+  const total = testAnswers.reduce((a,b)=>a+b,0);
+  let profile = TEST_PROFILES[0];
+  TEST_PROFILES.forEach(p=>{ if(total>=p.min) profile=p; });
+  document.getElementById('testResult').innerHTML = `<div class="callout star"><strong>Tu perfil: ${profile.name}</strong><p style="margin-top:6px;">${profile.desc}</p></div>`;
+  if(!state.testDone){ state.testDone=true; unlockAchievement('test'); saveState(); }
+}
+function resetTest(){
+  renderTest();
+  toast('Test reiniciado ♻️');
+}
+
+/* ===== DIARIO ===== */
+function saveDiario(){
+  const txt = document.getElementById('diarioText').value.trim();
+  if(!txt) return;
+  state.diario.unshift({date:new Date().toLocaleDateString('es-AR'), text:txt});
+  document.getElementById('diarioText').value='';
+  unlockAchievement('diario');
+  saveState();
+  renderDiario();
+}
+function renderDiario(){
+  const el = document.getElementById('diarioList');
+  if(state.diario.length===0){ el.innerHTML = '<p>Todavía no escribiste ninguna entrada.</p>'; return; }
+  el.innerHTML = state.diario.map(d=>`<div class="callout"><strong>${d.date}</strong><p style="margin-top:4px;">${d.text}</p></div>`).join('');
+}
+
+/* Export favorite recipes as PDF using the browser's native print-to-PDF (no external libraries) */
+function guardarFavoritasPDF(){
+  if(state.favorites.length===0){ toast('Todavía no marcaste ninguna receta como favorita.'); return; }
+  const area = document.getElementById('favPrintArea');
+  const fecha = new Date().toLocaleDateString('es-AR');
+  const recipesHtml = state.favorites.map(key=>{
+    const [setKey,id] = key.split('-');
+    const cfg = RECIPE_SETS[setKey];
+    if(!cfg) return '';
+    const r = cfg.data.find(x=>x.id==id);
+    if(!r) return '';
+    return `<div class="fp-recipe">
+      <h3>${r.icon} ${r.name}</h3>
+      <div class="fp-meta">${r.cat} · ⏱ ${r.time} · 🍽 ${r.serv} · ⚡ ${r.carbs} carbos netos</div>
+      <h5>Ingredientes</h5>
+      <ul>${r.ing.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <h5>Preparación</h5>
+      <ol>${r.prep.map(p=>`<li>${p}</li>`).join('')}</ol>
+    </div>`;
+  }).join('');
+  area.innerHTML = `
+    <h1>🥑 RICO & KETO — Mis Recetas Favoritas</h1>
+    <p style="color:#555; margin-bottom:18px;">Exportado el ${fecha} · ${state.favorites.length} receta${state.favorites.length===1?'':'s'}</p>
+    ${recipesHtml}
+  `;
+  window.print();
+}
+
+/* Export diario entries as PDF using the browser's native print-to-PDF (no external libraries) */
+function guardarDiarioPDF(){
+  if(state.diario.length===0){ toast('Todavía no tenés entradas guardadas para exportar.'); return; }
+  const area = document.getElementById('diarioPrintArea');
+  const fecha = new Date().toLocaleDateString('es-AR');
+  area.innerHTML = `
+    <h1>🥑 RICO & KETO — Mi Diario Keto</h1>
+    <p style="color:#555; margin-bottom:18px;">Exportado el ${fecha}</p>
+    ${state.diario.map(d=>`<div class="dp-entry"><div class="dp-date">${d.date}</div><div>${d.text}</div></div>`).join('')}
+  `;
+  window.print();
+}
+/* Clears every saved diario entry to start fresh */
+function nuevoDiario(){
+  if(state.diario.length===0){ toast('Tu diario ya está vacío.'); return; }
+  if(confirm('¿Empezar un diario nuevo? Se van a borrar todas las entradas guardadas y no se pueden recuperar.')){
+    state.diario = [];
+    saveState();
+    renderDiario();
+    toast('Diario reiniciado 📔');
+  }
+}
+
+/* ===== CHECKLIST ===== */
+function renderChecklist(){
+  const el = document.getElementById('checklistArea');
+  el.innerHTML = CHECKLIST_ITEMS.map((item,i)=>{
+    const checked = !!state.checklist[i];
+    return `<div class="check-item ${checked?'done':''}">
+      <input type="checkbox" id="chk${i}" ${checked?'checked':''} onchange="toggleCheck(${i})">
+      <label for="chk${i}">${item}</label>
+    </div>`;
+  }).join('');
+}
+function toggleCheck(i){
+  state.checklist[i] = !state.checklist[i];
+  const doneCount = Object.values(state.checklist).filter(Boolean).length;
+  if(doneCount===CHECKLIST_ITEMS.length) unlockAchievement('check7');
+  saveState();
+  renderChecklist();
+}
+function resetChecklist(){
+  state.checklist = {};
+  saveState();
+  renderChecklist();
+  toast('Checklist reiniciado ♻️');
+}
+
+/* ===== CALCULADORA ===== */
+function calcularMacros(){
+  const peso = parseFloat(document.getElementById('calcPeso').value);
+  const altura = parseFloat(document.getElementById('calcAltura').value);
+  const edad = parseFloat(document.getElementById('calcEdad').value);
+  const act = parseFloat(document.getElementById('calcActividad').value);
+  const obj = parseFloat(document.getElementById('calcObjetivo').value);
+  if(!peso||!altura||!edad){ document.getElementById('calcResult').innerHTML = '<p style="color:var(--warn)">Completá peso, altura y edad.</p>'; return; }
+  const bmr = 10*peso + 6.25*altura - 5*edad - 161; // Mifflin-St Jeor (mujer)
+  let tdee = bmr*act;
+  tdee = tdee * (1 + obj/100);
+  const grasas = (tdee*0.75)/9;
+  const proteinas = (tdee*0.20)/4;
+  const carbos = (tdee*0.05)/4;
+  document.getElementById('calcResult').innerHTML = `
+    <div class="callout star">
+      <p><strong>Calorías estimadas:</strong> ${Math.round(tdee)} kcal/día</p>
+      <p><strong>Grasas:</strong> ${Math.round(grasas)}g &nbsp; <strong>Proteínas:</strong> ${Math.round(proteinas)}g &nbsp; <strong>Carbos netos:</strong> máx ${Math.round(carbos)}g</p>
+      <p style="font-size:12px; margin-top:8px;">Estimación orientativa, no reemplaza el consejo de un profesional de la salud.</p>
+    </div>`;
+  unlockAchievement('calc');
+}
+
+/* ===== TRACKER ===== */
+function addTrack(){
+  const f = document.getElementById('trackFecha').value;
+  const p = document.getElementById('trackPeso').value;
+  if(!f||!p) return;
+  state.tracker.push({fecha:f, peso:parseFloat(p)});
+  state.tracker.sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  saveState();
+  renderTracker();
+}
+function renderTracker(){
+  const el = document.getElementById('trackList');
+  if(state.tracker.length===0){ el.innerHTML='<p>Todavía no agregaste registros.</p>'; return; }
+  const max = Math.max(...state.tracker.map(t=>t.peso));
+  const min = Math.min(...state.tracker.map(t=>t.peso));
+  el.innerHTML = state.tracker.map(t=>{
+    const pct = max===min ? 100 : 20 + ((t.peso-min)/(max-min))*80;
+    return `<div class="track-row"><span>${t.fecha}</span><div style="flex:1; margin:0 12px; background:var(--card2); border-radius:8px; height:10px; overflow:hidden;"><div style="width:${pct}%; height:100%; background:linear-gradient(90deg,var(--primary),var(--accent));"></div></div><strong>${t.peso}kg</strong></div>`;
+  }).join('');
+}
+function resetTracker(){
+  if(state.tracker.length===0){ toast('El tracker ya está vacío.'); return; }
+  if(confirm('¿Borrar todos los registros del tracker para empezar de cero?')){
+    state.tracker = [];
+    saveState();
+    renderTracker();
+    toast('Tracker reiniciado ♻️');
+  }
+}
+
+/* ===== FLASHCARDS (keto sí o keto no, grid) ===== */
+let flashSeenSet = new Set();
+function renderFlashGrid(){
+  const grid = document.getElementById('flashGrid');
+  grid.innerHTML = FLASH_SINO.map((f,i)=>`
+    <div class="fg-card clickable" id="fgCard${i}" onclick="flipFlash(${i})">
+      <div class="fg-inner">
+        <div class="fg-face front"><div class="fg-emoji">${f.emoji}</div><div>${f.item}</div></div>
+        <div class="fg-face back ${f.yes?'yes':'no'}">
+          <div class="fg-mark">${f.yes?'✓ SÍ':'✗ NO'}</div>
+          <div style="font-size:10.5px;">${f.expl}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function flipFlash(i){
+  document.getElementById('fgCard'+i).classList.toggle('flipped');
+  flashSeenSet.add(i);
+  if(flashSeenSet.size>=FLASH_SINO.length) unlockAchievement('flash10');
+}
+function resetFlashGrid(){
+  flashSeenSet = new Set();
+  document.querySelectorAll('.fg-card').forEach(c=>c.classList.remove('flipped'));
+  toast('Flashcards reiniciadas 🃏');
+}
+
+/* ===== TEMPORIZADOR (standalone tool tab) ===== */
+let timerSeconds = 300, timerInterval=null, timerRunning=false;
+function setTimer(min){
+  timerSeconds = min*60;
+  timerRunning=false; clearInterval(timerInterval);
+  document.getElementById('timerBtn').textContent='Iniciar';
+  updateTimerDisplay();
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timerSeconds/60), s = timerSeconds%60;
+  document.getElementById('timerDisplay').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+function timerToggle(){
+  if(timerRunning){
+    clearInterval(timerInterval); timerRunning=false;
+    document.getElementById('timerBtn').textContent='Continuar';
+  } else {
+    timerRunning=true;
+    document.getElementById('timerBtn').textContent='Pausar';
+    if(!state.timerUsed){ state.timerUsed=true; unlockAchievement('timer'); saveState(); }
+    timerInterval = setInterval(()=>{
+      if(timerSeconds<=0){ clearInterval(timerInterval); timerRunning=false; toast("⏱️ ¡Tiempo cumplido!"); document.getElementById('timerBtn').textContent='Iniciar'; return; }
+      timerSeconds--; updateTimerDisplay();
+    },1000);
+  }
+}
+function timerReset(){ clearInterval(timerInterval); timerRunning=false; timerSeconds=300; document.getElementById('timerBtn').textContent='Iniciar'; updateTimerDisplay(); }
+
+/* ============ PROGRESO SECTION ============ */
+function renderProgreso(){
+  renderDashboard();
+  const el = document.getElementById('achList');
+  el.innerHTML = ACHIEVEMENTS.map(a=>{
+    const unlocked = state.achievements.includes(a.id);
+    return `<div class="module-card" style="opacity:${unlocked?1:.4}"><div class="m-ic">${a.ic}</div><h4>${a.name}</h4><p>${a.desc}</p></div>`;
+  }).join('');
+}
+
+/* ============ CAROUSEL TIPS ============ */
+function renderCarousel(){
+  document.getElementById('carouselTips').innerHTML = TIPS.map(t=>`<div class="cslide">"${t}"</div>`).join('');
+}
+
+/* ============ INIT ============ */
+function initAll(){
+  applyTheme();
+  renderDashboard();
+  renderCarousel();
+  Object.keys(RECIPE_SETS).forEach(k=>{ renderRecipeCatChips(k); renderRecipeSet(k); });
+  renderChapterTabs();
+  renderChapterContent();
+  renderFamilia();
+  renderPlanTabs();
+  renderPlanContent();
+  renderToolTabs();
+  openTool('ruleta');
+  buildWheel();
+  renderQuiz();
+  renderTest();
+  renderDiario();
+  renderChecklist();
+  renderTracker();
+  renderFlashGrid();
+  updateTimerDisplay();
+  go('inicio');
+}
+</script>
+</body>
+</html>
