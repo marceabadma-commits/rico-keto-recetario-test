@@ -1,0 +1,25 @@
+{
+  "name": "RICO & KETO · Entrenamiento Express",
+  "short_name": "Rico&Keto",
+  "description": "App de entrenamiento diario de 10 minutos para complementar tu alimentación keto.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0912",
+  "theme_color": "#0f0912",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
