@@ -460,6 +460,23 @@ footer.appfoot{text-align:center; color:var(--text-dim); font-size:12px; padding
   #favPrintArea li{margin-bottom:3px;}
 }
 </style>
+<script>
+window.addEventListener('load', function(){
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:#000;color:#0f0;font-family:monospace;font-size:11px;padding:8px;line-height:1.5;white-space:pre-wrap;';
+  var vv = window.visualViewport;
+  var mode = window.matchMedia('(display-mode: standalone)').matches ? 'STANDALONE' : 'BROWSER';
+  var txt = 'MODO: ' + mode + '\n'
+    + 'innerWidth/Height: ' + window.innerWidth + ' x ' + window.innerHeight + '\n'
+    + 'outerWidth/Height: ' + window.outerWidth + ' x ' + window.outerHeight + '\n'
+    + 'devicePixelRatio: ' + window.devicePixelRatio + '\n'
+    + 'visualViewport w/h/scale: ' + (vv ? (vv.width+' x '+vv.height+' / '+vv.scale) : 'n/a') + '\n'
+    + 'documentEl clientWidth: ' + document.documentElement.clientWidth + '\n'
+    + 'screen w/h: ' + screen.width + ' x ' + screen.height;
+  d.textContent = txt;
+  document.body.appendChild(d);
+});
+</script>
 </head>
 <body data-theme="dark">
 <!-- WELCOME -->
