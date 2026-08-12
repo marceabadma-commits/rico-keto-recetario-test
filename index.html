@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>RICO & KETO — Guía Completa Interactiva</title>
 <meta name="theme-color" content="#0f0a14">
 <link rel="manifest" href="manifest.json">
@@ -41,6 +41,7 @@
   --shadow: 0 10px 26px rgba(232,33,215,0.12);
 }
 html{-webkit-text-size-adjust:100%; text-size-adjust:100%;}
+html,body{-webkit-text-size-adjust:100% !important; text-size-adjust:100% !important;}
 *{box-sizing:border-box; -webkit-tap-highlight-color: rgba(0,0,0,0);}
 button,.clickable{-webkit-tap-highlight-color: rgba(0,0,0,0); touch-action: manipulation; cursor:pointer;}
 html,body{margin:0;padding:0;}
@@ -114,7 +115,7 @@ a{color:inherit;}
 .topbar{
   position:sticky; top:0; z-index:60;
   display:flex; align-items:center; justify-content:space-between;
-  padding:12px 18px; background:var(--bg2); border-bottom:1px solid var(--border);
+  padding:calc(12px + env(safe-area-inset-top)) 18px 12px; background:var(--bg2); border-bottom:1px solid var(--border);
   backdrop-filter:blur(6px);
 }
 .brand{display:flex; align-items:center; gap:10px; font-family:'Playfair Display',serif; font-weight:700; font-size:20px;}
