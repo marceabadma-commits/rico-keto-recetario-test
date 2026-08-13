@@ -459,8 +459,8 @@ footer.appfoot{text-align:center; color:var(--text-dim); font-size:12px; padding
   #favPrintArea ul, #favPrintArea ol{margin:0 0 6px; padding-left:18px;}
   #favPrintArea li{margin-bottom:3px;}
 }
-/* ===== Escala compacta solo para celular (no afecta computadora) ===== */
-@media (max-width:880px){
+/* ===== Escala compacta SOLO cuando corre instalada desde el ícono (no afecta navegador ni computadora) ===== */
+@media (max-width:880px) and (display-mode: standalone){
   body{ zoom: 0.63; }
 }
 </style>
